@@ -3,6 +3,7 @@ namespace PatniListi.Data.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
 
     using Microsoft.AspNetCore.Identity;
     using PatniListi.Data.Common.Models;
@@ -12,20 +13,40 @@ namespace PatniListi.Data.Models
         public ApplicationUser()
         {
             this.Id = Guid.NewGuid().ToString();
+            this.IsDeleted = false;
+            this.CarUsers = new HashSet<CarUser>();
+            this.Invoices = new HashSet<Invoice>();
+            this.TransportWorkTickets = new HashSet<TransportWorkTicket>();
             this.Roles = new HashSet<IdentityUserRole<string>>();
             this.Claims = new HashSet<IdentityUserClaim<string>>();
             this.Logins = new HashSet<IdentityUserLogin<string>>();
         }
+
+        [Display(Name = "Име и фамилия")]
+        [Required]
+        public string FullName { get; set; }
+
+        public string CompanyId { get; set; }
+
+        public Company Company { get; set; }
 
         // Audit info
         public DateTime CreatedOn { get; set; }
 
         public DateTime? ModifiedOn { get; set; }
 
+        public string ModifiedBy { get; set; }
+
         // Deletable entity
         public bool IsDeleted { get; set; }
 
         public DateTime? DeletedOn { get; set; }
+
+        public ICollection<CarUser> CarUsers { get; set; }
+
+        public ICollection<Invoice> Invoices { get; set; }
+
+        public ICollection<TransportWorkTicket> TransportWorkTickets { get; set; }
 
         public virtual ICollection<IdentityUserRole<string>> Roles { get; set; }
 

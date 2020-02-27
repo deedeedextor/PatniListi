@@ -17,6 +17,7 @@ namespace PatniListi.Data.Models
             : base(name)
         {
             this.Id = Guid.NewGuid().ToString();
+            this.IsDeleted = false;
         }
 
         public DateTime CreatedOn { get; set; }
@@ -26,5 +27,7 @@ namespace PatniListi.Data.Models
         public bool IsDeleted { get; set; }
 
         public DateTime? DeletedOn { get; set; }
+
+        public string ModifiedBy { get; set; }
     }
 }
