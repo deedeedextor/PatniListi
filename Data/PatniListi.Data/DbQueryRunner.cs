@@ -3,9 +3,9 @@
     using System;
     using System.Threading.Tasks;
 
-    using PatniListi.Data.Common;
-
     using Microsoft.EntityFrameworkCore;
+
+    using PatniListi.Data.Common;
 
     public class DbQueryRunner : IDbQueryRunner
     {

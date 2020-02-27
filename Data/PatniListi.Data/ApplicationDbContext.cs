@@ -8,6 +8,7 @@
 
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
+
     using PatniListi.Data.Common.Models;
     using PatniListi.Data.Models;
 

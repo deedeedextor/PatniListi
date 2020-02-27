@@ -4,11 +4,11 @@
     using System.Linq;
     using System.Threading.Tasks;
 
-    using PatniListi.Common;
-    using PatniListi.Data.Models;
-
     using Microsoft.AspNetCore.Identity;
     using Microsoft.Extensions.DependencyInjection;
+
+    using PatniListi.Common;
+    using PatniListi.Data.Models;
 
     internal class RolesSeeder : ISeeder
     {
