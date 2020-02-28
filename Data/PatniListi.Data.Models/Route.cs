@@ -19,7 +19,7 @@
         [Required]
         public string StartPoint { get; set; }
 
-        [Display(Name = "Крайна точка на тръгване")]
+        [Display(Name = "Крайна точка на пристигане")]
         [Required]
         public string EndPoint { get; set; }
 

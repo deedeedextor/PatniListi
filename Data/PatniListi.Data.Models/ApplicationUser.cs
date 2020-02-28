@@ -24,6 +24,7 @@ namespace PatniListi.Data.Models
 
         [Display(Name = "Име и фамилия")]
         [Required]
+        [RegularExpression(@"^[A-Z][a-z]+ [A-Z][a-z]+$")]
         public string FullName { get; set; }
 
         public string CompanyId { get; set; }

@@ -1,9 +1,7 @@
 ﻿namespace PatniListi.Data.Models
 {
     using System;
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using System.Text;
 
     using PatniListi.Data.Common.Models;
 
@@ -17,7 +15,7 @@
 
         [Display(Name = "Номер на фактура")]
         [Required]
-        [RegularExpression("^[0-9]+$")]
+        [RegularExpression(@"^[0-9]+$")]
         public string Number { get; set; }
 
         [Display(Name = "Дата на фактура")]
@@ -25,12 +23,13 @@
 
         [Display(Name = "Място на зареждане")]
         [Required]
+        [StringLength(20, MinimumLength = 3)]
         public string Location { get; set; }
 
         [Display(Name = "Цена на гориво без ДДС")]
         [Required]
         [Range(0.10, 10.00)]
-        public double Price { get; set; }
+        public decimal Price { get; set; }
 
         [Display(Name = "Количество")]
         [Required]

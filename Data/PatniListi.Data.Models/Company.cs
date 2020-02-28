@@ -18,11 +18,11 @@
 
         [Display(Name = "Име на фирма")]
         [Required]
-        [MaxLength(20)]
+        [StringLength(20, MinimumLength = 2)]
         public string Name { get; set; }
 
         [Display(Name = "Булстат")]
-        [RegularExpression("[0-9]{10}")]
+        [RegularExpression(@"[0-9]{10}")]
         public string Bulstat { get; set; }
 
         [Display(Name = "Номер по ДДС")]
@@ -30,7 +30,7 @@
 
         [Display(Name = "Телефон")]
         [Required]
-        [RegularExpression("^[+359[0-9 ]+$")]
+        [RegularExpression(@"^[+359[0-9 ]+$")]
         public string PhoneNumber { get; set; }
 
         public bool IsDeleted { get; set; }

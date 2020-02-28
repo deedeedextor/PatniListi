@@ -15,16 +15,19 @@
             this.Id = Guid.NewGuid().ToString();
             this.IsDeleted = false;
             this.Invoices = new HashSet<Invoice>();
+            this.CarUsers = new HashSet<CarUser>();
             this.TransportWorkTickets = new HashSet<TransportWorkTicket>();
         }
 
         [Display(Name = "Модел")]
         [Required]
+        [StringLength(20, MinimumLength = 2)]
         public string Model { get; set; }
 
         [Display(Name = "Номер")]
         [Required]
-        [RegularExpression("^[A-Z 0-9 A-Z]+$")]
+        [RegularExpression(@"^[A-Z 0-9 A-Z]+$")]
+        [StringLength(10, MinimumLength = 3)]
         public string LicensePlate { get; set; }
 
         [Display(Name = "Начални километри")]
@@ -34,7 +37,7 @@
 
         [Display(Name = "Среден разход")]
         [Required]
-        [Range(3, 20)]
+        [Range(3, 30)]
         public int AverageConsumption { get; set; }
 
         [Display(Name = "Капацитет на резервоара")]
@@ -50,6 +53,8 @@
         public bool IsDeleted { get; set; }
 
         public DateTime? DeletedOn { get; set; }
+
+        public ICollection<CarUser> CarUsers { get; set; }
 
         public ICollection<Invoice> Invoices { get; set; }
 
