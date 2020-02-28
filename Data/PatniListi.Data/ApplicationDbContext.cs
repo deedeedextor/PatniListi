@@ -26,6 +26,24 @@
 
         public DbSet<Setting> Settings { get; set; }
 
+        public DbSet<ApplicationRole> ApplicationRoles { get; set; }
+
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+
+        public DbSet<Car> Cars { get; set; }
+
+        public DbSet<CarUser> CarUsers { get; set; }
+
+        public DbSet<Company> Companies { get; set; }
+
+        public DbSet<Invoice> Invoices { get; set; }
+
+        public DbSet<Route> Routes { get; set; }
+
+        public DbSet<TransportWorkTicket> TransportWorkTickets { get; set; }
+
+        public DbSet<RouteTransportWorkTicket> RouteTransportWorkTickets { get; set; }
+
         public override int SaveChanges() => this.SaveChanges(true);
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)
@@ -51,6 +69,8 @@
             base.OnModelCreating(builder);
 
             ConfigureUserIdentityRelations(builder);
+
+            builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
             EntityIndexesConfiguration.Configure(builder);
 
@@ -93,6 +113,20 @@
             builder.Entity<ApplicationUser>()
                 .HasMany(e => e.Roles)
                 .WithOne()
+                .HasForeignKey(e => e.UserId)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<ApplicationUser>()
+                .HasMany(e => e.Invoices)
+                .WithOne(u => u.ApplicationUser)
+                .HasForeignKey(e => e.UserId)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<ApplicationUser>()
+                .HasMany(e => e.TransportWorkTickets)
+                .WithOne(u => u.ApplicationUser)
                 .HasForeignKey(e => e.UserId)
                 .IsRequired()
                 .OnDelete(DeleteBehavior.Restrict);
