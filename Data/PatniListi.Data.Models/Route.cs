@@ -6,12 +6,11 @@
 
     using PatniListi.Data.Common.Models;
 
-    public class Route : BaseModel<string>, IDeletableEntity
+    public class Route : BaseDeletableModel<string>
     {
         public Route()
         {
             this.Id = Guid.NewGuid().ToString();
-            this.IsDeleted = false;
             this.RouteTransportWorkTickets = new HashSet<RouteTransportWorkTicket>();
         }
 
@@ -26,10 +25,6 @@
         [Display(Name = "Разстояние")]
         [Required]
         public double Distance { get; set; }
-
-        public bool IsDeleted { get; set; }
-
-        public DateTime? DeletedOn { get; set; }
 
         public ICollection<RouteTransportWorkTicket> RouteTransportWorkTickets { get; set; }
     }

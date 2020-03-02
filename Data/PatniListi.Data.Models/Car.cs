@@ -6,7 +6,7 @@
 
     using PatniListi.Data.Common.Models;
 
-    public class Car : BaseModel<string>, IDeletableEntity
+    public class Car : BaseDeletableModel<string>
     {
         private const double CapacityFuel = 100.00;
 
@@ -49,10 +49,6 @@
         [Required]
         [Range(0, CapacityFuel)]
         public double InitialFuel { get; set; }
-
-        public bool IsDeleted { get; set; }
-
-        public DateTime? DeletedOn { get; set; }
 
         public ICollection<CarUser> CarUsers { get; set; }
 

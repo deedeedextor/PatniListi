@@ -7,12 +7,11 @@
     using PatniListi.Data.Common.Attributes;
     using PatniListi.Data.Common.Models;
 
-    public class TransportWorkTicket : BaseModel<string>, IDeletableEntity
+    public class TransportWorkTicket : BaseDeletableModel<string>
     {
         public TransportWorkTicket()
         {
             this.Id = Guid.NewGuid().ToString();
-            this.IsDeleted = false;
             this.RouteTransportWorkTickets = new HashSet<RouteTransportWorkTicket>();
         }
 
@@ -33,10 +32,6 @@
 
         [Required]
         public string CreatedBy { get; set; }
-
-        public bool IsDeleted { get; set; }
-
-        public DateTime? DeletedOn { get; set; }
 
         public ICollection<RouteTransportWorkTicket> RouteTransportWorkTickets { get; set; }
     }

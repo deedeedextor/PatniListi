@@ -5,12 +5,11 @@
 
     using PatniListi.Data.Common.Models;
 
-    public class Invoice : BaseModel<string>, IDeletableEntity
+    public class Invoice : BaseDeletableModel<string>
     {
         public Invoice()
         {
             this.Id = Guid.NewGuid().ToString();
-            this.IsDeleted = false;
         }
 
         [Display(Name = "Номер на фактура")]
@@ -51,9 +50,5 @@
         public string CarId { get; set; }
 
         public Car Car { get; set; }
-
-        public bool IsDeleted { get; set; }
-
-        public DateTime? DeletedOn { get; set; }
     }
 }
