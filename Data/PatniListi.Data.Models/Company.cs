@@ -6,11 +6,10 @@
 
     using PatniListi.Data.Common.Models;
 
-    public class Company : BaseModel<string>
+    public class Company : BaseModel<Guid>
     {
         public Company()
         {
-            this.Id = Guid.NewGuid().ToString();
             this.Users = new HashSet<ApplicationUser>();
         }
 
@@ -27,7 +26,6 @@
         public string VatNumber => $"BG{this.Bulstat}";
 
         [Display(Name = "Телефон")]
-        [Required]
         [RegularExpression(@"^[+359[0-9 ]+$")]
         public string PhoneNumber { get; set; }
 

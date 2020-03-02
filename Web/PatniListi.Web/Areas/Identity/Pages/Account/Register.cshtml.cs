@@ -18,6 +18,7 @@
     using Microsoft.Extensions.Logging;
 
     using PatniListi.Data.Models;
+    using PatniListi.Services;
 
     [AllowAnonymous]
     public class RegisterModel : PageModel
@@ -26,17 +27,19 @@
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly ICompaniesService companiesService;
 
         public RegisterModel(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender, ICompaniesService companiesService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            this.companiesService = companiesService;
         }
 
         [BindProperty]
@@ -68,6 +71,11 @@
             [Required]
             [RegularExpression(@"^[A-Z][a-z]+ [A-Z][a-z]+$", ErrorMessage = "Invalid name.")]
             public string FullName { get; set; }
+
+            [Display(Name = "Име на фирма")]
+            [Required]
+            [StringLength(20, MinimumLength = 2)]
+            public string CompanyName { get; set; }
         }
 
         public async Task OnGetAsync(string returnUrl = null)
@@ -82,7 +90,8 @@
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email };
+                var companyId = this.companiesService.Create(Input.CompanyName);
+                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email, FullName = Input.FullName,  CompanyId = companyId.Result };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {

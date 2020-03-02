@@ -34,7 +34,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Data\PatniListi.Data.Models\PatniListi.Data.Models.csproj" />
     <ProjectReference Include="..\..\Data\PatniListi.Data\PatniListi.Data.csproj" />
     <ProjectReference Include="..\..\Services\PatniListi.Services.Data\PatniListi.Services.Data.csproj" />
     <ProjectReference Include="..\..\Services\PatniListi.Services.Mapping\PatniListi.Services.Mapping.csproj" />
@@ -603,5 +602,9 @@
     <Content Update="wwwroot\blk-design-system-master\package.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\Administration\Views\Shared\" />
   </ItemGroup>
 </Project>

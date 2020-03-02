@@ -6,11 +6,10 @@
 
     using PatniListi.Data.Common.Models;
 
-    public class Route : BaseDeletableModel<string>
+    public class Route : BaseDeletableModel<Guid>
     {
         public Route()
         {
-            this.Id = Guid.NewGuid().ToString();
             this.RouteTransportWorkTickets = new HashSet<RouteTransportWorkTicket>();
         }
 

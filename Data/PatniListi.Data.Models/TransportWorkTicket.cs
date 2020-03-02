@@ -7,11 +7,10 @@
     using PatniListi.Data.Common.Attributes;
     using PatniListi.Data.Common.Models;
 
-    public class TransportWorkTicket : BaseDeletableModel<string>
+    public class TransportWorkTicket : BaseDeletableModel<Guid>
     {
         public TransportWorkTicket()
         {
-            this.Id = Guid.NewGuid().ToString();
             this.RouteTransportWorkTickets = new HashSet<RouteTransportWorkTicket>();
         }
 

@@ -5,13 +5,8 @@
 
     using PatniListi.Data.Common.Models;
 
-    public class Invoice : BaseDeletableModel<string>
+    public class Invoice : BaseDeletableModel<Guid>
     {
-        public Invoice()
-        {
-            this.Id = Guid.NewGuid().ToString();
-        }
-
         [Display(Name = "Номер на фактура")]
         [Required]
         [RegularExpression(@"^[0-9]+$")]

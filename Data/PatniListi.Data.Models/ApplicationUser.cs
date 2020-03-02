@@ -13,7 +13,6 @@ namespace PatniListi.Data.Models
         public ApplicationUser()
         {
             this.Id = Guid.NewGuid().ToString();
-            this.IsDeleted = false;
             this.CarUsers = new HashSet<CarUser>();
             this.Invoices = new HashSet<Invoice>();
             this.TransportWorkTickets = new HashSet<TransportWorkTicket>();
