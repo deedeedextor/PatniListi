@@ -6,10 +6,11 @@
 
     using PatniListi.Data.Common.Models;
 
-    public class Company : BaseModel<Guid>
+    public class Company : BaseModel<string>
     {
         public Company()
         {
+            this.Id = Guid.NewGuid().ToString();
             this.Users = new HashSet<ApplicationUser>();
         }
 

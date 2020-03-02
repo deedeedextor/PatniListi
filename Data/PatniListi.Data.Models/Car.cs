@@ -6,13 +6,13 @@
 
     using PatniListi.Data.Common.Models;
 
-    public class Car : BaseDeletableModel<Guid>
+    public class Car : BaseDeletableModel<string>
     {
         private const double CapacityFuel = 100.00;
 
         public Car()
         {
-            this.IsDeleted = false;
+            this.Id = Guid.NewGuid().ToString();
             this.Invoices = new HashSet<Invoice>();
             this.CarUsers = new HashSet<CarUser>();
             this.TransportWorkTickets = new HashSet<TransportWorkTicket>();
