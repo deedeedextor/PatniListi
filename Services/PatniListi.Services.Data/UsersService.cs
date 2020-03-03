@@ -11,31 +11,38 @@
     public class UsersService : IUsersService
     {
         private readonly IDeletableEntityRepository<ApplicationUser> usersRepository;
+        private readonly IDeletableEntityRepository<ApplicationRole> roleRepository;
         private readonly UserManager<ApplicationUser> userManager;
 
-        public UsersService(IDeletableEntityRepository<ApplicationUser> usersRepository, UserManager<ApplicationUser> userManager)
+        public UsersService(IDeletableEntityRepository<ApplicationUser> usersRepository, IDeletableEntityRepository<ApplicationRole> roleRepository, UserManager<ApplicationUser> userManager)
         {
             this.usersRepository = usersRepository;
+            this.roleRepository = roleRepository;
             this.userManager = userManager;
         }
 
-        public async Task<bool> AddRoleToUser(ApplicationUser user, string roleName)
+        public async Task AddRoleToUser(string userId, string roleName)
         {
-            if (user == null)
-            {
-                return false;
-            }
+            var user = this.GetByName(userId);
+            var role = this.GetRoleByName(roleName);
 
-            await this.userManager.AddToRoleAsync(user, roleName);
-
-            return true;
+            user.Roles.Add(new IdentityUserRole<string> { UserId = user.Id, RoleId = role.Id });
+            await this.roleRepository.SaveChangesAsync();
         }
 
-        public ApplicationUser GetByName(string fullName)
+        private ApplicationRole GetRoleByName(string roleName)
+        {
+            return this.roleRepository
+                .All()
+                .Where(r => r.Name == roleName)
+                .FirstOrDefault();
+        }
+
+        private ApplicationUser GetByName(string userId)
         {
             return this.usersRepository
                 .All()
-                .Where(u => u.FullName == fullName)
+                .Where(u => u.Id == userId)
                 .FirstOrDefault();
         }
     }

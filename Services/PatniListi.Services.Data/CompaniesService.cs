@@ -15,13 +15,13 @@
             this.companiesRepository = companiesRepository;
         }
 
-        public int CountUsers(string companyName)
+        public int GetUsersCount(string companyName)
         {
             var count = this.companiesRepository
                 .All()
                 .Where(c => c.Name == companyName)
                 .Select(c => c.Users.Count())
-                .ToList();
+                .SingleOrDefault();
 
             return count;
         }

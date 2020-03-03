@@ -10,6 +10,6 @@
 
         Task Edit(string name, string bulstat, string phoneNumber, string username);
 
-        int CountUsers();
+        int GetUsersCount(string companyName);
     }
 }
