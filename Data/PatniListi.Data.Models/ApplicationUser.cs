@@ -26,6 +26,7 @@ namespace PatniListi.Data.Models
         [RegularExpression(@"^[A-Z][a-z]+ [A-Z][a-z]+$")]
         public string FullName { get; set; }
 
+        [Required]
         public string CompanyId { get; set; }
 
         public Company Company { get; set; }
