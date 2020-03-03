@@ -4,6 +4,7 @@ namespace PatniListi.Data.Models
     using System;
 
     using Microsoft.AspNetCore.Identity;
+
     using PatniListi.Data.Common.Models;
 
     public class ApplicationRole : IdentityRole, IAuditInfo, IDeletableEntity
@@ -17,7 +18,6 @@ namespace PatniListi.Data.Models
             : base(name)
         {
             this.Id = Guid.NewGuid().ToString();
-            this.IsDeleted = false;
         }
 
         public DateTime CreatedOn { get; set; }

@@ -1,6 +1,5 @@
 ﻿namespace PatniListi.Web.Areas.Identity.Pages.Account
 {
-    using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.Linq;
@@ -18,7 +17,7 @@
     using Microsoft.Extensions.Logging;
 
     using PatniListi.Data.Models;
-    using PatniListi.Services;
+    using PatniListi.Services.Data;
 
     [AllowAnonymous]
     public class RegisterModel : PageModel
@@ -28,18 +27,22 @@
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
         private readonly ICompaniesService companiesService;
+        private readonly IUsersService usersService;
 
         public RegisterModel(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender, ICompaniesService companiesService)
+            IEmailSender emailSender,
+            ICompaniesService companiesService,
+            IUsersService usersService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
             this.companiesService = companiesService;
+            this.usersService = usersService;
         }
 
         [BindProperty]
@@ -90,9 +93,26 @@
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var companyId = this.companiesService.Create(Input.CompanyName);
-                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email, FullName = Input.FullName,  CompanyId = companyId.Result };
+                var companyId = this.companiesService.GetByName(Input.CompanyName);
+
+                if (companyId == null)
+                {
+                    companyId = this.companiesService.Create(Input.CompanyName).Result;
+                }
+
+                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email, FullName = Input.FullName, CompanyId = companyId };
+
                 var result = await _userManager.CreateAsync(user, Input.Password);
+
+                if (this.companiesService.GetUsersCount(Input.CompanyName) == 1)
+                {
+                    await this.usersService.AddRoleToUser(user.Id, "Admin");
+                }
+                else
+                {
+                    await this.usersService.AddRoleToUser(user.Id, "Driver");
+                }
+
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
