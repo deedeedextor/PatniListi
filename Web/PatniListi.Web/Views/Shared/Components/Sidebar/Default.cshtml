@@ -1,0 +1,52 @@
+﻿@using PatniListi.Common
+@using PatniListi.Data.Models
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@if (this.SignInManager.IsSignedIn(this.User))
+{
+    <div class="wrapper">
+        <!-- Sidebar -->
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <h4>Контрол панел</h4>
+            </div>
+
+            <ul class="list-unstyled components">
+                <li class="active">
+                    <a class="nav-link" asp-area="" asp-controller="Invoices" asp-action="All">Фактури</a>
+                </li>
+                <li>
+                    <a class="nav-link" asp-area="" asp-controller="TransportWorkTickets" asp-action="All">Пътни листи</a>
+                </li>
+                <li>
+                    <a class="nav-link" asp-area="" asp-controller="Reports" asp-action="All">Отчети</a>
+                </li>
+                @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+                {
+                    <li>
+                        <a href="#adminSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Администрация</a>
+                        <ul class="collapse list-unstyled" id="adminSubmenu">
+                            <li>
+                                <a class="nav-link" asp-area="Administration" asp-controller="Companies" asp-action="Details" title="Моля, завършете регистрацията на фирмата.">Фирма</a>
+                            </li>
+                            <li>
+                                <a class="nav-link" asp-area="Administration" asp-controller="Dashboard" asp-action="Add">Добави шофьор</a>
+                            </li>
+                            <li>
+                                <a class="nav-link" asp-area="Administration" asp-controller="Dashboard" asp-action="Add">Добави кола</a>
+                            </li>
+                            <li>
+                                <a class="nav-link" asp-area="Administration" asp-controller="Dashboard" asp-action="Report">Фирмени отчети</a>
+                            </li>
+                            <li>
+                                <a class="nav-link" asp-area="Administration" asp-controller="Dashboard" asp-action="Index">Графики</a>
+                            </li>
+                        </ul>
+                    </li>
+                }
+            </ul>
+        </nav>
+    </div>
+}
