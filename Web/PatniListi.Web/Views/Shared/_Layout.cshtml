@@ -27,7 +27,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-transparent" color-on-scroll="100">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">@GlobalConstants.SystemName</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -38,13 +38,13 @@
                     <partial name="_LoginPartial" />
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Начало</a>
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Начало</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Guidance">Ръководство</a>
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Guidance">Ръководство</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Contact">За Контакти</a>
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Contact">За Контакти</a>
                         </li>
                     </ul>
                 </div>
@@ -52,9 +52,10 @@
         </nav>
     </header>
 
-    <div class="container">
+    <div class="container-fluid">
         <partial name="_CookieConsentPartial" />
         <main role="main" class="pb-3">
+        <vc:sidebar></vc:sidebar>
             @this.RenderBody()
         </main>
     </div>
@@ -69,7 +70,6 @@
         <script src="~/lib/jquery/dist/jquery.js" asp-append-version="true"></script>
         <script src="~/lib/jquery-validation/dist/jquery.validate.js" asp-append-version="true"></script>
         <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.js" asp-append-version="true"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.js" asp-append-version="true"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
     </environment>
     <environment names="Staging,Production">
