@@ -2,8 +2,12 @@
 {
     using Microsoft.AspNetCore.Mvc;
 
-    public class SidebarViewComponent : ViewComponent
+    public class AdminViewComponent : ViewComponent
     {
+        public AdminViewComponent()
+        {
+        }
+
         public IViewComponentResult Invoke()
         {
             return this.View();

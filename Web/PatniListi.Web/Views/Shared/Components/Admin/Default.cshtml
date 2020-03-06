@@ -1,0 +1,32 @@
+﻿@using PatniListi.Common
+@using PatniListi.Data.Models
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+
+@if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+{
+    <div class="dropdown">
+        <div class="dropdown-content">
+            <a href="#adminSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Администрация</a>
+            <ul class="collapse list-unstyled" id="adminSubmenu">
+                <li>
+                    <a class="nav-link" asp-area="Administration" asp-controller="Companies" asp-action="Details" title="Моля, завършете регистрацията на фирмата.">Фирма</a>
+                </li>
+                <li>
+                    <a class="nav-link" asp-area="Administration" asp-controller="Dashboard" asp-action="Add">Добави шофьор</a>
+                </li>
+                <li>
+                    <a class="nav-link" asp-area="Administration" asp-controller="Dashboard" asp-action="Add">Добави кола</a>
+                </li>
+                <li>
+                    <a class="nav-link" asp-area="Administration" asp-controller="Dashboard" asp-action="Report">Фирмени отчети</a>
+                </li>
+                <li>
+                    <a class="nav-link" asp-area="Administration" asp-controller="Dashboard" asp-action="Index">Графики</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+}   
