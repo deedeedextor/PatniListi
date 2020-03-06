@@ -27,15 +27,33 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-transparent" color-on-scroll="100">
+        <nav class="navbar navbar-expand-lg navbar-transparent" color-on-scroll="100">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">@GlobalConstants.SystemName</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <partial name="_LoginPartial" />
+                <div class="navbar-translate">
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">@GlobalConstants.SystemName</a>
+                    <button class="navbar-toggler navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-bar bar2"></span>
+                        <span class="navbar-toggler-bar bar2"></span>
+                        <span class="navbar-toggler-bar bar2"></span>
+                    </button>
+                </div>
+                <div class="collapse navbar-collapse justify-content-end" id="navigation">
+
+                    <div class="navbar-collapse-header">
+                        <div class="row">
+                            <div class="col-6 collapse-brand">
+                                <a>
+                                    @GlobalConstants.SystemName
+                                </a>
+                            </div>
+                            <div class="col-6 collapse-close text-right">
+                                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+                                    <i class="tim-icons icon-simple-remove"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Начало</a>
@@ -44,28 +62,64 @@
                             <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Guidance">Ръководство</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Contact">За Контакти</a>
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Contact">Контакти</a>
                         </li>
+                    </ul>
+                    <ul class="navbar-nav">
+                        <partial name="_LoginPartial" />
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
 
-    <div class="container-fluid">
+    <div class="container">
         <partial name="_CookieConsentPartial" />
-        <main role="main" class="pb-3">
-        <vc:sidebar></vc:sidebar>
-            @this.RenderBody()
+        <main role="main" class="p-3">
+            <div>
+                @this.RenderBody()
+            </div>
+            
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; @DateTime.Now.Year - @GlobalConstants.SystemName - <a asp-area="" asp-controller="Home" asp-action="Privacy">Поверителност</a>
-        </div>
+    <footer class="footer">
+            <div class="row">
+                <div class="col-md-4">
+                    <h3 class="title">&copy; @DateTime.Now.Year - @GlobalConstants.SystemName</h3>
+                </div>
+                
+                <div class="col-md-4">
+                    <ul class="nav">
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">
+                                Начало
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">
+                            Поверителност
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h3 class="title">Последвайте ни:</h3>
+                    <div class="btn-wrapper profile">
+                        <a target="_blank" href="https://twitter.com/creativetim" class="btn btn-icon btn-neutral btn-round btn-simple" data-toggle="tooltip" data-original-title="Follow us">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a target="_blank" href="https://www.facebook.com/creativetim" class="btn btn-icon btn-neutral btn-round btn-simple" data-toggle="tooltip" data-original-title="Like us">
+                            <i class="fab fa-facebook-square"></i>
+                        </a>
+                        <a target="_blank" href="https://dribbble.com/creativetim" class="btn btn-icon btn-neutral  btn-round btn-simple" data-toggle="tooltip" data-original-title="Follow us">
+                            <i class="fab fa-dribbble"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
     </footer>
-
+    
     <environment names="Development">
         <script src="~/lib/jquery/dist/jquery.js" asp-append-version="true"></script>
         <script src="~/lib/jquery-validation/dist/jquery.validate.js" asp-append-version="true"></script>
