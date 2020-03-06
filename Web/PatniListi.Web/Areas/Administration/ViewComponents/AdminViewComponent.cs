@@ -1,4 +1,4 @@
-﻿namespace PatniListi.Web.ViewComponents
+﻿namespace PatniListi.Web.Areas.Administration.ViewComponents
 {
     using Microsoft.AspNetCore.Mvc;
 
