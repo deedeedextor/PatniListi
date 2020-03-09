@@ -7,5 +7,9 @@
         public const string AdministratorRoleName = "Admin";
 
         public const string UserRoleName = "Driver";
+
+        public const int DefaultPageNumber = 1;
+
+        public const int PageSize = 20;
     }
 }

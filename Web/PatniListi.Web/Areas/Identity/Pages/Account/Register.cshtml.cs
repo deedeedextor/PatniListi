@@ -97,7 +97,7 @@
 
                 if (companyId == null)
                 {
-                    companyId = this.companiesService.Create(Input.CompanyName).Result;
+                    companyId = this.companiesService.CreateAsync(Input.CompanyName).Result;
                 }
 
                 var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email, FullName = Input.FullName, CompanyId = companyId };
