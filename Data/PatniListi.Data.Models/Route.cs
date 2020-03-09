@@ -16,16 +16,18 @@
 
         [Display(Name = "Начална точка на тръгване")]
         [Required]
+        [StringLength(20, MinimumLength = 2)]
         public string StartPoint { get; set; }
 
         [Display(Name = "Крайна точка на пристигане")]
         [Required]
+        [StringLength(20, MinimumLength = 2)]
         public string EndPoint { get; set; }
 
         [Display(Name = "Разстояние")]
         [Required]
         public double Distance { get; set; }
 
-        public ICollection<RouteTransportWorkTicket> RouteTransportWorkTickets { get; set; }
+        public virtual ICollection<RouteTransportWorkTicket> RouteTransportWorkTickets { get; set; }
     }
 }

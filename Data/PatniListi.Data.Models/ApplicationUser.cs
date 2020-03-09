@@ -29,7 +29,7 @@ namespace PatniListi.Data.Models
         [Required]
         public string CompanyId { get; set; }
 
-        public Company Company { get; set; }
+        public virtual Company Company { get; set; }
 
         // Audit info
         public DateTime CreatedOn { get; set; }
@@ -43,11 +43,11 @@ namespace PatniListi.Data.Models
 
         public DateTime? DeletedOn { get; set; }
 
-        public ICollection<CarUser> CarUsers { get; set; }
+        public virtual ICollection<CarUser> CarUsers { get; set; }
 
-        public ICollection<Invoice> Invoices { get; set; }
+        public virtual ICollection<Invoice> Invoices { get; set; }
 
-        public ICollection<TransportWorkTicket> TransportWorkTickets { get; set; }
+        public virtual ICollection<TransportWorkTicket> TransportWorkTickets { get; set; }
 
         public virtual ICollection<IdentityUserRole<string>> Roles { get; set; }
 

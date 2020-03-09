@@ -8,8 +8,6 @@
 
     public class Car : BaseDeletableModel<string>
     {
-        private const double CapacityFuel = 100.00;
-
         public Car()
         {
             this.Id = Guid.NewGuid().ToString();
@@ -41,18 +39,18 @@
 
         [Display(Name = "Капацитет на резервоара")]
         [Required]
-        [Range(20.00, CapacityFuel)]
+        [Range(20.00, 100.00)]
         public double TankCapacity { get; set; }
 
         [Display(Name = "Налично гориво")]
         [Required]
-        [Range(0, CapacityFuel)]
+        [Range(0, 100.00)]
         public double InitialFuel { get; set; }
 
-        public ICollection<CarUser> CarUsers { get; set; }
+        public virtual ICollection<CarUser> CarUsers { get; set; }
 
-        public ICollection<Invoice> Invoices { get; set; }
+        public virtual ICollection<Invoice> Invoices { get; set; }
 
-        public ICollection<TransportWorkTicket> TransportWorkTickets { get; set; }
+        public virtual ICollection<TransportWorkTicket> TransportWorkTickets { get; set; }
     }
 }

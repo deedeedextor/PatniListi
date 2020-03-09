@@ -7,11 +7,11 @@
         [Required]
         public string RouteId { get; set; }
 
-        public Route Route { get; set; }
+        public virtual Route Route { get; set; }
 
         [Required]
         public string TransportWorkTicketId { get; set; }
 
-        public TransportWorkTicket TransportWorkTicket { get; set; }
+        public virtual TransportWorkTicket TransportWorkTicket { get; set; }
     }
 }

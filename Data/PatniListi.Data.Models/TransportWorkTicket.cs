@@ -23,16 +23,16 @@
         [Required]
         public string UserId { get; set; }
 
-        public ApplicationUser ApplicationUser { get; set; }
+        public virtual ApplicationUser ApplicationUser { get; set; }
 
         [Required]
         public string CarId { get; set; }
 
-        public Car Car { get; set; }
+        public virtual Car Car { get; set; }
 
         [Required]
         public string CreatedBy { get; set; }
 
-        public ICollection<RouteTransportWorkTicket> RouteTransportWorkTickets { get; set; }
+        public virtual ICollection<RouteTransportWorkTicket> RouteTransportWorkTickets { get; set; }
     }
 }

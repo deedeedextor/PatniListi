@@ -7,11 +7,11 @@
         [Required]
         public string CarId { get; set; }
 
-        public Car Car { get; set; }
+        public virtual Car Car { get; set; }
 
         [Required]
         public string UserId { get; set; }
 
-        public ApplicationUser ApplicationUser { get; set; }
+        public virtual ApplicationUser ApplicationUser { get; set; }
     }
 }
