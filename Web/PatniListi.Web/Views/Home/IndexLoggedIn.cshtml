@@ -1,0 +1,63 @@
+﻿@using PatniListi.Common
+@model PatniListi.Web.ViewModels.Models.Users.ApplicationUserHomeViewModel
+
+@{
+    ViewData["Title"] = "Съобщения";
+}
+
+<div class="container body-content shadow py-4 px-4">
+    <table style="width: 100%;">
+        <tr class="hed">
+            <td>
+                <table style="width:100%">
+                    <tr>
+                        <td>
+                            Фирма:
+                            <span class="text-white">@Model.CompanyName</span>&nbsp;&nbsp;
+                            ЕИК:
+                            <span class="text-white">@Model.CompanyBulstat</span>&nbsp;&nbsp;
+                        </td>
+                        <td align="right">
+                            Последно влизане:
+                            <span class="text-white">@Model.LastLoggingDate</span>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td class="mright">
+                <div style="padding-right: 15px;">
+
+                    <div style="text-align:center;">
+                        <h3>Пътни листи - Версия 1.0</h3>
+                        <h2></h2>
+
+                        <fieldset>
+                            <h2 class="text-primary">ВАЖНО!!!</h2>
+                            <p>Програмата "Пътен лист" все още е в тестова фаза!</p>
+                            <p>При наличието на проблеми или предложения за подобряване на програмата пишете ни, за да може своевременно да ги отстраниме/реализираме!</p>
+                            <h2 class="text-primary">ВАЖНО!!!</h2>
+                            <br />
+                            <p><strong><i>Променянето номерацията на пътните листа се извършва от меню "Настройки"!</i></strong></p>
+                            <br />
+                        </fieldset>
+
+                        <br />
+
+                        <h4>Екипът на Пътни листи Ви пожелава приятна работа с програмата!</h4>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<script type="text/javascript">
+    //<![CDATA[
+    Sys.Application.add_init(function () {
+        $create(Telerik.Web.UI.RadMenu, { "_childListElementCssClass": null, "_renderMode": 2, "_skin": "Silk", "clientStateFieldID": "ctl00_LoginViewMenu_RadMenu1_ClientState", "collapseAnimation": "{\"duration\":450}", "expandAnimation": "{\"duration\":450}", "itemData": [{ "items": [{ "navigateUrl": "~/Pages/CalendarForm" }, { "navigateUrl": "~/Pages/CalendarVodachiForm" }], "navigateUrl": "~/Pages/CalendarForm" }, { "navigateUrl": "~/Pages/PatniLista" }, { "navigateUrl": "~/Pages/Fakturi" }, { "navigateUrl": "~/Pages/Avtomobili" }, { "navigateUrl": "~/Pages/Marshruti" }, { "navigateUrl": "~/Pages/Sluziteli" }, { "items": [{ "navigateUrl": "~/Pages/SpravkaPatniLista" }, { "navigateUrl": "~/Pages/SpravkaFakturi" }, { "navigateUrl": "~/Pages/SpravkaMarshruti" }], "navigateUrl": "~/Pages/SpravkaPatniLista" }, { "navigateUrl": "~/Account/Manage" }, { "navigateUrl": "~/Contact" }] }, null, null, $get("ctl00_LoginViewMenu_RadMenu1"));
+    });
+//]]>
+</script>
+
