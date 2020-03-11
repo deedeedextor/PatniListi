@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace PatniListi.Data.Migrations
+﻿namespace PatniListi.Data.Migrations
 {
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class AddStringLengthAttributeToRoute : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)

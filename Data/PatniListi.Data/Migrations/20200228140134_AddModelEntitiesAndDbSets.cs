@@ -17,13 +17,13 @@
                 name: "CompanyId",
                 table: "AspNetUsers",
                 nullable: false,
-                defaultValue: "");
+                defaultValue: string.Empty);
 
             migrationBuilder.AddColumn<string>(
                 name: "FullName",
                 table: "AspNetUsers",
                 nullable: false,
-                defaultValue: "");
+                defaultValue: string.Empty);
 
             migrationBuilder.AddColumn<string>(
                 name: "ModifiedBy",

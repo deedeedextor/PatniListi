@@ -1,23 +1,24 @@
 ﻿namespace PatniListi.Data.Migrations
 {
+    using System;
+
     using Microsoft.EntityFrameworkCore.Migrations;
 
-    public partial class AddColumnFuelTypeForInvoices : Migration
+    public partial class AddLastLoggindateToApplicationUser : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<int>(
-                name: "FuelType",
-                table: "Invoices",
-                nullable: false,
-                defaultValue: 0);
+            migrationBuilder.AddColumn<DateTime>(
+                name: "LastLoginDate",
+                table: "AspNetUsers",
+                nullable: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "FuelType",
-                table: "Invoices");
+                name: "LastLoginDate",
+                table: "AspNetUsers");
         }
     }
 }
