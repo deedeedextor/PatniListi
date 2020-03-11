@@ -12,16 +12,22 @@
             <a href="#adminSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle text-primary">Администрация</a>
             <ul class="collapse list-unstyled" id="adminSubmenu">
                 <li>
-                    <a class="nav-link" asp-area="Administration" asp-controller="Companies" asp-action="Details" title="Моля, завършете регистрацията на фирмата.">Фирма</a>
+                    <a class="nav-link" asp-area="Administration" asp-controller="Companies" asp-action="Details" asp-route-id="@this.UserManager.GetUserAsync(User).Result?.CompanyId">Фирма</a>
                 </li>
                 <li>
-                    <a class="nav-link" asp-area="Administration" asp-controller="Dashboard" asp-action="Add">Добави шофьор</a>
+                    <a class="nav-link" asp-area="Administration" asp-controller="Drivers" asp-action="All">Добави шофьор</a>
                 </li>
                 <li>
-                    <a class="nav-link" asp-area="Administration" asp-controller="Dashboard" asp-action="Add">Добави кола</a>
+                    <a class="nav-link" asp-area="Administration" asp-controller="Cars" asp-action="All">Добави кола</a>
                 </li>
                 <li>
-                    <a class="nav-link" asp-area="Administration" asp-controller="Dashboard" asp-action="Report">Фирмени отчети</a>
+                    <a class="nav-link" asp-area="Administration" asp-controller="Invoices" asp-action="All">Фирмени отчети</a>
+                </li>
+                <li>
+                    <a class="nav-link" asp-area="Administration" asp-controller="Reports" asp-action="All">Всички фактури</a>
+                </li>
+                <li>
+                    <a class="nav-link" asp-area="Administration" asp-controller="TransportWorkTickets" asp-action="All">Всички пътни листи</a>
                 </li>
                 <li>
                     <a class="nav-link" asp-area="Administration" asp-controller="Dashboard" asp-action="Index">Графики</a>
