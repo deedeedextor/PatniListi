@@ -5,6 +5,7 @@
     using System.ComponentModel.DataAnnotations;
 
     using PatniListi.Data.Common.Models;
+    using PatniListi.Data.Models.Enums;
 
     public class Car : BaseDeletableModel<string>
     {
@@ -18,14 +19,17 @@
 
         [Display(Name = "Модел")]
         [Required]
-        [StringLength(20, MinimumLength = 2)]
+        [MaxLength(20)]
         public string Model { get; set; }
 
         [Display(Name = "Номер")]
         [Required]
         [RegularExpression(@"^[A-Z 0-9 A-Z]+$")]
-        [StringLength(10, MinimumLength = 3)]
+        [MaxLength(10)]
         public string LicensePlate { get; set; }
+
+        [Required]
+        public Fuel FuelType { get; set; }
 
         [Display(Name = "Начални километри")]
         [Required]

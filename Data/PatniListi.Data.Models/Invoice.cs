@@ -5,7 +5,6 @@
 
     using PatniListi.Data.Common.Attributes;
     using PatniListi.Data.Common.Models;
-    using PatniListi.Data.Models.Enums;
 
     public class Invoice : BaseDeletableModel<string>
     {
@@ -21,16 +20,14 @@
 
         [Display(Name = "Дата на фактура")]
         [MyDateTime]
+        [DataType(DataType.Date)]
         [Required]
         public DateTime Date { get; set; }
 
         [Display(Name = "Място на зареждане")]
         [Required]
-        [StringLength(20, MinimumLength = 3)]
+        [StringLength(20)]
         public string Location { get; set; }
-
-        [Required]
-        public Fuel FuelType { get; set; }
 
         [Display(Name = "Цена на литър")]
         [Required]
@@ -39,10 +36,12 @@
 
         [Display(Name = "Количество")]
         [Required]
+        [Range(1, double.MaxValue)]
         public double Quantity { get; set; }
 
+        [Display(Name = "Гориво")]
         [Required]
-        public string CreatedBy { get; set; }
+        public string FuelType { get; set; }
 
         [Required]
         public string UserId { get; set; }
@@ -53,5 +52,8 @@
         public string CarId { get; set; }
 
         public virtual Car Car { get; set; }
+
+        [Required]
+        public string CreatedBy { get; set; }
     }
 }

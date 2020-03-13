@@ -17,7 +17,8 @@
 
         [Display(Name = "Дата на тръгване")]
         [Required]
-        [MyDateTime(ErrorMessage = "Не може да въвеждате предходна дата!")]
+        [MyDateTime]
+        [DataType(DataType.Date)]
         public DateTime Date { get; set; }
 
         [Required]
