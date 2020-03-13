@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Data\PatniListi.Data.Models\PatniListi.Data.Models.csproj" />
+    <ProjectReference Include="..\PatniListi.Services.Mapping\PatniListi.Services.Mapping.csproj" />
+  </ItemGroup>
+
+</Project>
