@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\PatniListi.Common\PatniListi.Common.csproj" />
     <ProjectReference Include="..\PatniListi.Data.Common\PatniListi.Data.Common.csproj" />
   </ItemGroup>
   

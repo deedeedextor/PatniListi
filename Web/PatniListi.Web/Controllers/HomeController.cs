@@ -5,7 +5,6 @@
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using PatniListi.Data.Models;
     using PatniListi.Services.Data;
@@ -15,7 +14,6 @@
     public class HomeController : BaseController
     {
         private readonly IUsersService usersService;
-        private readonly SignInManager<ApplicationUser> signInManager;
 
         public HomeController(IUsersService usersService)
         {
@@ -42,11 +40,6 @@
 
             var viewModel = await this.usersService.GetByIdAsync<ApplicationUserHomeViewModel>(userId);
             return this.View(viewModel);
-        }
-
-        public IActionResult Contact()
-        {
-            return this.View();
         }
 
         public IActionResult Guidance()

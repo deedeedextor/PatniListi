@@ -1,0 +1,35 @@
+﻿@model PatniListi.Web.ViewModels.Administration.Companies.DetailsCompanyViewModel
+
+@{
+    ViewData["Title"] = "Фирма";
+}
+
+<section class="py-5">
+    <div class="container shadow py-4 px-4">
+        <h1 class="text-center">@ViewData["Title"]</h1>
+        <div>
+            <div class="form-group">
+                <label for="name">Име</label>
+                <input type="text" readonly class="form-control text-white" id="name" name="Name" value="@Model.Name">
+            </div>
+            <div class="form-group">
+                <label for="bulstat">Булстат</label>
+                <input type="text" readonly class="form-control text-white" id="bulstat" name="Bulstat" value="@Model.Bulstat">
+            </div>
+            <div class="form-group">
+                <label for="vatNumber">Номер по ДДС</label>
+                <input type="text" readonly class="form-control text-white" id="vatNumber" name="VatNumber" value="@Model.VatNumber">
+            </div>
+            <div class="form-group">
+                <label for="phoneNumber">Телефон</label>
+                <input type="text" readonly class="form-control text-white" id="phoneNumber" name="PhoneNumber" value="@Model.PhoneNumber">
+            </div>
+            <div class="form-group text-center">
+                <div class="button-holder">
+                    <a href="/Administration/Companies/Edit?Id=@Model.Id" class="btn btn-primary btn-block text-uppercase">Промени</a>
+                    <a asp-area="" asp-controller="Home" asp-action="Index" class="text-uppercase">Начало</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

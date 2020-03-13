@@ -2,14 +2,18 @@
 {
     using System.Threading.Tasks;
 
+    using PatniListi.Web.ViewModels.Administration.Companies;
+
     public interface ICompaniesService
     {
-        Task<string> Create(string companyName);
+        Task<string> CreateAsync(string companyName);
 
-        string GetByName(string companyName);
+        Task<string> GetByNameAsync(string companyName);
 
-        Task Edit(string name, string bulstat, string phoneNumber, string username);
+        Task EditAsync(CompanyEditViewModel input);
 
         int GetUsersCount(string companyName);
+
+        Task<T> GetDetailsAsync<T>(string id);
     }
 }

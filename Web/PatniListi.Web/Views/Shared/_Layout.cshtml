@@ -55,15 +55,7 @@
                         </div>
                     </div>
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Начало</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Guidance">Ръководство</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Contact">Контакти</a>
-                        </li>
+                        <partial name="_NavBarPartial" />
                     </ul>
                     <ul class="navbar-nav">
                         <partial name="_LoginPartial" />
@@ -74,12 +66,16 @@
     </header>
 
     <div class="container">
-        <partial name="_CookieConsentPartial" />
+        <div>
+            <partial name="_CookieConsentPartial" />
+        </div>
+        <br />
+
         <main role="main" class="p-3">
             <div>
                 @this.RenderBody()
-            </div>
 
+            </div>
         </main>
     </div>
 
@@ -91,16 +87,7 @@
 
             <div class="col-md-4">
                 <ul class="nav">
-                    <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">
-                            Начало
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">
-                            Поверителност
-                        </a>
-                    </li>
+                    <partial name="_NavBarPartial" />
                 </ul>
             </div>
             <div class="col-md-4">
@@ -118,6 +105,13 @@
                 </div>
             </div>
         </div>
+
+        <!-- Return to Top -->
+        <a href="javascript:" id="return-to-top"><i class="icon-chevron-up"></i></a>
+
+        <!-- ICON NEEDS FONT AWESOME FOR CHEVRON UP ICON -->
+        <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+
     </footer>
 
     <environment names="Development">
@@ -164,6 +158,22 @@
                 }, 1000);
             }
         }
+    </script>
+
+    <script>
+        // ===== Scroll to Top ==== 
+        $(window).scroll(function() {
+           if ($(this).scrollTop() >= 50) {        // If page is scrolled more than 50px
+              $('#return-to-top').fadeIn(200);    // Fade in the arrow
+           } else {
+              $('#return-to-top').fadeOut(200);   // Else fade out the arrow
+           }
+        });
+        $('#return-to-top').click(function() {      // When arrow is clicked
+          $('body,html').animate({
+            scrollTop : 0                       // Scroll to top of body
+          }, 500);
+        });
     </script>
 
     @this.RenderSection("Scripts", required: false)

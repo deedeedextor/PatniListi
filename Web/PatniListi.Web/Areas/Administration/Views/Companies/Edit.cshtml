@@ -1,0 +1,39 @@
+﻿@model PatniListi.Web.ViewModels.Administration.Companies.CompanyEditViewModel
+
+@{
+    ViewData["Title"] = "Промени данни";
+}
+
+<section class="py-5">
+    <div class="container shadow py-4 px-4">
+        <h1 class="text-center">@ViewData["Title"]</h1>
+        <form asp-area="Administration" asp-controller="Companies" asp-action="Edit" asp-route-id="@Model.Id" method="post">
+            <div class="form-group">
+                <label asp-for="Name" class="control-label">Име</label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-primary"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Bulstat" class="control-label">Булстат</label>
+                <input asp-for="Bulstat" class="form-control" />
+                <span asp-validation-for="Bulstat" class="text-primary"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PhoneNumber" class="control-label">Телефон</label>
+                <input asp-for="PhoneNumber" class="form-control" placeholder="+359 887 321 321"/>
+                <span asp-validation-for="PhoneNumber" class="text-primary"></span>
+            </div>
+            <div class="form-group text-center">
+                <div class="button-holder">
+                    <input type="submit" value="Запази" class="btn btn-primary btn-block text-uppercase" />
+                    <a asp-area="Administration" asp-controller="Companies" asp-action="Details" asp-route-id="@Model.Id" class="text-uppercase">Фирма</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

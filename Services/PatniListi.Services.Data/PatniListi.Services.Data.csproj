@@ -21,6 +21,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Data\PatniListi.Data.Common\PatniListi.Data.Common.csproj" />
     <ProjectReference Include="..\..\Data\PatniListi.Data.Models\PatniListi.Data.Models.csproj" />
+    <ProjectReference Include="..\..\Web\PatniListi.Web.ViewModels\PatniListi.Web.ViewModels.csproj" />
     <ProjectReference Include="..\PatniListi.Services.Mapping\PatniListi.Services.Mapping.csproj" />
   </ItemGroup>
 

@@ -3,8 +3,11 @@
     using System.Linq;
     using System.Threading.Tasks;
 
+    using Microsoft.EntityFrameworkCore;
     using PatniListi.Data.Common.Repositories;
     using PatniListi.Data.Models;
+    using PatniListi.Services.Mapping;
+    using PatniListi.Web.ViewModels.Administration.Companies;
 
     public class CompaniesService : ICompaniesService
     {
@@ -26,11 +29,11 @@
             return count;
         }
 
-        public async Task<string> Create(string companyName)
+        public async Task<string> CreateAsync(string name)
         {
             var company = new Company
             {
-                Name = companyName,
+                Name = name,
             };
 
             await this.companiesRepository.AddAsync(company);
@@ -39,27 +42,39 @@
             return company.Id;
         }
 
-        public async Task Edit(string name, string bulstat, string phoneNumber, string username)
+        public async Task EditAsync(CompanyEditViewModel input)
         {
             var company = new Company
             {
-                Name = name,
-                Bulstat = bulstat,
-                PhoneNumber = phoneNumber,
-                ModifiedBy = username,
+                Id = input.Id,
+                Name = input.Name,
+                Bulstat = input.Bulstat,
+                VatNumber = input.VatNumber,
+                PhoneNumber = input.PhoneNumber,
             };
 
             this.companiesRepository.Update(company);
             await this.companiesRepository.SaveChangesAsync();
         }
 
-        public string GetByName(string companyName)
+        public async Task<string> GetByNameAsync(string name)
         {
-            return this.companiesRepository
+            return await this.companiesRepository
                 .All()
-                .Where(c => c.Name == companyName)
+                .Where(c => c.Name == name)
                 .Select(c => c.Id)
-                .FirstOrDefault();
+                .FirstOrDefaultAsync();
+        }
+
+        public async Task<T> GetDetailsAsync<T>(string id)
+        {
+            var viewModel = await this.companiesRepository
+                .All()
+                .Where(c => c.Id == id)
+                .To<T>()
+                .FirstOrDefaultAsync();
+
+            return viewModel;
         }
     }
 }
