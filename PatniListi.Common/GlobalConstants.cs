@@ -4,6 +4,8 @@
     {
         public const string SystemName = "Пътни листи";
 
+        public const string SystemEmail = "patniListi.bg@gmail.com";
+
         public const string AdministratorRoleName = "Admin";
 
         public const string UserRoleName = "Driver";
