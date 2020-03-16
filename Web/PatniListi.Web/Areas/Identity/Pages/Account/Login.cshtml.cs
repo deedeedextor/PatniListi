@@ -72,15 +72,6 @@
                 {
                     this.logger.LogInformation("User logged in.");
 
-                    var user = await this.userManager.FindByNameAsync(this.Input.Username);
-                    if (user != null)
-                    {
-                        // save the last login time
-                        user.LastLoggingDate = DateTime.UtcNow;
-
-                        var resultSave = await this.userManager.UpdateAsync(user);
-                    }
-
                     return this.LocalRedirect(returnUrl);
                 }
 
@@ -104,6 +95,7 @@
             // If we got this far, something failed, redisplay form
             return this.Page();
         }
+
         public class InputModel
         {
             [Display(Name = "Потребителско име")]
