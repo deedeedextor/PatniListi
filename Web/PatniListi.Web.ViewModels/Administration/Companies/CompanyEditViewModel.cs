@@ -12,11 +12,12 @@
 
         [Display(Name = "Име на фирма")]
         [Required(AllowEmptyStrings = false, ErrorMessage = AttributesErrorMessages.RequiredErrorMessage)]
-        [StringLength(AttributesConstraints.CompanyMaxLength, ErrorMessage = AttributesErrorMessages.StringLengthErrorMessage)]
+        [StringLength(AttributesConstraints.CompanyMaxLength, ErrorMessage = AttributesErrorMessages.StringLengthErrorMessage, MinimumLength = AttributesConstraints.CompanyMinLength)]
         public string Name { get; set; }
 
         [Display(Name = "Булстат")]
         [RegularExpression(@"[0-9]{10}", ErrorMessage = AttributesErrorMessages.InvalidBulstatErrorMessage)]
+        [StringLength(AttributesConstraints.BulstatMaxLength, ErrorMessage = AttributesErrorMessages.MaxLengthErrorMessage)]
         public string Bulstat { get; set; }
 
         [Display(Name = "Номер по ДДС")]

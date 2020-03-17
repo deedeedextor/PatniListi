@@ -1,0 +1,89 @@
+﻿@using  PatniListi.Web.Infrastructure;
+@model PaginatedList<PatniListi.Web.ViewModels.Administration.Users.UserViewModel>
+
+@{
+    ViewData["Title"] = "Шофьори";
+}
+
+    <section class="py-5">
+        <div class="container shadow py-4 px-4">
+            <h1 class="text-center">@ViewData["Title"]</h1>
+            <div>
+                <a class="nav-link btn btn-primary btn-block text-uppercase" asp-area="Administration" asp-controller="Drivers" asp-action="Create">Добави шофьор</a>
+
+                <div class="row">
+                    <div class="clearfix"></div>
+                    @{
+                        var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+                        var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+                    }
+                    <div class="col-md-6 text-md-right">
+                        <a asp-action="All"
+                           asp-route-pageNumber="@(Model.PageIndex - 1)"
+                           class="button @prevDisabled">
+                            Предишна
+                        </a>
+                    </div>
+
+                    <div class="col-md-6 text-md-left">
+                        <a asp-action="All"
+                           asp-route-pageNumber="@(Model.PageIndex + 1)"
+                           class="button @nextDisabled">
+                            Следваща
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <br />
+            <br />
+
+            <table class="table table-responsive-md table-hover">
+                <tr class="text-white">
+                    <th>
+                        Потребител
+                    </th>
+                    <th>
+                        Емайл
+                    </th>
+                    <th>
+                        Име и фамилия
+                    </th>
+                    <th>
+                        Фирма
+                    </th>
+                    <th>
+
+                    </th>
+                </tr>
+                @foreach (var user in Model)
+                {
+                    <tr>
+                        <td>
+                            @user.Username
+                        </td>
+                        <td>
+                            @user.Email
+                        </td>
+                        <td>
+                            @user.FullName
+                        </td>
+                        <td>
+                            @user.CompanyName
+                        </td>
+                        <td class="text-center">
+                            <div>
+                                <a href="/Users/Details/@user.Id" class="justify-content-md-between">Детайли</a>
+                            </div>
+                            <div>
+                                <a href="/Users/Edit/@user.Id" class="justify-content-md-between">Промени</a>
+                            </div>
+                            <div>
+                                <a href="/Users/Delete/@user.Id" class="justify-content-md-between">Изтрий</a>
+                            </div>
+                        </td>
+                    </tr>
+                 }
+             </table>
+        </div>
+     </section>
