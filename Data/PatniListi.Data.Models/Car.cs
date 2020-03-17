@@ -33,8 +33,8 @@
 
         [Display(Name = "Начални километри")]
         [Required]
-        [Range(0, double.MaxValue)]
-        public double StartKilometers { get; set; }
+        [Range(0, int.MaxValue)]
+        public int StartKilometers { get; set; }
 
         [Display(Name = "Среден разход")]
         [Required]
@@ -43,13 +43,18 @@
 
         [Display(Name = "Капацитет на резервоара")]
         [Required]
-        [Range(20.00, 100.00)]
-        public double TankCapacity { get; set; }
+        [Range(20, 100)]
+        public int TankCapacity { get; set; }
 
         [Display(Name = "Налично гориво")]
         [Required]
         [Range(0, 100.00)]
         public double InitialFuel { get; set; }
+
+        [Required]
+        public string CompanyId { get; set; }
+
+        public virtual Company Company { get; set; }
 
         public virtual ICollection<CarUser> CarUsers { get; set; }
 

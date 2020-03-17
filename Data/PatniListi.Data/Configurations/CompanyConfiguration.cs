@@ -14,6 +14,13 @@
                 .HasForeignKey(c => c.CompanyId)
                 .IsRequired()
                 .OnDelete(DeleteBehavior.Restrict);
+
+            builder
+                .HasMany(c => c.Cars)
+                .WithOne(u => u.Company)
+                .HasForeignKey(c => c.CompanyId)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

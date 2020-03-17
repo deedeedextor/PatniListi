@@ -12,6 +12,7 @@
         {
             this.Id = Guid.NewGuid().ToString();
             this.Users = new HashSet<ApplicationUser>();
+            this.Cars = new HashSet<Car>();
         }
 
         [Display(Name = "Име на фирма")]
@@ -31,5 +32,7 @@
         public string PhoneNumber { get; set; }
 
         public virtual ICollection<ApplicationUser> Users { get; set; }
+
+        public virtual ICollection<Car> Cars { get; set; }
     }
 }

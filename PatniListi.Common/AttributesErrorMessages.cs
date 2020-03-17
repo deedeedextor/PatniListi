@@ -4,6 +4,14 @@
     {
         public const string RequiredErrorMessage = " Моля, попълнете \"{0}\".";
 
+        public const string EmailErrorMessage = " Невалиден имейл адрес.";
+
+        public const string FullNameErrorMessage = "Невалидно име и фамилия.";
+
+        public const string ComparePasswordErrorMessage = "Полето за парола и потвърди парола трябва да съвпадат.";
+
+        public const string PasswordErrorMessage = "\"{0}\"та трябва да бъде с дължина между {2} и {1} символа.";
+
         public const string StringLengthErrorMessage = "\"{0}\" трябва да бъде между {2} и {1} символа.";
 
         public const string MaxLengthErrorMessage = "\"{0}\" не може да бъде повече от {1} символа.";
