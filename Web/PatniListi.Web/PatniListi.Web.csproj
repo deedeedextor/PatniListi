@@ -56,5 +56,6 @@
 
   <ItemGroup>
     <Folder Include="Areas\Administration\Views\Shared\" />
+    <Folder Include="Views\Invoices\" />
   </ItemGroup>
 </Project>
