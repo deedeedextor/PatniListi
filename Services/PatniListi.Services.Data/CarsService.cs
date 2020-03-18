@@ -5,24 +5,32 @@
     using System.Linq;
     using System.Threading.Tasks;
 
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc.Rendering;
     using PatniListi.Data.Common.Repositories;
     using PatniListi.Data.Models;
     using PatniListi.Data.Models.Enums;
     using PatniListi.Services.Mapping;
     using PatniListi.Web.ViewModels.Administration.Cars;
+    using PatniListi.Web.ViewModels.Administration.Users;
 
     public class CarsService : ICarsService
     {
         private readonly IDeletableEntityRepository<Car> carsRepository;
+        private readonly UserManager<ApplicationUser> userManager;
+        private readonly IUsersService usersService;
 
-        public CarsService(IDeletableEntityRepository<Car> carsRepository)
+        public CarsService(IDeletableEntityRepository<Car> carsRepository, UserManager<ApplicationUser> userManager, IUsersService usersService)
         {
             this.carsRepository = carsRepository;
+            this.userManager = userManager;
+            this.usersService = usersService;
         }
 
         public async Task CreateAsync(CarInputViewModel input)
         {
+            var user = await this.usersService.GetByNameAsync<UserViewModel>(input.FullName, input.CompanyId);
+
             var car = new Car
             {
                 Model = input.Model,
@@ -34,6 +42,8 @@
                 InitialFuel = input.InitialFuel,
                 CompanyId = input.CompanyId,
             };
+
+            car.CarUsers.Add(new CarUser { UserId = user.Id, CarId = car.Id });
 
             await this.carsRepository.AddAsync(car);
             await this.carsRepository.SaveChangesAsync();

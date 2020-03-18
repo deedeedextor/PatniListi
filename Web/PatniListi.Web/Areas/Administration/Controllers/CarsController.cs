@@ -2,6 +2,7 @@
 {
     using System;
     using System.Threading.Tasks;
+
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
@@ -15,11 +16,13 @@
     {
         private readonly ICarsService carsService;
         private readonly UserManager<ApplicationUser> userManager;
+        private readonly IUsersService usersService;
 
-        public CarsController(ICarsService carsService, UserManager<ApplicationUser> userManager)
+        public CarsController(ICarsService carsService, UserManager<ApplicationUser> userManager, IUsersService usersService)
         {
             this.carsService = carsService;
             this.userManager = userManager;
+            this.usersService = usersService;
         }
 
         // GET: Cars
@@ -41,8 +44,11 @@
         // GET: Cars/Create
         public IActionResult Create()
         {
+            var companyId = this.userManager.GetUserAsync(this.User).Result?.CompanyId;
+
             var viewModel = new CarInputViewModel
             {
+                AllDrivers = this.usersService.GetAll(companyId),
                 AllTypes = this.carsService.GetFuelType(),
             };
 
@@ -54,9 +60,13 @@
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CarInputViewModel input)
         {
+            var companyId = this.userManager.GetUserAsync(this.User).Result?.CompanyId;
+
             if (!this.ModelState.IsValid)
             {
                 input.AllTypes = this.carsService.GetFuelType();
+                input.AllDrivers = this.usersService.GetAll(companyId);
+
                 return this.View(input);
             }
 

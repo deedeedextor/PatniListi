@@ -1,10 +1,12 @@
 ﻿namespace PatniListi.Services.Data
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Mvc.Rendering;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Logging;
     using PatniListi.Data.Common.Repositories;
@@ -70,19 +72,47 @@
                 .To<T>();
         }
 
+        public IEnumerable<SelectListItem> GetAll(string companyId)
+        {
+            return this.usersRepository
+                .All()
+                .Where(u => u.CompanyId == companyId)
+                .Select(u => new SelectListItem
+                {
+                    Value = u.FullName,
+                    Text = u.FullName,
+                })
+                .ToList();
+        }
+
         public async Task<T> GetByIdAsync<T>(string userId)
         {
             var viewModel = await this.usersRepository
                 .All()
                 .Where(u => u.Id == userId)
                 .Include(u => u.Company)
-                .Include(u => u.CarUsers)
                 .To<T>()
                 .FirstOrDefaultAsync();
 
             if (viewModel == null)
             {
                 throw new ArgumentNullException(InvalidUserIdErrorMessage, userId);
+            }
+
+            return viewModel;
+        }
+
+        public async Task<T> GetByNameAsync<T>(string fullName, string companyId)
+        {
+            var viewModel = await this.usersRepository
+                      .All()
+                      .Where(u => u.FullName == fullName && u.CompanyId == companyId)
+                      .To<T>()
+                      .FirstOrDefaultAsync();
+
+            if (viewModel == null)
+            {
+                throw new ArgumentNullException(InvalidUserIdErrorMessage, fullName);
             }
 
             return viewModel;

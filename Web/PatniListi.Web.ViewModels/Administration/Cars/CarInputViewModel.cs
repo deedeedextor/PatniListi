@@ -20,6 +20,7 @@
         [StringLength(AttributesConstraints.LicensePlateMaxLength, ErrorMessage = AttributesErrorMessages.StringLengthErrorMessage, MinimumLength = AttributesConstraints.LicensePlateMinLength)]
         public string LicensePlate { get; set; }
 
+        [Display(Name = "Вид гориво")]
         [Required(ErrorMessage = AttributesErrorMessages.RequiredErrorMessage)]
         public string FuelType { get; set; }
 
@@ -43,9 +44,13 @@
         [Range(AttributesConstraints.InitialFuelMinRange, AttributesConstraints.InitialFuelMaxRange, ErrorMessage = AttributesErrorMessages.RangeErrorMessage)]
         public double InitialFuel { get; set; }
 
+        [Display(Name = "Шофьори")]
+        public string FullName { get; set; }
+
         public string CompanyId { get; set; }
 
-        [Display(Name = "Вид гориво")]
         public IEnumerable<SelectListItem> AllTypes { get; set; }
+
+        public IEnumerable<SelectListItem> AllDrivers { get; set; }
     }
 }
