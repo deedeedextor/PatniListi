@@ -9,20 +9,20 @@
         <h1 class="text-center">@ViewData["Title"]</h1>
         <div>
             <div class="form-group">
-                <label for="name">Име</label>
-                <input type="text" readonly class="form-control text-white" id="name" name="Name" value="@Model.Name">
+                <label asp-for="Name"></label>
+                <input asp-for="Name" readonly class="form-control text-white" id="name" name="Name" value="@Model.Name">
             </div>
             <div class="form-group">
-                <label for="bulstat">Булстат</label>
-                <input type="text" readonly class="form-control text-white" id="bulstat" name="Bulstat" value="@Model.Bulstat">
+                <label asp-for="Bulstat"></label>
+                <input asp-for="Bulstat" readonly class="form-control text-white" id="bulstat" name="Bulstat" value="@Model.Bulstat">
             </div>
             <div class="form-group">
-                <label for="vatNumber">Номер по ДДС</label>
-                <input type="text" readonly class="form-control text-white" id="vatNumber" name="VatNumber" value="@Model.VatNumber">
+                <label asp-for="VatNumber"></label>
+                <input asp-for="VatNumber" readonly class="form-control text-white" id="vatNumber" name="VatNumber" value="@Model.VatNumber">
             </div>
             <div class="form-group">
-                <label for="phoneNumber">Телефон</label>
-                <input type="text" readonly class="form-control text-white" id="phoneNumber" name="PhoneNumber" value="@Model.PhoneNumber">
+                <label asp-for="PhoneNumber"></label>
+                <input asp-for="PhoneNumber" readonly class="form-control text-white" id="phoneNumber" name="PhoneNumber" value="@Model.PhoneNumber">
             </div>
             <div class="form-group text-center">
                 <div class="button-holder">
