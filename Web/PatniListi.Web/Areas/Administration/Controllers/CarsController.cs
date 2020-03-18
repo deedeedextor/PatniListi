@@ -36,9 +36,12 @@
         }
 
         // GET: Cars/Details/5
-        public ActionResult Details(int id)
+        public async Task<IActionResult> Details(string id)
         {
-            return View();
+            var viewModel = await this.carsService
+                .GetDetailsAsync<CarDetailsViewModel>(id);
+
+            return this.View(viewModel);
         }
 
         // GET: Cars/Create

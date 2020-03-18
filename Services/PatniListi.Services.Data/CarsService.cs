@@ -7,6 +7,7 @@
 
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc.Rendering;
+    using Microsoft.EntityFrameworkCore;
     using PatniListi.Data.Common.Repositories;
     using PatniListi.Data.Models;
     using PatniListi.Data.Models.Enums;
@@ -63,9 +64,16 @@
                 .To<T>();
         }
 
-        public Task<T> GetDetailsAsync<T>(string id)
+        public async Task<T> GetDetailsAsync<T>(string id)
         {
-            throw new System.NotImplementedException();
+            var viewModel = await this.carsRepository
+                .All()
+                .Include(c => c.CarUsers)
+                .Where(c => c.Id == id)
+                .To<T>()
+                .SingleOrDefaultAsync();
+
+            return viewModel;
         }
 
         public IEnumerable<SelectListItem> GetFuelType()
