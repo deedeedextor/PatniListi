@@ -15,19 +15,22 @@
                     <a class="nav-link" asp-area="Administration" asp-controller="Companies" asp-action="Details" asp-route-id="@this.UserManager.GetUserAsync(User).Result?.CompanyId">Фирма</a>
                 </li>
                 <li>
-                    <a class="nav-link" asp-area="Administration" asp-controller="Drivers" asp-action="All">Добави шофьор</a>
+                    <a class="nav-link" asp-area="Administration" asp-controller="Drivers" asp-action="All">Шофьори</a>
                 </li>
                 <li>
-                    <a class="nav-link" asp-area="Administration" asp-controller="Cars" asp-action="All">Добави автомобил</a>
+                    <a class="nav-link" asp-area="Administration" asp-controller="Cars" asp-action="All">Автомобили</a>
                 </li>
                 <li>
-                    <a class="nav-link" asp-area="Administration" asp-controller="Reports" asp-action="All">Всички фактури</a>
+                    <a class="nav-link" asp-area="Administration" asp-controller="Reports" asp-action="All">Фактури</a>
                 </li>
                 <li>
-                    <a class="nav-link" asp-area="Administration" asp-controller="TransportWorkTickets" asp-action="All">Всички пътни листи</a>
+                    <a class="nav-link" asp-area="Administration" asp-controller="TransportWorkTickets" asp-action="All">Пътни листи</a>
+                </li>
+                <li class="active">
+                    <a class="nav-link" asp-area="Administration" asp-controller="Routes" asp-action="All">Маршрути</a>
                 </li>
                 <li>
-                    <a class="nav-link" asp-area="Administration" asp-controller="Invoices" asp-action="All">Фирмени отчети</a>
+                    <a class="nav-link" asp-area="Administration" asp-controller="Invoices" asp-action="All">Справки</a>
                 </li>
                 <li>
                     <a class="nav-link" asp-area="Administration" asp-controller="Dashboard" asp-action="Index">Графики</a>
