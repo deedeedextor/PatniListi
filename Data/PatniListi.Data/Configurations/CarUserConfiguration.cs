@@ -15,15 +15,13 @@
                 .HasOne(c => c.Car)
                 .WithMany(u => u.CarUsers)
                 .HasForeignKey(c => c.CarId)
-                .IsRequired()
-                .OnDelete(DeleteBehavior.Restrict);
+                .IsRequired();
 
             builder
                 .HasOne(u => u.ApplicationUser)
                 .WithMany(c => c.CarUsers)
                 .HasForeignKey(u => u.UserId)
-                .IsRequired()
-                .OnDelete(DeleteBehavior.Restrict);
+                .IsRequired();
         }
     }
 }

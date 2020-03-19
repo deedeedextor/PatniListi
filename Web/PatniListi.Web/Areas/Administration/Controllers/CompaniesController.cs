@@ -2,7 +2,6 @@
 {
     using System.Threading.Tasks;
 
-    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using PatniListi.Services.Data;
     using PatniListi.Web.ViewModels.Administration.Companies;
@@ -22,28 +21,6 @@
             var company = await this.companiesService.GetDetailsAsync<DetailsCompanyViewModel>(id);
 
             return this.View(company);
-        }
-
-        // GET: Companies/Create
-        public ActionResult Create()
-        {
-            return this.View();
-        }
-
-        // POST: Companies/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-                return this.RedirectToAction();
-            }
-            catch
-            {
-                return this.View();
-            }
         }
 
         public async Task<IActionResult> Edit(string id)
@@ -70,28 +47,6 @@
 
             await this.companiesService.EditAsync(input);
             return this.RedirectToAction("Details", "Companies", new { input.Id });
-        }
-
-        // GET: Companies/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return this.View();
-        }
-
-        // POST: Companies/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-                return this.RedirectToAction();
-            }
-            catch
-            {
-                return this.View();
-            }
         }
     }
 }

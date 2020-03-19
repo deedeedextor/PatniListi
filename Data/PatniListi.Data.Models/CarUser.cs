@@ -2,7 +2,9 @@
 {
     using System.ComponentModel.DataAnnotations;
 
-    public class CarUser
+    using PatniListi.Data.Common.Models;
+
+    public class CarUser : BaseDeletableModel<string>
     {
         [Required]
         public string CarId { get; set; }
