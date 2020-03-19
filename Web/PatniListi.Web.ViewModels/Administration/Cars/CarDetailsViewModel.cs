@@ -33,7 +33,7 @@
         [Display(Name = "Налично гориво")]
         public double InitialFuel { get; set; }
 
-        [Display(Name = "Налично гориво")]
+        [Display(Name = "Фирма")]
         public string CompanyName { get; set; }
 
         [Display(Name = "Шофьори")]
