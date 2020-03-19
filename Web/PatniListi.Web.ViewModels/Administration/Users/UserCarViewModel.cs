@@ -9,5 +9,7 @@
         public string UserId { get; set; }
 
         public string ApplicationUserFullName { get; set; }
+
+        public string CarId { get; set; }
     }
 }

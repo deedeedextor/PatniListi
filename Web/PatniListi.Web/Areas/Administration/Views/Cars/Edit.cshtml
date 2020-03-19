@@ -1,0 +1,87 @@
+﻿@using PatniListi.Data.Models
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<ApplicationUser> UserManager
+
+@model PatniListi.Web.ViewModels.Administration.Cars.CarEditViewModel
+
+@{
+    ViewData["Title"] = Model.Model;
+}
+
+<section class="py-5">
+    <div class="container shadow py-4 px-4">
+        <h1 class="text-center">@ViewData["Title"]</h1>
+        <form asp-area="Administration" asp-controller="Cars" asp-action="Edit" asp-route-id="@Model.Id" method="post">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Model" class="control-label"></label>
+                        <input asp-for="Model" class="form-control" />
+                        <span asp-validation-for="Model" class="text-primary"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="LicensePlate" class="control-label"></label>
+                        <input asp-for="LicensePlate" class="form-control" />
+                        <span asp-validation-for="LicensePlate" class="text-primary"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="FuelType"></label>
+                        <select size="4" asp-for="FuelType" asp-items="Model.AllTypes" class="form-control">
+                            <option selected="selected" value="" disabled>--Моля изберете--</option>
+                        </select>
+                        <span asp-validation-for="AllTypes" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="CompanyName" class="control-label"></label>
+                        <input asp-for="CompanyName" class="form-control" />
+                        <span asp-validation-for="CompanyName" class="text-primary"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="FullName"></label>
+                        <select multiple size="4" asp-for="FullName" asp-items="Model.AllDrivers" class="form-control">
+                            <option selected="selected" value="" disabled>--Моля изберете--</option>
+                        </select>
+                        <span asp-validation-for="AllDrivers" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="StartKilometers" class="control-label"></label>
+                        <input asp-for="StartKilometers" class="form-control" />
+                        <span asp-validation-for="StartKilometers" class="text-primary"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="AverageConsumption" class="control-label"></label>
+                        <input asp-for="AverageConsumption" class="form-control" />
+                        <span asp-validation-for="AverageConsumption" class="text-primary"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="TankCapacity" class="control-label"></label>
+                        <input asp-for="TankCapacity" class="form-control" />
+                        <span asp-validation-for="TankCapacity" class="text-primary"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="InitialFuel" class="control-label"></label>
+                        <input asp-for="InitialFuel" class="form-control" />
+                        <span asp-validation-for="InitialFuel" class="text-primary"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="hidden" asp-for="CompanyId" readonly class="form-control" value="@this.UserManager.GetUserAsync(User).Result?.CompanyId" />
+                    </div>
+                </div>
+            </div>
+            <br />
+
+            <div class="form-group text-center">
+                <div class="button-holder">
+                    <input type="submit" value="Запази" class="btn btn-primary btn-block text-uppercase" />
+                    <a asp-area="Administration" asp-controller="Cars" asp-action="Details" asp-route-id="@Model.Id" class="text-uppercase">@Model.Model</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

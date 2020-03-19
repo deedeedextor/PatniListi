@@ -63,7 +63,7 @@
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CarInputViewModel input)
         {
-            var companyId = this.userManager.GetUserAsync(this.User).Result?.CompanyId;
+            var companyId = input.CompanyId;
 
             if (!this.ModelState.IsValid)
             {
@@ -79,49 +79,66 @@
         }
 
         // GET: Cars/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<IActionResult> Edit(string id)
         {
-            return View();
+            var carToEdit = await this.carsService.GetDetailsAsync<CarEditViewModel>(id);
+
+            carToEdit.AllDrivers = this.usersService.GetAll(carToEdit.CompanyId);
+            carToEdit.AllTypes = this.carsService.GetFuelType();
+
+            if (!this.ModelState.IsValid)
+            {
+                return this.NotFound();
+            }
+
+            return this.View(carToEdit);
         }
 
         // POST: Cars/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<IActionResult> Edit(CarEditViewModel input)
         {
-            try
+            if (!this.ModelState.IsValid)
             {
-                // TODO: Add update logic here
+                var carToEdit = await this.carsService.GetDetailsAsync<CarEditViewModel>(input.Id);
 
-                return RedirectToAction(nameof(Index));
+                carToEdit.AllDrivers = this.usersService.GetAll(carToEdit.CompanyId);
+                carToEdit.AllTypes = this.carsService.GetFuelType();
+
+                return this.View(carToEdit);
             }
-            catch
-            {
-                return View();
-            }
+
+            await this.carsService.EditAsync(input);
+
+            return this.RedirectToAction("Details", "Cars", new { input.Id });
         }
 
         // GET: Cars/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<IActionResult> Delete(string id)
         {
-            return View();
+            var viewModel = await this.carsService
+                .GetDetailsAsync<CarDeleteViewModel>(id);
+
+            if (!this.ModelState.IsValid)
+            {
+                return this.NotFound();
+            }
+
+            return this.View(viewModel);
         }
 
         // POST: Cars/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<IActionResult> ConfirmDelete(string id)
         {
-            try
-            {
-                // TODO: Add delete logic here
+            var deleted = await this.carsService.DeleteAsync(id);
 
-                return RedirectToAction(nameof(Index));
-            }
-            catch
+            if (!deleted)
             {
-                return View();
+                return this.NotFound();
             }
+
+            return this.RedirectToAction("All", "Cars");
         }
     }
 }

@@ -4,11 +4,16 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
+    using AutoMapper;
     using Microsoft.AspNetCore.Mvc.Rendering;
     using PatniListi.Common;
+    using PatniListi.Data.Models;
+    using PatniListi.Services.Mapping;
 
-    public class CarInputViewModel
+    public class CarEditViewModel : IMapFrom<Car>
     {
+        public string Id { get; set; }
+
         [Display(Name = "Модел")]
         [Required(ErrorMessage = AttributesErrorMessages.RequiredErrorMessage)]
         [StringLength(AttributesConstraints.CarModelMaxLength, ErrorMessage = AttributesErrorMessages.StringLengthErrorMessage, MinimumLength = AttributesConstraints.CarModelMinLength)]
@@ -45,12 +50,23 @@
         public double InitialFuel { get; set; }
 
         [Display(Name = "Шофьори")]
+        [Required(ErrorMessage = AttributesErrorMessages.RequiredErrorMessage)]
         public IEnumerable<string> FullName { get; set; }
+
+        [Display(Name = "Фирма")]
+        public string CompanyName { get; set; }
 
         public string CompanyId { get; set; }
 
+        public IEnumerable<SelectListItem> AllDrivers { get; set; }
+
         public IEnumerable<SelectListItem> AllTypes { get; set; }
 
-        public IEnumerable<SelectListItem> AllDrivers { get; set; }
+        public void CreateMappings(IProfileExpression configuration)
+        {
+            configuration.CreateMap<Car, CarDetailsViewModel>()
+                .ForMember(x => x.FuelType, y => y.MapFrom(x => x.FuelType.ToString()))
+                .ForMember(x => x.AllDrivers, y => y.MapFrom(x => x.CarUsers));
+        }
     }
 }

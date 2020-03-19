@@ -20,6 +20,21 @@
             this.usersService = usersService;
         }
 
+        public async Task SetIsDeletedAsync(string id)
+        {
+            var carUsers = await this.GetAllAsync(id);
+
+            if (carUsers != null)
+            {
+                foreach (var carUser in carUsers)
+                {
+                    this.carUsersRepository.Delete(carUser);
+
+                    await this.carUsersRepository.SaveChangesAsync();
+                }
+            }
+        }
+
         public async Task UpdateAsync(string carId, string companyId, IEnumerable<string> collection)
         {
             var newDrivers = new List<UserViewModel>();
@@ -32,10 +47,7 @@
                     newDrivers.Add(user);
                 }
 
-                var carUsers = await this.carUsersRepository
-                    .All()
-                    .Where(cu => cu.CarId == carId)
-                    .ToListAsync();
+                var carUsers = await this.GetAllAsync(carId);
 
                 if (carUsers.Count() > 0)
                 {
@@ -59,8 +71,15 @@
                 }
 
                 await this.carUsersRepository.SaveChangesAsync();
-
             }
+        }
+
+        public async Task<List<CarUser>> GetAllAsync(string id)
+        {
+            return await this.carUsersRepository
+                .All()
+                .Where(cu => cu.CarId == id)
+                .ToListAsync();
         }
     }
 }

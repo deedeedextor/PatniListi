@@ -15,8 +15,10 @@
 
         Task CreateAsync(CarInputViewModel input);
 
-        Task EditAsync(CarInputViewModel input);
-
         Task<T> GetDetailsAsync<T>(string id);
+
+        Task EditAsync(CarEditViewModel input);
+
+        Task<bool> DeleteAsync(string id);
     }
 }

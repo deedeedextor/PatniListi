@@ -27,10 +27,10 @@
                 </div>
                 <div class="form-group">
                     <label asp-for="AllDrivers"></label>
-                    @foreach (var driver in Model.AllDrivers)
-                    {
-                        <input type="text" readonly class="form-control text-white" id="applicationUserFullName" name="ApplicationUserFullName" value="@driver.ApplicationUserFullName">
-                    }
+                     @foreach(var driver in Model.AllDrivers)
+                     {
+                        <input asp-for="AllDrivers" readonly class="form-control text-white" id="applicationUserFullName" name="ApplicationUserFullName" value="@driver.ApplicationUserFullName">
+                     }
                 </div>
             </div>
             <div class="col-md-6">
