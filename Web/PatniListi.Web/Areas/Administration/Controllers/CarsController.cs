@@ -1,9 +1,7 @@
 ﻿namespace PatniListi.Web.Areas.Administration.Controllers
 {
-    using System;
     using System.Threading.Tasks;
 
-    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using PatniListi.Common;
@@ -29,6 +27,12 @@
         public async Task<IActionResult> All(int? pageNumber)
         {
             var companyId = this.userManager.GetUserAsync(this.User).Result?.CompanyId;
+
+            if (companyId == null)
+            {
+                return this.NotFound();
+            }
+
             var cars = this.carsService
                 .GetAll<CarViewModel>(companyId);
 
@@ -40,6 +44,11 @@
         {
             var viewModel = await this.carsService
                 .GetDetailsAsync<CarDetailsViewModel>(id);
+
+            if (viewModel == null)
+            {
+                return this.NotFound();
+            }
 
             return this.View(viewModel);
         }
@@ -54,6 +63,12 @@
                 AllDrivers = this.usersService.GetAll(companyId),
                 AllTypes = this.carsService.GetFuelType(),
             };
+
+            if (companyId == null || viewModel == null)
+            {
+                return this.NotFound();
+            }
+
 
             return this.View(viewModel);
         }
@@ -83,13 +98,13 @@
         {
             var carToEdit = await this.carsService.GetDetailsAsync<CarEditViewModel>(id);
 
-            carToEdit.AllDrivers = this.usersService.GetAll(carToEdit.CompanyId);
-            carToEdit.AllTypes = this.carsService.GetFuelType();
-
-            if (!this.ModelState.IsValid)
+            if (carToEdit == null)
             {
                 return this.NotFound();
             }
+
+            carToEdit.AllDrivers = this.usersService.GetAll(carToEdit.CompanyId);
+            carToEdit.AllTypes = this.carsService.GetFuelType();
 
             return this.View(carToEdit);
         }
@@ -120,7 +135,7 @@
             var viewModel = await this.carsService
                 .GetDetailsAsync<CarDeleteViewModel>(id);
 
-            if (!this.ModelState.IsValid)
+            if (viewModel == null)
             {
                 return this.NotFound();
             }

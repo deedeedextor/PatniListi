@@ -20,9 +20,15 @@
         {
             var company = await this.companiesService.GetDetailsAsync<DetailsCompanyViewModel>(id);
 
+            if (company == null)
+            {
+                return this.NotFound();
+            }
+
             return this.View(company);
         }
 
+        // GET: Companies/Edit/5
         public async Task<IActionResult> Edit(string id)
         {
             var company = await this.companiesService.GetDetailsAsync<CompanyEditViewModel>(id);

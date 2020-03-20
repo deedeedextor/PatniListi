@@ -27,6 +27,12 @@
         public async Task<IActionResult> All(int? pageNumber)
         {
             var companyId = this.userManager.GetUserAsync(this.User).Result?.CompanyId;
+
+            if (companyId == null)
+            {
+                return this.NotFound();
+            }
+
             var users = this.usersService
                 .GetAll<UserViewModel>(companyId);
 
