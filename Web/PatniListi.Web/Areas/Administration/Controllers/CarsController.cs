@@ -114,6 +114,8 @@
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(CarEditViewModel input)
         {
+            var currentUserFullname = this.userManager.GetUserAsync(this.User).Result?.FullName;
+
             if (!this.ModelState.IsValid)
             {
                 var carToEdit = await this.carsService.GetDetailsAsync<CarEditViewModel>(input.Id);
@@ -124,7 +126,7 @@
                 return this.View(carToEdit);
             }
 
-            await this.carsService.EditAsync(input);
+            await this.carsService.EditAsync(input, currentUserFullname);
 
             return this.RedirectToAction("Details", "Cars", new { input.Id });
         }
@@ -146,7 +148,9 @@
         // POST: Cars/Delete/5
         public async Task<IActionResult> ConfirmDelete(string id)
         {
-            var deleted = await this.carsService.DeleteAsync(id);
+            var currentUserFullname = this.userManager.GetUserAsync(this.User).Result?.FullName;
+
+            var deleted = await this.carsService.DeleteAsync(id, currentUserFullname);
 
             if (!deleted)
             {

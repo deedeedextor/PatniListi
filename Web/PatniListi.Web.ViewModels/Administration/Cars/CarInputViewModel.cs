@@ -14,9 +14,9 @@
         [StringLength(AttributesConstraints.CarModelMaxLength, ErrorMessage = AttributesErrorMessages.StringLengthErrorMessage, MinimumLength = AttributesConstraints.CarModelMinLength)]
         public string Model { get; set; }
 
-        [Display(Name = "Номер")]
+        [Display(Name = "Регистрационен номер")]
         [Required(ErrorMessage = AttributesErrorMessages.RequiredErrorMessage)]
-        [RegularExpression(@"^[A-Z 0-9 A-Z]+$")]
+        [RegularExpression(@"^[A-Z 0-9 A-Z]+$", ErrorMessage = AttributesErrorMessages.LicensePlateNumberErrorMessage)]
         [StringLength(AttributesConstraints.LicensePlateMaxLength, ErrorMessage = AttributesErrorMessages.StringLengthErrorMessage, MinimumLength = AttributesConstraints.LicensePlateMinLength)]
         public string LicensePlate { get; set; }
 

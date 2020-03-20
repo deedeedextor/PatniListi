@@ -17,8 +17,8 @@
 
         Task<T> GetDetailsAsync<T>(string id);
 
-        Task EditAsync(CarEditViewModel input);
+        Task EditAsync(CarEditViewModel input, string fullName);
 
-        Task<bool> DeleteAsync(string id);
+        Task<bool> DeleteAsync(string id, string fullName);
     }
 }

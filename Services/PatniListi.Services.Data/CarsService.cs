@@ -41,7 +41,6 @@
                 TankCapacity = input.TankCapacity,
                 InitialFuel = input.InitialFuel,
                 CompanyId = input.CompanyId,
-                CreatedOn = DateTime.UtcNow,
             };
 
             await this.carsRepository.AddAsync(car);
@@ -50,7 +49,7 @@
             await this.carsRepository.SaveChangesAsync();
         }
 
-        public async Task<bool> DeleteAsync(string id)
+        public async Task<bool> DeleteAsync(string id, string fullName)
         {
             var car = await this.carsRepository
                 .All()
@@ -63,13 +62,13 @@
             }
 
             this.carsRepository.Delete(car);
-            await this.carUsersService.SetIsDeletedAsync(car.Id);
+            await this.carUsersService.SetIsDeletedAsync(car.Id, fullName);
             await this.carsRepository.SaveChangesAsync();
 
             return true;
         }
 
-        public async Task EditAsync(CarEditViewModel input)
+        public async Task EditAsync(CarEditViewModel input, string fullName)
         {
             var car = new Car
             {
@@ -82,6 +81,8 @@
                 TankCapacity = input.TankCapacity,
                 InitialFuel = input.InitialFuel,
                 CompanyId = input.CompanyId,
+                CreatedOn = input.CreatedOn,
+                ModifiedBy = fullName,
             };
 
             await this.carUsersService.UpdateAsync(input.Id, input.CompanyId, input.FullName);

@@ -4,7 +4,7 @@
     {
         public const string RequiredErrorMessage = " Моля, попълнете \"{0}\".";
 
-        public const string EmailErrorMessage = " Невалиден имейл адрес.";
+        public const string EmailErrorMessage = " Невалиден \"{0}\" адрес.";
 
         public const string FullNameErrorMessage = "Невалидно име и фамилия.";
 
@@ -20,8 +20,10 @@
 
         public const string DateТimeErrorMessage = "Не може да въвеждате предходна дата.";
 
-        public const string InvalidBulstatErrorMessage = "Невалиден булстат номер.";
+        public const string InvalidBulstatErrorMessage = "Невалиден \"{0}\".";
 
-        public const string InvalidPhoneNumberErrorMessage = "Невалиден телефонен номер.";
+        public const string InvalidPhoneNumberErrorMessage = "Невалиден \"{0}\".";
+
+        public const string LicensePlateNumberErrorMessage = " Невалиден \"{0}\".";
     }
 }

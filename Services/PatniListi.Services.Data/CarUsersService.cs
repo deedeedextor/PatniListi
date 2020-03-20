@@ -20,7 +20,7 @@
             this.usersService = usersService;
         }
 
-        public async Task SetIsDeletedAsync(string id)
+        public async Task SetIsDeletedAsync(string id, string fullName)
         {
             var carUsers = await this.GetAllAsync(id);
 
@@ -28,6 +28,7 @@
             {
                 foreach (var carUser in carUsers)
                 {
+                    carUser.ModifiedBy = fullName;
                     this.carUsersRepository.Delete(carUser);
 
                     await this.carUsersRepository.SaveChangesAsync();

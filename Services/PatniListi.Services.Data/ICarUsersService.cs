@@ -9,7 +9,7 @@
     {
         Task UpdateAsync(string carId, string companyId, IEnumerable<string> collection);
 
-        Task SetIsDeletedAsync(string id);
+        Task SetIsDeletedAsync(string id, string fullName);
 
         Task<List<CarUser>> GetAllAsync(string id);
     }

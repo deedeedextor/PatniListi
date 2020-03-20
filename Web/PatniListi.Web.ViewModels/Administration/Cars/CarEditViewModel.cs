@@ -58,6 +58,8 @@
 
         public string CompanyId { get; set; }
 
+        public DateTime CreatedOn { get; set; }
+
         public IEnumerable<SelectListItem> AllDrivers { get; set; }
 
         public IEnumerable<SelectListItem> AllTypes { get; set; }
