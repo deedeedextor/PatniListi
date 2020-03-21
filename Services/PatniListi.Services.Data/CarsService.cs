@@ -100,6 +100,19 @@
                 .To<T>();
         }
 
+        public IEnumerable<SelectListItem> GetAll(string companyId)
+        {
+            return this.carsRepository
+                   .All()
+                   .Where(c => c.CompanyId == companyId)
+                   .Select(c => new SelectListItem
+                   {
+                       Value = c.Model,
+                       Text = c.Model,
+                   })
+                   .ToList();
+        }
+
         public async Task<T> GetDetailsAsync<T>(string id)
         {
             var viewModel = await this.carsRepository

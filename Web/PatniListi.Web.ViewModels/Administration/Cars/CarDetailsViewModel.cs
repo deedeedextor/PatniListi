@@ -1,5 +1,6 @@
 ﻿namespace PatniListi.Web.ViewModels.Administration.Cars
 {
+    using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
@@ -35,6 +36,9 @@
 
         [Display(Name = "Фирма")]
         public string CompanyName { get; set; }
+
+        [Display(Name = "Създаден на")]
+        public DateTime CreatedOn { get; set; }
 
         [Display(Name = "Шофьори")]
         public IEnumerable<UserCarViewModel> AllDrivers { get; set; }

@@ -11,6 +11,8 @@
     {
         IEnumerable<SelectListItem> GetFuelType();
 
+        IEnumerable<SelectListItem> GetAll(string companyId);
+
         IQueryable<T> GetAll<T>(string companyId);
 
         Task CreateAsync(CarInputViewModel input);
