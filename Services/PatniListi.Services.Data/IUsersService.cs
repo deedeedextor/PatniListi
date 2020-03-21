@@ -22,5 +22,9 @@
         Task<T> GetDetailsAsync<T>(string userId);
 
         IQueryable<T> GetAll<T>(string companyId);
+
+        Task EditAsync(UserEditViewModel input);
+
+        Task<bool> DeleteAsync(string id, string fullName);
     }
 }

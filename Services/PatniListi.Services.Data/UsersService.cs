@@ -63,6 +63,41 @@
             }
         }
 
+        public async Task<bool> DeleteAsync(string id, string fullName)
+        {
+            var user = await this.usersRepository
+                .All()
+                .Where(u => u.Id == id)
+                .SingleOrDefaultAsync();
+
+            if (user == null)
+            {
+                return false;
+            }
+
+            this.usersRepository.Delete(user);
+            await this.usersRepository.SaveChangesAsync();
+
+            return true;
+        }
+
+        public async Task EditAsync(UserEditViewModel input)
+        {
+            var user = new ApplicationUser
+            {
+                Id = input.Id,
+                UserName = input.Username,
+                Email = input.Email,
+                FullName = input.FullName,
+                CompanyId = input.CompanyId,
+                CreatedOn = input.CreatedOn,
+                ConcurrencyStamp = input.ConcurrencyStamp,
+            };
+
+            this.usersRepository.Update(user);
+            await this.usersRepository.SaveChangesAsync();
+        }
+
         public IQueryable<T> GetAll<T>(string companyId)
         {
             return this.usersRepository

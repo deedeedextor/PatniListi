@@ -1,0 +1,90 @@
+﻿@using  PatniListi.Web.Infrastructure;
+@model PaginatedList<PatniListi.Web.ViewModels.Administration.Invoices.InvoiceViewModel>
+
+@{
+    ViewData["Title"] = "Фактури";
+}
+
+<section class="py-5">
+    <div class="container shadow py-4 px-4">
+        <h1 class="text-center">@ViewData["Title"]</h1>
+        <div>
+            <a class="nav-link btn btn-primary btn-block text-uppercase" asp-area="Administration" asp-controller="Invoices" asp-action="Create">Добави фактура</a>
+
+            <div class="row">
+                <div class="clearfix"></div>
+                @{
+                    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+                    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+                }
+                <div class="col-md-6 text-md-right">
+                    <a asp-action="All"
+                       asp-route-pageNumber="@(Model.PageIndex - 1)"
+                       class="button @prevDisabled">
+                        Предишна
+                    </a>
+                </div>
+
+                <div class="col-md-6 text-md-left">
+                    <a asp-action="All"
+                       asp-route-pageNumber="@(Model.PageIndex + 1)"
+                       class="button @nextDisabled">
+                        Следваща
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <br />
+        <br />
+
+        <table class="table table-responsive-md table-hover">
+            <tr class="text-white">
+                <th>
+                    Номер
+                </th>
+                <th>
+                    Дата
+                </th>
+                <th>
+                    Място
+                </th>
+                <th>
+                    Заредил
+                </th>
+                <th>
+
+                </th>
+            </tr>
+            @foreach (var invoice in Model)
+            {
+                <tr>
+                    <td>
+                        @invoice.Number
+                    </td>
+                    <td>
+                        @invoice.Date
+                    </td>
+                    <td>
+                        @invoice.Location
+                    </td>
+                    <td>
+                        @invoice.ApplicationUserFullName
+                    </td>
+
+                    <td class="text-center">
+                        <div>
+                            <a href="/Administration/Invoices/Details/@invoice.Id" class="justify-content-md-between">Детайли</a>
+                        </div>
+                        <div>
+                            <a href="/Administration/Invoices/Edit/@invoice.Id" class="justify-content-md-between">Промени</a>
+                        </div>
+                        <div>
+                            <a href="/Administration/Invoices/Delete/@invoice.Id" class="justify-content-md-between">Изтрий</a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</section>
