@@ -16,7 +16,7 @@
         public string Name { get; set; }
 
         [Display(Name = "Булстат")]
-        [RegularExpression(@"[0-9]{10}", ErrorMessage = AttributesErrorMessages.InvalidBulstatErrorMessage)]
+        [RegularExpression(@"[0-9]{10}", ErrorMessage = AttributesErrorMessages.InvalidErrorMessage)]
         [StringLength(AttributesConstraints.BulstatMaxLength, ErrorMessage = AttributesErrorMessages.MaxLengthErrorMessage)]
         public string Bulstat { get; set; }
 
@@ -24,7 +24,7 @@
         public string VatNumber => $"BG{this.Bulstat}";
 
         [Display(Name = "Телефон")]
-        [RegularExpression(@"^[+359 [0-9 ]+$", ErrorMessage = AttributesErrorMessages.InvalidPhoneNumberErrorMessage)]
+        [RegularExpression(@"^[+359 [0-9 ]+$", ErrorMessage = AttributesErrorMessages.InvalidErrorMessage)]
         public string PhoneNumber { get; set; }
     }
 }

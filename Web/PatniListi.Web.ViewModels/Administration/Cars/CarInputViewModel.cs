@@ -16,7 +16,7 @@
 
         [Display(Name = "Регистрационен номер")]
         [Required(ErrorMessage = AttributesErrorMessages.RequiredErrorMessage)]
-        [RegularExpression(@"^[A-Z 0-9 A-Z]+$", ErrorMessage = AttributesErrorMessages.LicensePlateNumberErrorMessage)]
+        [RegularExpression(@"^[A-Z 0-9 A-Z]+$", ErrorMessage = AttributesErrorMessages.InvalidErrorMessage)]
         [StringLength(AttributesConstraints.LicensePlateMaxLength, ErrorMessage = AttributesErrorMessages.StringLengthErrorMessage, MinimumLength = AttributesConstraints.LicensePlateMinLength)]
         public string LicensePlate { get; set; }
 

@@ -20,10 +20,6 @@
 
         public const string DateТimeErrorMessage = "Не може да въвеждате предходна дата.";
 
-        public const string InvalidBulstatErrorMessage = "Невалиден \"{0}\".";
-
-        public const string InvalidPhoneNumberErrorMessage = "Невалиден \"{0}\".";
-
-        public const string LicensePlateNumberErrorMessage = " Невалиден \"{0}\".";
+        public const string InvalidErrorMessage = "Невалиден \"{0}\".";
     }
 }

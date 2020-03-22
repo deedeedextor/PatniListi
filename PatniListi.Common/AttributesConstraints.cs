@@ -36,8 +36,11 @@
         public const int InvoiceLocationMaxLength = 10;
         public const int InvoiceLocationMinLength = 3;
 
-        public const double PriceMaxLength = 0.10;
-        public const double PriceMinLength = 10.00;
+        public const double PriceMaxLength = 10.00;
+        public const double PriceMinLength = 0.10;
+
+        public const double QuantityMaxLength = double.MaxValue;
+        public const double QuantityMinLength = 1.00;
 
         public const int BulstatMaxLength = 10;
 
