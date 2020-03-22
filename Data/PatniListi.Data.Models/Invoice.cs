@@ -37,7 +37,7 @@
         [Display(Name = "Количество")]
         [Required]
         [Range(1, double.MaxValue)]
-        public double Quantity { get; set; }
+        public decimal Quantity { get; set; }
 
         [Display(Name = "Гориво")]
         [Required]
