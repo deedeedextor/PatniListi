@@ -3,7 +3,7 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
-    using PatniListi.Data.Models;
+    using Microsoft.AspNetCore.Mvc.Rendering;
 
     public interface ICarUsersService
     {
@@ -11,6 +11,10 @@
 
         Task SetIsDeletedAsync(string id, string fullName);
 
-        Task<List<CarUser>> GetAllAsync(string id);
+        Task<List<T>> GetAllAsync<T>(string id);
+
+        IEnumerable<SelectListItem> GetAllUsersForCar(string carId);
+
+        Task<T> GetByIdAsync<T>(string id);
     }
 }

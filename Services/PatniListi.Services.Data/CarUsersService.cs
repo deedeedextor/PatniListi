@@ -4,9 +4,11 @@
     using System.Linq;
     using System.Threading.Tasks;
 
+    using Microsoft.AspNetCore.Mvc.Rendering;
     using Microsoft.EntityFrameworkCore;
     using PatniListi.Data.Common.Repositories;
     using PatniListi.Data.Models;
+    using PatniListi.Services.Mapping;
     using PatniListi.Web.ViewModels.Administration.Users;
 
     public class CarUsersService : ICarUsersService
@@ -22,12 +24,18 @@
 
         public async Task SetIsDeletedAsync(string id, string fullName)
         {
-            var carUsers = await this.GetAllAsync(id);
+            var carUsersFromDb = await this.GetAllAsync<UserCarViewModel>(id);
 
-            if (carUsers != null)
+            if (carUsersFromDb != null)
             {
-                foreach (var carUser in carUsers)
+                foreach (var cu in carUsersFromDb)
                 {
+                    var carUser = new CarUser
+                    {
+                        CarId = cu.CarId,
+                        UserId = cu.UserId,
+                    };
+
                     carUser.ModifiedBy = fullName;
                     this.carUsersRepository.Delete(carUser);
 
@@ -48,12 +56,18 @@
                     newDrivers.Add(user);
                 }
 
-                var carUsers = await this.GetAllAsync(carId);
+                var carUsers = await this.GetAllAsync<UserCarViewModel>(carId);
 
                 if (carUsers.Count() > 0)
                 {
-                    foreach (var carUser in carUsers)
+                    foreach (var cu in carUsers)
                     {
+                        var carUser = new CarUser
+                        {
+                            CarId = cu.CarId,
+                            UserId = cu.UserId,
+                        };
+
                         this.carUsersRepository.HardDelete(carUser);
 
                         await this.carUsersRepository.SaveChangesAsync();
@@ -75,12 +89,35 @@
             }
         }
 
-        public async Task<List<CarUser>> GetAllAsync(string id)
+        public async Task<List<T>> GetAllAsync<T>(string id)
         {
             return await this.carUsersRepository
                 .All()
                 .Where(cu => cu.CarId == id)
+                .To<T>()
                 .ToListAsync();
+        }
+
+        public async Task<T> GetByIdAsync<T>(string id)
+        {
+            return await this.carUsersRepository
+                .All()
+                .Where(cu => cu.CarId == id)
+                .To<T>()
+                .SingleOrDefaultAsync();
+        }
+
+        public IEnumerable<SelectListItem> GetAllUsersForCar(string carId)
+        {
+            return this.carUsersRepository
+                .All()
+                .Where(c => c.CarId == carId)
+                .Select(c => new SelectListItem
+                {
+                    Value = c.ApplicationUser.FullName,
+                    Text = c.ApplicationUser.FullName,
+                })
+                .ToList();
         }
     }
 }

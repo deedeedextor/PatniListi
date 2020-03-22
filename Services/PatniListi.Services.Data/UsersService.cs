@@ -17,7 +17,6 @@
     public class UsersService : IUsersService
     {
         private const string InvalidUserIdErrorMessage = "Не съществуващ потребител.";
-        private const string InvalidUserNameErrorMessage = "Потребител с име: {0} не съществува.";
 
         private readonly IDeletableEntityRepository<ApplicationUser> usersRepository;
         private readonly IDeletableEntityRepository<ApplicationRole> roleRepository;
@@ -116,6 +115,20 @@
                 {
                     Value = u.FullName,
                     Text = u.FullName,
+                })
+                .ToList();
+        }
+
+        public IEnumerable<SelectListItem> GetUsersByCar(string carId)
+        {
+            return this.usersRepository
+                .All()
+                .SelectMany(u => u.CarUsers)
+                .Where(u => u.CarId == carId)
+                .Select(u => new SelectListItem
+                {
+                    Value = u.ApplicationUser.FullName,
+                    Text = u.ApplicationUser.FullName,
                 })
                 .ToList();
         }

@@ -23,7 +23,6 @@
             this.usersService = usersService;
         }
 
-        // GET: Cars
         public async Task<IActionResult> All(int? pageNumber)
         {
             var companyId = this.userManager.GetUserAsync(this.User).Result?.CompanyId;
@@ -39,7 +38,6 @@
             return this.View(await PaginatedList<CarViewModel>.CreateAsync(cars, pageNumber ?? GlobalConstants.DefaultPageNumber, GlobalConstants.PageSize));
         }
 
-        // GET: Cars/Details/5
         public async Task<IActionResult> Details(string id)
         {
             var viewModel = await this.carsService
@@ -53,7 +51,6 @@
             return this.View(viewModel);
         }
 
-        // GET: Cars/Create
         public IActionResult Create()
         {
             var companyId = this.userManager.GetUserAsync(this.User).Result?.CompanyId;
@@ -72,7 +69,6 @@
             return this.View(viewModel);
         }
 
-        // POST: Cars/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CarInputViewModel input)
@@ -92,7 +88,6 @@
             return this.RedirectToAction("All", "Cars");
         }
 
-        // GET: Cars/Edit/5
         public async Task<IActionResult> Edit(string id)
         {
             var carToEdit = await this.carsService.GetDetailsAsync<CarEditViewModel>(id);
@@ -108,7 +103,6 @@
             return this.View(carToEdit);
         }
 
-        // POST: Cars/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(CarEditViewModel input)
@@ -130,7 +124,6 @@
             return this.RedirectToAction("Details", "Cars", new { input.Id });
         }
 
-        // GET: Cars/Delete/5
         public async Task<IActionResult> Delete(string id)
         {
             var viewModel = await this.carsService
@@ -144,7 +137,6 @@
             return this.View(viewModel);
         }
 
-        // POST: Cars/Delete/5
         public async Task<IActionResult> ConfirmDelete(string id)
         {
             var currentUserFullname = this.userManager.GetUserAsync(this.User).Result?.FullName;

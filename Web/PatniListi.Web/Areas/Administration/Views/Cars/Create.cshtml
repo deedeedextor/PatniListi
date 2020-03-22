@@ -13,55 +13,67 @@
     <div class="container shadow py-4 px-4">
         <form asp-area="Administration" asp-controller="Cars" asp-action="Create" method="post">
             <hr />
-            <div class="form-group">
-                <label asp-for="Model"></label>
-                <input asp-for="Model" class="form-control" />
-                <span asp-validation-for="Model" class="text-danger"></span>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Model"></label>
+                        <input asp-for="Model" class="form-control" />
+                        <span asp-validation-for="Model" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="LicensePlate"></label>
+                        <input asp-for="LicensePlate" class="form-control" />
+                        <span asp-validation-for="LicensePlate" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="FuelType"></label>
+                        <select asp-for="FuelType" asp-items="Model.AllTypes" class="form-control">
+                            <option selected="selected" value="" disabled>--Моля изберете--</option>
+                        </select>
+                        <span asp-validation-for="AllTypes" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="StartKilometers"></label>
+                        <input asp-for="StartKilometers" class="form-control" />
+                        <span asp-validation-for="StartKilometers" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="AverageConsumption"></label>
+                        <input asp-for="AverageConsumption" class="form-control" />
+                        <span asp-validation-for="AverageConsumption" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="TankCapacity"></label>
+                        <input asp-for="TankCapacity" class="form-control" />
+                        <span asp-validation-for="TankCapacity" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="InitialFuel"></label>
+                        <input asp-for="InitialFuel" class="form-control" />
+                        <span asp-validation-for="InitialFuel" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="FullName"></label>
+                        <select asp-for="FullName" asp-items="Model.AllDrivers" class="form-control">
+                            <option selected="selected" value="" disabled>--Моля изберете--</option>
+                        </select>
+                        <span asp-validation-for="AllDrivers" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="hidden" asp-for="CompanyId" readonly class="form-control" value="@this.UserManager.GetUserAsync(User).Result?.CompanyId" />
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="LicensePlate"></label>
-                <input asp-for="LicensePlate" class="form-control" />
-                <span asp-validation-for="LicensePlate" class="text-danger"></span>
+            <br />
+
+            <div class="form-group text-center">
+                <div class="button-holder">
+                    <button type="submit" class="btn btn-primary btn-block text-uppercase">Добави</button>
+                    <a class="nav-link text-uppercase text-center" asp-area="Administration" asp-controller="Cars" asp-action="All">Списък</a>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="FuelType"></label>
-                <select asp-for="FuelType" asp-items="Model.AllTypes" class="form-control">
-                    <option selected="selected" value="" disabled>--Моля изберете--</option>
-                </select>
-                <span asp-validation-for="AllTypes" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="StartKilometers"></label>
-                <input asp-for="StartKilometers" class="form-control" />
-                <span asp-validation-for="StartKilometers" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="AverageConsumption"></label>
-                <input asp-for="AverageConsumption" class="form-control" />
-                <span asp-validation-for="AverageConsumption" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TankCapacity"></label>
-                <input asp-for="TankCapacity" class="form-control" />
-                <span asp-validation-for="TankCapacity" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="InitialFuel"></label>
-                <input asp-for="InitialFuel" class="form-control" />
-                <span asp-validation-for="InitialFuel" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="FullName"></label>
-                <select asp-for="FullName" asp-items="Model.AllDrivers" class="form-control">
-                    <option selected="selected" value="" disabled>--Моля изберете--</option>
-                </select>
-                <span asp-validation-for="AllDrivers" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="hidden" asp-for="CompanyId" readonly class="form-control" value="@this.UserManager.GetUserAsync(User).Result?.CompanyId" />
-            </div>
-            <button type="submit" class="btn btn-primary btn-block text-uppercase">Добави</button>
-            <a class="nav-link text-uppercase text-center" asp-area="Administration" asp-controller="Cars" asp-action="All">Списък</a>
         </form>
     </div>
 </section>

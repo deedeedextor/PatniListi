@@ -15,7 +15,6 @@
             this.companiesService = companiesService;
         }
 
-        // GET: Companies/Details/5
         public async Task<IActionResult> Details(string id)
         {
             var company = await this.companiesService.GetDetailsAsync<DetailsCompanyViewModel>(id);
@@ -28,7 +27,6 @@
             return this.View(company);
         }
 
-        // GET: Companies/Edit/5
         public async Task<IActionResult> Edit(string id)
         {
             var company = await this.companiesService.GetDetailsAsync<CompanyEditViewModel>(id);
@@ -41,7 +39,6 @@
             return this.View(company);
         }
 
-        // POST: Companies/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(CompanyEditViewModel input)

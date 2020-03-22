@@ -10,7 +10,7 @@
     using PatniListi.Data.Models;
     using PatniListi.Services.Mapping;
 
-    public class CarEditViewModel : IMapFrom<Car>
+    public class CarEditViewModel : IMapFrom<Car>, IHaveCustomMappings
     {
         public string Id { get; set; }
 

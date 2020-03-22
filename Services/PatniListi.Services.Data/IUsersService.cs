@@ -11,6 +11,8 @@
     {
         IEnumerable<SelectListItem> GetAll(string companyId);
 
+        IEnumerable<SelectListItem> GetUsersByCar(string carId);
+
         Task CreateAsync(UserInputViewModel input);
 
         Task AddRoleToUser(string userId, string roleName);

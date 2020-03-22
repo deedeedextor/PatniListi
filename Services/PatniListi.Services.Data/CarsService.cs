@@ -113,6 +113,29 @@
                    .ToList();
         }
 
+        public IEnumerable<SelectListItem> GetAllUsersForCar(string id)
+        {
+            return this.carsRepository
+                   .All()
+                   .Include(c => c.CarUsers)
+                   .Where(c => c.Id == id)
+                   .Select(c => new SelectListItem
+                   {
+                       Value = c.Model,
+                       Text = c.Model,
+                   })
+                   .ToList();
+        }
+
+        public async Task<T> GetByIdAsync<T>(string carId)
+        {
+            return await this.carsRepository
+                .All()
+                .Where(c => c.Id == carId)
+                .To<T>()
+                .SingleOrDefaultAsync();
+        }
+
         public async Task<T> GetDetailsAsync<T>(string id)
         {
             var viewModel = await this.carsRepository
