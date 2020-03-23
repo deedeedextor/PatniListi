@@ -42,6 +42,9 @@
         public const double QuantityMaxLength = double.MaxValue;
         public const double QuantityMinLength = 1.00;
 
+        public const double TotalPriceMaxLength = double.MaxValue;
+        public const double TotalPriceMinLength = 1.00;
+
         public const int BulstatMaxLength = 10;
 
         // Routes
