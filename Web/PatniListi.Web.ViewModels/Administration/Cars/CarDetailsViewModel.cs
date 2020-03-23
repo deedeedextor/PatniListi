@@ -37,6 +37,8 @@
         [Display(Name = "Фирма")]
         public string CompanyName { get; set; }
 
+        public string CompanyId { get; set; }
+
         [Display(Name = "Създаден на")]
         public DateTime CreatedOn { get; set; }
 
