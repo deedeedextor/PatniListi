@@ -39,6 +39,11 @@
         [Range(1, double.MaxValue)]
         public decimal Quantity { get; set; }
 
+        [Display(Name = "Обща сума")]
+        [Required]
+        [Range(1, double.MaxValue)]
+        public decimal TotalPrice { get; set; }
+
         [Display(Name = "Гориво")]
         [Required]
         public string FuelType { get; set; }
