@@ -53,6 +53,12 @@
                     Заредил
                 </th>
                 <th>
+                    Сума
+                </th>
+                <th>
+
+                </th>
+                <th>
 
                 </th>
             </tr>
@@ -63,13 +69,21 @@
                         @invoice.Number
                     </td>
                     <td>
-                        @invoice.Date
+                        @invoice.Date.ToShortDateString()
                     </td>
                     <td>
                         @invoice.Location
                     </td>
                     <td>
                         @invoice.ApplicationUserFullName
+                    </td>
+                    <td>
+                        @invoice.TotalPrice
+                    </td>
+                    <td>
+                        <div class="form-group">
+                            <input type="hidden" asp-for="@invoice.CarId" readonly class="form-control" value="@invoice.CarId" />
+                        </div>
                     </td>
 
                     <td class="text-center">

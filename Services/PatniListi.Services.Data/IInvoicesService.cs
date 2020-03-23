@@ -3,14 +3,20 @@
     using System.Linq;
     using System.Threading.Tasks;
 
-    using PatniListi.Web.ViewModels.Models.Invoices;
+    using PatniListi.Web.ViewModels.Administration.Invoices;
 
     public interface IInvoicesService
     {
-        /*Task CreateAsync(InvoiceInputViewModel input);*/
+        IQueryable<T> GetAll<T>(string id);
 
-        Task EditAsync(string number, string date, string location, string fuelType, decimal price, double quantity, string username, string userId, string carId);
+        Task<T> GetByIdAsync<T>(string id);
 
-        Task<IQueryable<InvoiceViewModel>> GetAllAsync(string userId);
+        Task CreateAsync(InvoiceInputViewModel input);
+
+        Task<T> GetDetailsAsync<T>(string id);
+
+        Task EditAsync(InvoiceEditViewModel input);
+
+        Task<bool> DeleteAsync(string id);
     }
 }
