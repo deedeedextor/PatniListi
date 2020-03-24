@@ -121,7 +121,7 @@
 
             await this.carsService.EditAsync(input, currentUserFullname);
 
-            return this.RedirectToAction("Details", "Cars", new { input.Id });
+            return this.RedirectToAction("All", "Cars");
         }
 
         public async Task<IActionResult> Delete(string id)

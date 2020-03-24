@@ -48,7 +48,7 @@
         [Display(Name = "Автомобил")]
         public string CarModel { get; set; }
 
-        [Display(Name = "Въведена от")]
+        [Display(Name = "Въвел")]
         public string CreatedBy { get; set; }
 
         public string CarId { get; set; }
