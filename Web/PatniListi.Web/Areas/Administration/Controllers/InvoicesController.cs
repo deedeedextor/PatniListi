@@ -43,7 +43,15 @@
 
         public async Task<IActionResult> Details(string id)
         {
-            return null;
+            var viewModel = await this.invoicesService
+                .GetDetailsAsync<InvoiceDetailsViewModel>(id);
+
+            if (viewModel == null)
+            {
+                return this.NotFound();
+            }
+
+            return this.View(viewModel);
         }
 
         public async Task<IActionResult> Create()
@@ -87,24 +95,62 @@
 
         public async Task<IActionResult> Edit(string id)
         {
-            return null;
+            var viewModel = await this.invoicesService.GetDetailsAsync<InvoiceEditViewModel>(id);
+
+            if (viewModel == null)
+            {
+                return this.NotFound();
+            }
+
+            viewModel.AllDrivers = this.usersService.GetUsersByCar(viewModel.CarId);
+
+            return this.View(viewModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(CarEditViewModel input)
+        public async Task<IActionResult> Edit(InvoiceEditViewModel input)
         {
-            return null;
+            var currentUserFullname = this.userManager.GetUserAsync(this.User).Result?.FullName;
+
+            if (!this.ModelState.IsValid)
+            {
+                var viewModel = await this.invoicesService.GetDetailsAsync<InvoiceEditViewModel>(input.Id);
+                viewModel.AllDrivers = this.usersService.GetUsersByCar(viewModel.CarId);
+
+                return this.View(viewModel);
+            }
+
+            await this.invoicesService.EditAsync(input, currentUserFullname);
+            return this.RedirectToAction("All", "Invoices", new { id = input.CarId });
         }
 
         public async Task<IActionResult> Delete(string id)
         {
-            return null;
+            var viewModel = await this.invoicesService.GetDetailsAsync<InvoiceDeleteViewModel>(id);
+            this.TempData["carId"] = viewModel.CarId;
+
+            if (!this.ModelState.IsValid)
+            {
+                return this.NotFound();
+            }
+
+            return this.View(viewModel);
         }
 
         public async Task<IActionResult> ConfirmDelete(string id)
         {
-            return null;
+            var carId = this.TempData.Peek("carId").ToString();
+            var currentUserFullname = this.userManager.GetUserAsync(this.User).Result?.FullName;
+
+            var deleted = await this.invoicesService.DeleteAsync(id, currentUserFullname);
+
+            if (!deleted)
+            {
+                return this.NotFound();
+            }
+
+            return this.RedirectToAction("All", "Invoices", new { id = carId });
         }
     }
 }

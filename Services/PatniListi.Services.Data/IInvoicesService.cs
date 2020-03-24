@@ -15,8 +15,8 @@
 
         Task<T> GetDetailsAsync<T>(string id);
 
-        Task EditAsync(InvoiceEditViewModel input);
+        Task EditAsync(InvoiceEditViewModel input, string fullName);
 
-        Task<bool> DeleteAsync(string id);
+        Task<bool> DeleteAsync(string id, string fullName);
     }
 }

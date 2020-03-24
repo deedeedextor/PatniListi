@@ -91,7 +91,7 @@
             }
 
             await this.usersService.EditAsync(input);
-            return this.RedirectToAction("Details", "Drivers", new { input.Id });
+            return this.RedirectToAction("All", "Drivers");
         }
 
         public async Task<IActionResult> Delete(string id)
