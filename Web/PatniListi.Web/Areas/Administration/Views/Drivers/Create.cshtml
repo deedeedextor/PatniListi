@@ -42,7 +42,7 @@
                 <input type="hidden" asp-for="CompanyId" readonly class="form-control" value="@this.UserManager.GetUserAsync(User).Result?.CompanyId" />
             </div>
             <button type="submit" class="btn btn-primary btn-block text-uppercase">Добави</button>
-            <a class="nav-link text-uppercase text-center" asp-area="Administration" asp-controller="Drivers" asp-action="All">Списък</a>
+            <a class="nav-link text-uppercase text-center" asp-area="Administration" asp-controller="Drivers" asp-action="All">Шофьори</a>
         </form>
     </div>
 </section>
