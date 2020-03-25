@@ -28,7 +28,7 @@
         [Display(Name = "Създаден на")]
         public DateTime CreatedOn { get; set; }
 
-        [Display(Name = "Коли")]
+        [Display(Name = "Автомобили")]
         public IEnumerable<CarUserViewModel> AllCars { get; set; }
 
         public void CreateMappings(IProfileExpression configuration)

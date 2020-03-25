@@ -4,13 +4,12 @@
 @model PatniListi.Web.ViewModels.Administration.Invoices.InvoiceInputViewModel
 
 @{
-    ViewData["Title"] = $"Нова фактура за {Model.CarModel}";
+    ViewData["Title"] = $"Добави фактура за {Model.CarModel}";
 }
-
-<h1 class="text-center">@ViewData["Title"]</h1>
 
 <section class="py-5">
     <div class="container shadow py-4 px-4">
+        <h1 class="text-center">@ViewData["Title"]</h1>
         <div class="card-body">
             <form asp-area="Administration" asp-controller="Invoices" asp-action="Create" method="post">
                 <hr />
@@ -113,7 +112,7 @@
                         <button type="submit" class="btn btn-primary btn-block text-uppercase">Добави</button>
                         <a class="nav-link text-uppercase text-center" asp-area="Administration" asp-controller="Invoices" asp-action="All" asp-route-id="@Model.CarId">Фактури</a>
                     </div>
-                </div>    
+                </div>
             </form>
         </div>
     </div>
