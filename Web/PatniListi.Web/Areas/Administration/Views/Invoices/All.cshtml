@@ -11,27 +11,30 @@
         <div>
             <a class="nav-link btn btn-primary btn-block text-uppercase" asp-area="Administration" asp-controller="Invoices" asp-action="Create">Добави фактура</a>
 
-            <div class="row">
+            <div>
                 <div class="clearfix"></div>
-                @{
-                    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
-                    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
-                }
-                <div class="col-md-6 text-md-right">
-                    <a asp-action="All"
-                       asp-route-pageNumber="@(Model.PageIndex - 1)"
-                       class="button @prevDisabled">
-                        Предишна
-                    </a>
-                </div>
 
-                <div class="col-md-6 text-md-left">
-                    <a asp-action="All"
-                       asp-route-pageNumber="@(Model.PageIndex + 1)"
-                       class="button @nextDisabled">
-                        Следваща
-                    </a>
-                </div>
+                @if (!Model.PreviousDisabled)
+                {
+                    <div class="float-md-left">
+                        <a asp-action="All"
+                           asp-route-pageNumber="@Model.PreviousPage"
+                           class="button">
+                            Предишна
+                        </a>
+                    </div>
+                }
+
+                @if (!Model.NextDisabled)
+                {
+                    <div class="float-md-right">
+                        <a asp-action="All"
+                           asp-route-pageNumber="@Model.NextPage"
+                           class="button">
+                            Следваща
+                        </a>
+                    </div>
+                }
             </div>
         </div>
 

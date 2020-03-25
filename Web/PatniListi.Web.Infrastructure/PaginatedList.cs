@@ -6,6 +6,7 @@
     using System.Threading.Tasks;
 
     using Microsoft.EntityFrameworkCore;
+    using PatniListi.Common;
 
     public class PaginatedList<T> : List<T>
     {
@@ -21,19 +22,19 @@
 
         public int TotalPages { get; private set; }
 
-        public bool HasPreviousPage
-        {
-            get
-            {
-                return this.PageIndex > 1;
-            }
-        }
+        public int PreviousPage => this.PageIndex - 1;
 
-        public bool HasNextPage
+        public int NextPage => this.PageIndex + 1;
+
+        public bool PreviousDisabled => this.PageIndex == 1;
+
+        public bool NextDisabled
         {
             get
             {
-                return this.PageIndex < this.TotalPages;
+                var maxPage = Math.Ceiling(((double)this.TotalPages) / GlobalConstants.DefaultPageNumber);
+
+                return maxPage == this.PageIndex;
             }
         }
 
