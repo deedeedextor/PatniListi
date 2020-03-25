@@ -32,6 +32,9 @@
         public const int CompanyMaxLength = 20;
         public const int CompanyMinLength = 2;
 
+        public const int CompanyAddressMaxLength = 30;
+        public const int CompanyAddressMinLength = 3;
+
         // Invoice
         public const int InvoiceLocationMaxLength = 10;
         public const int InvoiceLocationMinLength = 3;

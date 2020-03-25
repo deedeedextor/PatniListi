@@ -27,6 +27,11 @@
         [Display(Name = "Номер по ДДС")]
         public string VatNumber { get; set; }
 
+        [Display(Name = "Адрес")]
+        [RegularExpression(@"^[#.0-9a-zA-Z\s,-]+$")]
+        [StringLength(30)]
+        public string Address { get; set; }
+
         [Display(Name = "Телефон")]
         [RegularExpression(@"^[+359[0-9 ]+$")]
         public string PhoneNumber { get; set; }

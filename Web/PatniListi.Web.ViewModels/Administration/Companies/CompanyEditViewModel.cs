@@ -23,6 +23,11 @@
         [Display(Name = "Номер по ДДС")]
         public string VatNumber => $"BG{this.Bulstat}";
 
+        [Display(Name = "Адрес")]
+        [RegularExpression(@"^[#.0-9a-zA-Z\s,-]+$", ErrorMessage = AttributesErrorMessages.InvalidErrorMessage)]
+        [StringLength(AttributesConstraints.CompanyAddressMaxLength, ErrorMessage = AttributesErrorMessages.MaxLengthErrorMessage, MinimumLength = AttributesConstraints.CompanyAddressMinLength)]
+        public string Address { get; set; }
+
         [Display(Name = "Телефон")]
         [RegularExpression(@"^[+359 [0-9 ]+$", ErrorMessage = AttributesErrorMessages.InvalidErrorMessage)]
         public string PhoneNumber { get; set; }

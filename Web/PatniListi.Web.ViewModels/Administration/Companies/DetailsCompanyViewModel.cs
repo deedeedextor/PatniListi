@@ -20,5 +20,8 @@
 
         [Display(Name = "Телефон")]
         public string PhoneNumber { get; set; }
+
+        [Display(Name = "Адрес")]
+        public string Address { get; set; }
     }
 }
