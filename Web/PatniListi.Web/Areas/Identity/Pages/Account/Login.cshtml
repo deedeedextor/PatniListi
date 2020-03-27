@@ -5,42 +5,57 @@
     ViewData["Title"] = "Вход";
 }
 
-<h1 class="text-center">@ViewData["Title"]</h1>
-
 <section class="py-5">
     <div class="container shadow py-4 px-4">
-        <form id="account" method="post">
-            <hr />
-            <div class="form-group">
-                <label asp-for="Input.Username"></label>
-                <input asp-for="Input.Username" class="form-control" />
-                <span asp-validation-for="Input.Username" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Input.Password"></label>
-                <input asp-for="Input.Password" class="form-control" />
-                <span asp-validation-for="Input.Password" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <div class="checkbox">
-                    <label asp-for="Input.RememberMe">
-                        <input asp-for="Input.RememberMe" />
-                        @Html.DisplayNameFor(m => m.Input.RememberMe)
-                    </label>
+        <h1 class="text-center">@ViewData["Title"]</h1>
+        <div class="card-body">
+            <form id="account" method="post">
+                <hr />
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Input.Username"></label>
+                            <input asp-for="Input.Username" class="form-control" />
+                            <span asp-validation-for="Input.Username" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Input.Password"></label>
+                            <input asp-for="Input.Password" class="form-control" />
+                            <span asp-validation-for="Input.Password" class="text-danger"></span>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary btn-block text-uppercase">Вход</button>
-            </div>
-            <div class="form-group text-center">
-                <p>
-                    <a id="forgot-password" asp-page="./ForgotPassword">Забравена парола?</a>
-                </p>
-                <p>
-                    <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Регистрирайме с нов акаунт!</a>
-                </p>
-            </div>
-        </form>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label asp-for="Input.RememberMe">
+                                    <input asp-for="Input.RememberMe" />
+                                    @Html.DisplayNameFor(m => m.Input.RememberMe)
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-block text-uppercase">Вход</button>
+                        </div>
+                        <div class="form-group text-center">
+                            <p>
+                                <a id="forgot-password" asp-page="./ForgotPassword">Забравена парола?</a>
+                            </p>
+                            <p>
+                                <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Регистрирайме с нов акаунт!</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
 </section>
 

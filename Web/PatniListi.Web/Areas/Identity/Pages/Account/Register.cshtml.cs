@@ -1,5 +1,6 @@
 ﻿namespace PatniListi.Web.Areas.Identity.Pages.Account
 {
+    using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.Linq;
@@ -79,6 +80,7 @@
                 }
 
                 var user = new ApplicationUser { UserName = this.Input.Username, Email = this.Input.Email, FullName = this.Input.FullName, CompanyId = companyId };
+                user.LastLoggingDate = DateTime.UtcNow;
 
                 var result = await this.userManager.CreateAsync(user, this.Input.Password);
 
@@ -152,7 +154,7 @@
 
             [Display(Name = "Име и Фамилия")]
             [Required(ErrorMessage = "Полето е задължително.")]
-            [RegularExpression(@"^[A-Z][a-z]+ [A-Z][a-z]+$", ErrorMessage = "Невалидно име и фамилия.")]
+            [RegularExpression(@"^[А-Я][а-я]+ [А-Я][а-я]+$", ErrorMessage = "Невалидно име и фамилия.")]
             public string FullName { get; set; }
 
             [Display(Name = "Име на фирма")]

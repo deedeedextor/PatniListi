@@ -51,6 +51,7 @@
                 Bulstat = input.Bulstat,
                 VatNumber = input.VatNumber,
                 PhoneNumber = input.PhoneNumber,
+                Address = input.Address,
             };
 
             this.companiesRepository.Update(company);

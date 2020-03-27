@@ -3,13 +3,12 @@
     using System;
     using System.ComponentModel.DataAnnotations;
 
+    using PatniListi.Common;
     using PatniListi.Data.Models;
     using PatniListi.Services.Mapping;
 
     public class InvoiceDetailsViewModel : IMapFrom<Invoice>
     {
-        private const decimal Vat = 1.2m;
-
         public string Id { get; set; }
 
         [Display(Name = "Номер на фактура")]
@@ -28,10 +27,9 @@
         public decimal Price { get; set; }
 
         [Display(Name = "Количество")]
-        public decimal Quantity { get; set; }
+        public double Quantity { get; set; }
 
         [Display(Name = "Крайна сума")]
-        [DisplayFormat(DataFormatString = "{0:#,##0.##}")]
         public decimal TotalPrice { get; set; }
 
         [Display(Name = "Гориво")]
@@ -50,9 +48,9 @@
         [Display(Name = "Фирма")]
         public string CarCompanyName { get; set; }
 
-        public decimal PriceWithoutVat => this.Price / Vat;
+        public decimal PriceWithoutVat => this.Price / GlobalConstants.Vat;
 
-        public decimal Sum => this.PriceWithoutVat * this.Quantity;
+        public decimal Sum => this.PriceWithoutVat * Convert.ToDecimal(this.Quantity);
 
         public decimal SumWithVat => this.TotalPrice - this.Sum;
     }

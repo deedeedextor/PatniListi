@@ -23,7 +23,7 @@
         public string FuelType { get; set; }
 
         [Display(Name = "Начални километри")]
-        public int StartKilometers { get; set; }
+        public double StartKilometers { get; set; }
 
         [Display(Name = "Среден разход")]
         public int AverageConsumption { get; set; }

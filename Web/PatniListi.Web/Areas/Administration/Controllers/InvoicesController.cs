@@ -28,7 +28,7 @@
 
         public async Task<IActionResult> All(string id, int? pageNumber)
         {
-            this.TempData["id"] = id;
+            this.TempData["carId"] = id;
 
             if (id == null)
             {
@@ -56,7 +56,7 @@
 
         public async Task<IActionResult> Create()
         {
-            var id = this.TempData.Peek("id").ToString();
+            var id = this.TempData.Peek("carId").ToString();
 
             var carFromDb = await this.carsService.GetDetailsAsync<CarDetailsViewModel>(id);
             var viewModel = new InvoiceInputViewModel
@@ -80,7 +80,7 @@
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(InvoiceInputViewModel input)
         {
-            var id = this.TempData.Peek("id").ToString();
+            var id = this.TempData.Peek("carId").ToString();
 
             if (!this.ModelState.IsValid)
             {
@@ -128,7 +128,6 @@
         public async Task<IActionResult> Delete(string id)
         {
             var viewModel = await this.invoicesService.GetDetailsAsync<InvoiceDeleteViewModel>(id);
-            this.TempData["carId"] = viewModel.CarId;
 
             if (!this.ModelState.IsValid)
             {

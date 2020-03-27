@@ -23,7 +23,7 @@
 
         [Display(Name = "Име и Фамилия")]
         [Required(ErrorMessage = AttributesErrorMessages.RequiredErrorMessage)]
-        [RegularExpression(@"^[A-Z][a-z]+ [A-Z][a-z]+$", ErrorMessage = AttributesErrorMessages.FullNameErrorMessage)]
+        [RegularExpression(@"^[А-Я][а-я]+ [А-Я][а-я]+$", ErrorMessage = AttributesErrorMessages.FullNameErrorMessage)]
         public string FullName { get; set; }
 
         [Display(Name = "Фирма")]

@@ -13,5 +13,7 @@
         public const int DefaultPageNumber = 1;
 
         public const int PageSize = 10;
+
+        public const decimal Vat = 1.2m;
     }
 }

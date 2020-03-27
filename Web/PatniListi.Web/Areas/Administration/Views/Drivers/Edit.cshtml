@@ -41,7 +41,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label asp-for="CompanyName" class="control-label"></label>
-                            <input asp-for="CompanyName" class="form-control" />
+                            <input asp-for="CompanyName" readonly class="form-control text-white" value="@Model.CompanyName" />
                             <span asp-validation-for="CompanyName" class="text-primary"></span>
                         </div>
                     </div>

@@ -32,7 +32,7 @@
         [Display(Name = "Начални километри")]
         [Required(ErrorMessage = AttributesErrorMessages.RequiredErrorMessage)]
         [Range(AttributesConstraints.StartKilometersMinRange, AttributesConstraints.StartKilometersMaxRange, ErrorMessage = AttributesErrorMessages.RangeErrorMessage)]
-        public int StartKilometers { get; set; }
+        public double StartKilometers { get; set; }
 
         [Display(Name = "Среден разход")]
         [Required(ErrorMessage = AttributesErrorMessages.RequiredErrorMessage)]

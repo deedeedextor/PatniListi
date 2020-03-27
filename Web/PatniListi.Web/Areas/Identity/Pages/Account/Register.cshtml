@@ -4,48 +4,72 @@
     ViewData["Title"] = "Регистрация";
 }
 
-<h1 class="text-center">@ViewData["Title"]</h1>
-
 <section class="py-5">
     <div class="container shadow py-4 px-4">
-        <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
-            <h4 class="text-center">Създаване на нов акаунт.</h4>
-            <hr />
-            <div class="form-group">
-                <label asp-for="Input.Username"></label>
-                <input asp-for="Input.Username" class="form-control" />
-                <span asp-validation-for="Input.Username" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Input.Email"></label>
-                <input asp-for="Input.Email" class="form-control" />
-                <span asp-validation-for="Input.Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Input.Password"></label>
-                <input asp-for="Input.Password" class="form-control" />
-                <span asp-validation-for="Input.Password" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Input.ConfirmPassword"></label>
-                <input asp-for="Input.ConfirmPassword" class="form-control" />
-                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Input.FullName"></label>
-                <input asp-for="Input.FullName" class="form-control" />
-                <span asp-validation-for="Input.FullName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Input.CompanyName"></label>
-                <input asp-for="Input.CompanyName" class="form-control" />
-                <span asp-validation-for="Input.CompanyName" class="text-danger"></span>
-            </div>
-            <button type="submit" class="btn btn-primary btn-block text-uppercase">Регистрирай</button>
-        </form>
-    </div>
- </section>
+        <h1 class="text-center">@ViewData["Title"]</h1>
+        <div class="card-body">
+            <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                <hr />
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="Input.Username"></label>
+                            <input asp-for="Input.Username" class="form-control" />
+                            <span asp-validation-for="Input.Username" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="Input.Email"></label>
+                            <input asp-for="Input.Email" class="form-control" />
+                            <span asp-validation-for="Input.Email" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="Input.FullName"></label>
+                            <input asp-for="Input.FullName" class="form-control" />
+                            <span asp-validation-for="Input.FullName" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Input.Password"></label>
+                            <input asp-for="Input.Password" class="form-control" />
+                            <span asp-validation-for="Input.Password" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Input.ConfirmPassword"></label>
+                            <input asp-for="Input.ConfirmPassword" class="form-control" />
+                            <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="Input.CompanyName"></label>
+                            <input asp-for="Input.CompanyName" class="form-control" />
+                            <span asp-validation-for="Input.CompanyName" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <br />
 
-    @section Scripts {
-        <partial name="_ValidationScriptsPartial" />
-    }
+                <div class="form-group text-center">
+                    <div class="button-holder">
+                        <button type="submit" class="btn btn-primary btn-block text-uppercase">Регистрирай</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

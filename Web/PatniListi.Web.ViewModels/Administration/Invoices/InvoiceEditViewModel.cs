@@ -36,7 +36,7 @@
         [Display(Name = "Количество")]
         [Required(ErrorMessage = AttributesErrorMessages.RequiredErrorMessage)]
         [Range(AttributesConstraints.QuantityMinLength, AttributesConstraints.QuantityMaxLength, ErrorMessage = AttributesErrorMessages.RangeErrorMessage)]
-        public decimal Quantity { get; set; }
+        public double Quantity { get; set; }
 
         [Display(Name = "Обща сума")]
         [Required(ErrorMessage = AttributesErrorMessages.RequiredErrorMessage)]
