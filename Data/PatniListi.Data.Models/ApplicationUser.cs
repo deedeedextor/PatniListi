@@ -23,7 +23,7 @@ namespace PatniListi.Data.Models
 
         [Display(Name = "Име и фамилия")]
         [Required]
-        [RegularExpression(@"^[A-Z][a-z]+ [A-Z][a-z]+$")]
+        [RegularExpression(@"^[А-Я][а-я]+ [А-Я][а-я]+$")]
         public string FullName { get; set; }
 
         [Required]

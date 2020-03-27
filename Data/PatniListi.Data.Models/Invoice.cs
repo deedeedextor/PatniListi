@@ -26,7 +26,7 @@
 
         [Display(Name = "Място на зареждане")]
         [Required]
-        [StringLength(20)]
+        [StringLength(60)]
         public string Location { get; set; }
 
         [Display(Name = "Цена на литър")]
@@ -37,7 +37,7 @@
         [Display(Name = "Количество")]
         [Required]
         [Range(1, double.MaxValue)]
-        public decimal Quantity { get; set; }
+        public double Quantity { get; set; }
 
         [Display(Name = "Обща сума")]
         [Required]

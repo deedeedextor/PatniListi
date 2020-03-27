@@ -16,12 +16,12 @@
 
         [Display(Name = "Начална точка на тръгване")]
         [Required]
-        [StringLength(20)]
+        [StringLength(60)]
         public string StartPoint { get; set; }
 
         [Display(Name = "Крайна точка на пристигане")]
         [Required]
-        [StringLength(20)]
+        [StringLength(60)]
         public string EndPoint { get; set; }
 
         [Display(Name = "Разстояние")]

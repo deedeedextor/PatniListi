@@ -19,7 +19,7 @@
 
         [Display(Name = "Модел")]
         [Required]
-        [MaxLength(20)]
+        [MaxLength(40)]
         public string Model { get; set; }
 
         [Display(Name = "Номер")]
@@ -33,12 +33,12 @@
 
         [Display(Name = "Начални километри")]
         [Required]
-        [Range(0, int.MaxValue)]
-        public int StartKilometers { get; set; }
+        [Range(0, double.MaxValue)]
+        public double StartKilometers { get; set; }
 
         [Display(Name = "Среден разход")]
         [Required]
-        [Range(3, 30)]
+        [Range(3, 20)]
         public int AverageConsumption { get; set; }
 
         [Display(Name = "Капацитет на резервоара")]

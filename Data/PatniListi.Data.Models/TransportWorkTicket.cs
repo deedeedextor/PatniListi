@@ -31,6 +31,33 @@
 
         public virtual Car Car { get; set; }
 
+        [Display(Name = "Начални километри")]
+        [Required]
+        [Range(0, double.MaxValue)]
+        public double StartKilometers { get; set; }
+
+        [Display(Name = "Крайни километри")]
+        [Required]
+        [Range(0, double.MaxValue)]
+        public double EndKilometers { get; set; }
+
+        [Display(Name = "Изминати километри")]
+        [Required]
+        [Range(1, double.MaxValue)]
+        public double TravelledDistance { get; set; }
+
+        [Display(Name = "Доливано")]
+        [Required]
+        public double AddedQuantity { get; set; }
+
+        [Display(Name = "Разход")]
+        [Required]
+        public double FuelConsumption { get; set; }
+
+        [Display(Name = "Остатък")]
+        [Required]
+        public double Residue { get; set; }
+
         [Required]
         public string CreatedBy { get; set; }
 

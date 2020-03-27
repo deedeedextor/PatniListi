@@ -28,7 +28,7 @@
         public string VatNumber { get; set; }
 
         [Display(Name = "Адрес")]
-        [RegularExpression(@"^[#.0-9a-zA-Z\s,-]+$")]
+        [RegularExpression(@"^[#.0-9а-яА-Я\s,-]+$")]
         [StringLength(30)]
         public string Address { get; set; }
 

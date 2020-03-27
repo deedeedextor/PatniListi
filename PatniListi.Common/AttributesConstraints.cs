@@ -10,19 +10,19 @@
         public const int PasswordMinLength = 6;
 
         // Cars
-        public const int CarModelMaxLength = 20;
+        public const int CarModelMaxLength = 40;
         public const int CarModelMinLength = 2;
 
         public const int LicensePlateMaxLength = 10;
         public const int LicensePlateMinLength = 3;
 
-        public const int CapacityFuelMin = 20;
         public const int CapacityFuelMax = 100;
+        public const int CapacityFuelMin = 20;
 
-        public const int StartKilometersMaxRange = int.MaxValue;
-        public const int StartKilometersMinRange = 0;
+        public const double StartKilometersMaxRange = double.MaxValue;
+        public const double StartKilometersMinRange = 0;
 
-        public const int AverageConsumptionMaxRange = 30;
+        public const int AverageConsumptionMaxRange = 20;
         public const int AverageConsumptionMinRange = 3;
 
         public const double InitialFuelMaxRange = 100.00;
@@ -36,7 +36,7 @@
         public const int CompanyAddressMinLength = 3;
 
         // Invoice
-        public const int InvoiceLocationMaxLength = 10;
+        public const int InvoiceLocationMaxLength = 60;
         public const int InvoiceLocationMinLength = 3;
 
         public const double PriceMaxLength = 10.00;
@@ -51,7 +51,7 @@
         public const int BulstatMaxLength = 10;
 
         // Routes
-        public const int RouteMaxLength = 20;
+        public const int RouteMaxLength = 60;
         public const int RouteMinLength = 2;
     }
 }

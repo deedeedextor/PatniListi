@@ -20,11 +20,10 @@
         [StringLength(AttributesConstraints.BulstatMaxLength, ErrorMessage = AttributesErrorMessages.MaxLengthErrorMessage)]
         public string Bulstat { get; set; }
 
-        [Display(Name = "Номер по ДДС")]
         public string VatNumber => $"BG{this.Bulstat}";
 
         [Display(Name = "Адрес")]
-        [RegularExpression(@"^[#.0-9a-zA-Z\s,-]+$", ErrorMessage = AttributesErrorMessages.InvalidErrorMessage)]
+        [RegularExpression(@"^[#.0-9а-яА-Я\s,-]+$", ErrorMessage = AttributesErrorMessages.InvalidErrorMessage)]
         [StringLength(AttributesConstraints.CompanyAddressMaxLength, ErrorMessage = AttributesErrorMessages.MaxLengthErrorMessage, MinimumLength = AttributesConstraints.CompanyAddressMinLength)]
         public string Address { get; set; }
 
