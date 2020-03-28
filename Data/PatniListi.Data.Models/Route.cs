@@ -16,11 +16,13 @@
 
         [Display(Name = "Начална точка на тръгване")]
         [Required]
+        [RegularExpression(@"^[А-Яа-я] +$")]
         [StringLength(60)]
         public string StartPoint { get; set; }
 
         [Display(Name = "Крайна точка на пристигане")]
         [Required]
+        [RegularExpression(@"^[А-Яа-я] +$")]
         [StringLength(60)]
         public string EndPoint { get; set; }
 
