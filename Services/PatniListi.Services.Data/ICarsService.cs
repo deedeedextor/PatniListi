@@ -24,5 +24,11 @@
         Task EditAsync(CarEditViewModel input, string fullName);
 
         Task<bool> DeleteAsync(string id, string fullName);
+
+        double GetCurrentLitresByCarId(string id);
+
+        double GetCurrentTravelledDistanceByCarId(string id);
+
+        double GetCurrentFuelConsumptionByCarId(string id);
     }
 }

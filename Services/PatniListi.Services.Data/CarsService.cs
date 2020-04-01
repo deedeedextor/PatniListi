@@ -113,6 +113,42 @@
                    .ToList();
         }
 
+        public double GetCurrentLitresByCarId(string id)
+        {
+            var litres = this.carsRepository
+                         .AllAsNoTracking()
+                         .SelectMany(c => c.Invoices
+                         .Where(c => c.Id == id)
+                         .Select(i => i.Quantity))
+                         .Sum();
+
+            return litres;
+        }
+
+        public double GetCurrentTravelledDistanceByCarId(string id)
+        {
+            var litres = this.carsRepository
+                            .AllAsNoTracking()
+                            .Where(c => c.Id == id)
+                            .SelectMany(c => c.TransportWorkTickets
+                            .Select(i => i.TravelledDistance))
+                            .Sum();
+
+            return litres;
+        }
+
+        public double GetCurrentFuelConsumptionByCarId(string id)
+        {
+            var residue = this.carsRepository
+                          .AllAsNoTracking()
+                          .Where(c => c.Id == id)
+                          .SelectMany(c => c.TransportWorkTickets
+                          .Select(i => i.FuelConsumption))
+                          .Sum();
+
+            return residue;
+        }
+
         public IEnumerable<SelectListItem> GetAllUsersForCar(string id)
         {
             return this.carsRepository
