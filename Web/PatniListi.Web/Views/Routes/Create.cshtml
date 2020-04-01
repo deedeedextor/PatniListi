@@ -1,0 +1,60 @@
+﻿@using PatniListi.Data.Models
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<ApplicationUser> UserManager
+@model PatniListi.Web.ViewModels.Models.Routes.RouteInputViewModel
+
+@{
+    ViewData["Title"] = "Добави маршрут";
+}
+
+<section class="py-5">
+    <div class="container shadow py-4 px-4">
+        <h1 class="text-center">@ViewData["Title"]</h1>
+        <div class="card-body">
+            <form asp-area="" asp-controller="Routes" asp-action="Create" method="post">
+                <hr />
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="StartPoint"></label>
+                            <input asp-for="StartPoint" class="form-control" />
+                            <span asp-validation-for="StartPoint" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="EndPoint"></label>
+                            <input asp-for="EndPoint" class="form-control" />
+                            <span asp-validation-for="EndPoint" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="Distance"></label>
+                            <input asp-for="Distance" class="form-control" />
+                            <span asp-validation-for="Distance" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div>
+                        <input type="hidden" name="ReturnUrl" value="@ViewBag.returnUrl" />
+                    </div>
+                </div>
+                <br />
+
+                <div class="form-group text-center">
+                    <div class="button-holder">
+                        <button type="submit" class="btn btn-primary btn-block text-uppercase">Добави</button>
+                        <a class="nav-link text-uppercase text-center" asp-area="" asp-controller="Routes" asp-action="All">Маршрути</a>
+                        <a class="nav-link text-uppercase text-center" href="javascript:history.back()">Към текущия пътен лист</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

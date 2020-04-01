@@ -1,0 +1,67 @@
+﻿@using PatniListi.Data.Models
+@using Microsoft.AspNetCore.Identity
+@using PatniListi.Services.Data
+@using PatniListi.Web.ViewModels.Models.Routes
+@inject IRoutesService routesService
+@inject UserManager<ApplicationUser> UserManager
+@model PatniListi.Web.ViewModels.Administration.TransportWorkTickets.TransportWorkTicketInputViewModel
+
+    <table class="table table-responsive-md table-hover">
+        <tr class="text-white">
+            <th>
+                Маршрут
+            </th>
+            <th>
+                Разстояние
+            </th>
+            <th>
+
+            </th>
+            <th>
+
+            </th>
+        </tr>
+        @if (Model.Route != null)
+        {
+            Model.Routes = new List<RouteDetailsViewModel>();
+            foreach (var routeId in Model.Route)
+            {
+                var currentRoute = await this.routesService.GetByIdAsync<RouteDetailsViewModel>(routeId);
+                Model.Routes.Add(currentRoute);
+
+                <tr>
+                    <td>
+                        @currentRoute.Route
+                    </td>
+                    <td>
+                        @currentRoute.Distance
+                    </td>
+                </tr>
+            }
+
+            <tfoot>
+                @{
+                    var TotalDistance = Model.Routes.Select(r => r.Distance).Sum();
+                    this.ViewContext.HttpContext.Items["SubTotals"] = TotalDistance;
+                }
+                <tr>
+                    <td>Общо:</td>
+                    <td>@TotalDistance</td>
+                </tr>
+            </tfoot>
+        }
+        else
+        {
+            <tr>
+                <td>
+                    Няма избрани маршрути.
+                </td>
+                <td>
+                </td>
+            </tr>
+        }
+    </table>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

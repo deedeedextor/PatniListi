@@ -1,0 +1,58 @@
+﻿@model PatniListi.Web.ViewModels.Models.Routes.RouteEditViewModel
+
+@{
+    ViewData["Title"] = $"Промени маршрут: {Model.Route}";
+}
+
+<section class="py-5">
+    <div class="container shadow py-4 px-4">
+        <h1 class="text-center">@ViewData["Title"]</h1>
+        <div class="card-body">
+            <form asp-area="" asp-controller="Routes" asp-action="Edit" asp-route-id="@Model.Id" method="post">
+                <hr />
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="StartPoint"></label>
+                            <input asp-for="StartPoint" class="form-control text-white" value="@Model.StartPoint" />
+                            <span asp-validation-for="StartPoint" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="EndPoint"></label>
+                            <input asp-for="EndPoint" class="form-control text-white" value="@Model.EndPoint" />
+                            <span asp-validation-for="EndPoint" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="Distance"></label>
+                            <input asp-for="Distance" class="form-control text-white" value="@Model.Distance" />
+                            <span asp-validation-for="Distance" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <input type="hidden" asp-for="CreatedOn" class="form-control" value="@DateTime.UtcNow" />
+                        </div>
+                    </div>
+                </div>
+                <br />
+
+                <div class="form-group text-center">
+                    <div class="button-holder">
+                        <input type="submit" value="Запази" class="btn btn-primary btn-block text-uppercase" />
+                        <a asp-area="" asp-controller="Routes" asp-action="All" class="text-uppercase">Маршрути</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
