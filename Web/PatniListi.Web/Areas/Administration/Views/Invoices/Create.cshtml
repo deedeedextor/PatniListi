@@ -17,7 +17,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label asp-for="CarModel"></label>
-                            <input asp-for="CarModel" readonly class="form-control text-white" value="@Model.CarModel" />
+                            <input asp-for="CarModel" readonly class="form-control text-white" value="@Model.CarModel"/>
                             <span asp-validation-for="CarModel" class="text-danger"></span>
                         </div>
                     </div>
@@ -88,7 +88,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label asp-for="TotalPrice" class="text-md-left"></label>
-                            <input asp-for="TotalPrice" readonly class="form-control text-white text-md-right" id="ResultNumber" name="TotalPrice" onmouseover="GetTotalPrice()" />
+                            <input asp-for="TotalPrice" readonly class="form-control text-white text-md-right" id="ResultNumber" name="TotalPrice" onclick="GetTotalPrice()" />
                             <span asp-validation-for="TotalPrice" class="text-danger"></span>
                         </div>
                     </div>
@@ -117,21 +117,6 @@
         </div>
     </div>
 </section>
-
-<script>
-
-    function GetTotalPrice() {
-        var number1 = parseFloat(document.getElementById("Number1").value);
-        var number2 = parseFloat(document.getElementById("Number2").value);
-        var sum = number1 * number2;
-        document.getElementById("ResultNumber").value = roundToTwo(sum);
-
-    }
-
-    function roundToTwo(num) {    
-    return +(Math.round(num + "e+2")  + "e-2");
-    }
-</script>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

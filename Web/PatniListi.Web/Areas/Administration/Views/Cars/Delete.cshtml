@@ -40,10 +40,7 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label asp-for="AllDrivers"></label>
-                        @foreach (var driver in Model.AllDrivers)
-                        {
-                            <input asp-for="AllDrivers" readonly class="form-control text-white" id="applicationUserFullName" name="ApplicationUserFullName" value="@driver.ApplicationUserFullName">
-                        }
+                        <input asp-for="AllDrivers" readonly class="form-control text-white" id="applicationUserFullName" name="ApplicationUserFullName" value="@string.Join(", ", Model.AllDrivers.Select(d => d.ApplicationUserFullName))">
                     </div>
                 </div>
             </div>

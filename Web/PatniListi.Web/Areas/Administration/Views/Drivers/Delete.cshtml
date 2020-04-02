@@ -40,10 +40,7 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label asp-for="AllCars"></label>
-                        @foreach (var car in Model.AllCars)
-                        {
-                            <input asp-for="AllCars" readonly class="form-control text-white" id="carModel" name="CarModel" value="@car.CarModel">
-                        }
+                        <input asp-for="AllCars" readonly class="form-control text-white" id="carModel" name="Carmodel" value="@string.Join(", ", Model.AllCars.Select(d => d.CarModel))">
                     </div>
                 </div>
             </div>
