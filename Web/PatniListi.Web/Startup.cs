@@ -70,6 +70,7 @@
             services.AddTransient<ICarUsersService, CarUsersService>();
             services.AddTransient<ITransportWorkTicketsService, TransportWorkTicketsService>();
             services.AddTransient<IRoutesService, RoutesService>();
+            services.AddTransient<IRouteTransportWorkTicketsService, RouteTransportWorkTisketsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

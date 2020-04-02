@@ -1,5 +1,6 @@
 ﻿namespace PatniListi.Services.Data
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
@@ -11,16 +12,18 @@
     {
         IQueryable<T> GetAll<T>();
 
-        Task CreateAsync(RouteInputViewModel input);
+        Task CreateAsync(string startPoint, string endPoint, double distance);
 
-        bool IsExists(RouteInputViewModel input);
+        bool IsExists(string startPoint, string endPoint);
 
         Task<T> GetDetailsAsync<T>(string id);
 
-        Task EditAsync(RouteEditViewModel input);
+        Task EditAsync(string id, string startPoint, string endPoint, double distance, DateTime createdOn);
 
         IEnumerable<SelectListItem> GetAll();
 
         Task<T> GetByIdAsync<T>(string id);
+
+        Task<T> GetByNameAsync<T>(string startPoint, string EndPoint);
     }
 }

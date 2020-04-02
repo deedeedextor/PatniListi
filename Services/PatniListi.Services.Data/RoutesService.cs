@@ -10,7 +10,6 @@
     using PatniListi.Data.Common.Repositories;
     using PatniListi.Data.Models;
     using PatniListi.Services.Mapping;
-    using PatniListi.Web.ViewModels.Models.Routes;
 
     public class RoutesService : IRoutesService
     {
@@ -23,17 +22,17 @@
             this.routesRepository = routesRepository;
         }
 
-        public async Task CreateAsync(RouteInputViewModel input)
+        public async Task CreateAsync(string startPoint, string endPoint, double distance)
         {
-            var exists = this.IsExists(input);
+            var exists = this.IsExists(startPoint, endPoint);
 
             if (!exists)
             {
                 var route = new Route
                 {
-                    StartPoint = input.StartPoint,
-                    EndPoint = input.EndPoint,
-                    Distance = input.Distance,
+                    StartPoint = startPoint,
+                    EndPoint = endPoint,
+                    Distance = distance,
                 };
 
                 await this.routesRepository.AddAsync(route);
@@ -42,15 +41,15 @@
             await this.routesRepository.SaveChangesAsync();
         }
 
-        public async Task EditAsync(RouteEditViewModel input)
+        public async Task EditAsync(string id, string startPoint, string endPoint, double distance, DateTime createdOn)
         {
             var route = new Route
             {
-                Id = input.Id,
-                StartPoint = input.StartPoint,
-                EndPoint = input.EndPoint,
-                Distance = input.Distance,
-                CreatedOn = input.CreatedOn,
+                Id = id,
+                StartPoint = startPoint,
+                EndPoint = endPoint,
+                Distance = distance,
+                CreatedOn = createdOn,
             };
 
             this.routesRepository.Update(route);
@@ -82,7 +81,23 @@
                 .AllAsNoTracking()
                 .Where(r => r.Id == id)
                 .To<T>()
-                .FirstOrDefaultAsync();
+                .SingleOrDefaultAsync();
+
+            if (viewModel == null)
+            {
+                throw new ArgumentNullException(InvalidRouteErrorMessage);
+            }
+
+            return viewModel;
+        }
+
+        public async Task<T> GetByNameAsync<T>(string startPoint, string EndPoint)
+        {
+            var viewModel = await this.routesRepository
+                .AllAsNoTracking()
+                .Where(r => r.StartPoint == startPoint && r.EndPoint == EndPoint)
+                .To<T>()
+                .SingleOrDefaultAsync();
 
             if (viewModel == null)
             {
@@ -108,9 +123,9 @@
             return viewModel;
         }
 
-        public bool IsExists(RouteInputViewModel input)
+        public bool IsExists(string startPoint, string endPoint)
         {
-            if (this.routesRepository.All().Any(r => r.StartPoint == input.StartPoint && r.EndPoint == input.EndPoint))
+            if (this.routesRepository.All().Any(r => r.StartPoint == startPoint && r.EndPoint == endPoint))
             {
                 return true;
             }
