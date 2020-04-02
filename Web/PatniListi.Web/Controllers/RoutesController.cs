@@ -44,7 +44,7 @@
                 return this.View(input);
             }
 
-            await this.routesService.CreateAsync(input);
+            await this.routesService.CreateAsync(input.StartPoint, input.EndPoint, input.Distance);
 
             return this.Redirect(returnUrl);
         }
@@ -70,7 +70,7 @@
                 return this.View(input);
             }
 
-            await this.routesService.EditAsync(input);
+            await this.routesService.EditAsync(input.Id, input.StartPoint, input.EndPoint, input.Distance, input.CreatedOn);
             return this.RedirectToAction("All", "Routes");
         }
 

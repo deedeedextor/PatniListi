@@ -161,19 +161,35 @@
     </script>
 
     <script>
-        // ===== Scroll to Top ==== 
-        $(window).scroll(function() {
-           if ($(this).scrollTop() >= 50) {        // If page is scrolled more than 50px
-              $('#return-to-top').fadeIn(200);    // Fade in the arrow
-           } else {
-              $('#return-to-top').fadeOut(200);   // Else fade out the arrow
-           }
+        // ===== Scroll to Top ====
+        $(window).scroll(function () {
+            if ($(this).scrollTop() >= 50) {        // If page is scrolled more than 50px
+                $('#return-to-top').fadeIn(200);    // Fade in the arrow
+            } else {
+                $('#return-to-top').fadeOut(200);   // Else fade out the arrow
+            }
         });
-        $('#return-to-top').click(function() {      // When arrow is clicked
-          $('body,html').animate({
-            scrollTop : 0                       // Scroll to top of body
-          }, 500);
+        $('#return-to-top').click(function () {      // When arrow is clicked
+            $('body,html').animate({
+                scrollTop: 0                       // Scroll to top of body
+            }, 500);
         });
+    </script>
+
+
+    <script>
+
+        function GetTotalPrice() {
+            var number1 = parseFloat(document.getElementById("Number1").value);
+            var number2 = parseFloat(document.getElementById("Number2").value);
+            var sum = number1 * number2;
+            document.getElementById("ResultNumber").value = roundToTwo(sum);
+
+        }
+
+        function roundToTwo(num) {
+            return +(Math.round(num + "e+2") + "e-2");
+        }
     </script>
 
     @this.RenderSection("Scripts", required: false)

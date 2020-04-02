@@ -73,12 +73,10 @@
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CarInputViewModel input)
         {
-            var companyId = input.CompanyId;
-
             if (!this.ModelState.IsValid)
             {
                 input.AllTypes = this.carsService.GetFuelType();
-                input.AllDrivers = this.usersService.GetAll(companyId);
+                input.AllDrivers = this.usersService.GetAll(input.CompanyId);
 
                 return this.View(input);
             }

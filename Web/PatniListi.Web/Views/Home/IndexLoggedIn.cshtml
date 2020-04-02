@@ -48,21 +48,16 @@
                         <h4>Екипът на Пътни листи Ви пожелава приятна работа с програмата!</h4>
                         <br />
 
-                        <div>
-                            <partial name="_CompanyEditPartial" />
-                        </div>
+                        @if (Model.CompanyBulstat == null)
+                        {
+                            <div>
+                                <partial name="_CompanyEditPartial" />
+                            </div>
+                        }
                     </div>
                 </div>
             </td>
         </tr>
     </table>
 </div>
-
-<script type="text/javascript">
-    //<![CDATA[
-    Sys.Application.add_init(function () {
-        $create(Telerik.Web.UI.RadMenu, { "_childListElementCssClass": null, "_renderMode": 2, "_skin": "Silk", "clientStateFieldID": "ctl00_LoginViewMenu_RadMenu1_ClientState", "collapseAnimation": "{\"duration\":450}", "expandAnimation": "{\"duration\":450}", "itemData": [{ "items": [{ "navigateUrl": "~/Pages/CalendarForm" }, { "navigateUrl": "~/Pages/CalendarVodachiForm" }], "navigateUrl": "~/Pages/CalendarForm" }, { "navigateUrl": "~/Pages/PatniLista" }, { "navigateUrl": "~/Pages/Fakturi" }, { "navigateUrl": "~/Pages/Avtomobili" }, { "navigateUrl": "~/Pages/Marshruti" }, { "navigateUrl": "~/Pages/Sluziteli" }, { "items": [{ "navigateUrl": "~/Pages/SpravkaPatniLista" }, { "navigateUrl": "~/Pages/SpravkaFakturi" }, { "navigateUrl": "~/Pages/SpravkaMarshruti" }], "navigateUrl": "~/Pages/SpravkaPatniLista" }, { "navigateUrl": "~/Account/Manage" }, { "navigateUrl": "~/Contact" }] }, null, null, $get("ctl00_LoginViewMenu_RadMenu1"));
-    });
-//]]>
-</script>
 
