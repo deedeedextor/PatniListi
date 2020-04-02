@@ -10,7 +10,7 @@
 
         Task<string> GetByNameAsync(string companyName);
 
-        Task EditAsync(CompanyEditViewModel input);
+        Task EditAsync(string id, string name, string bulstat, string vatNumber, string address, string phoneNumber);
 
         int GetUsersCount(string companyName);
 

@@ -48,11 +48,11 @@
             await this.roleRepository.SaveChangesAsync();
         }
 
-        public async Task CreateAsync(UserInputViewModel input)
+        public async Task CreateAsync(string username, string email, string password, string confirmPassword, string fullName, string companyId)
         {
-            var user = new ApplicationUser { UserName = input.Username, Email = input.Email, FullName = input.FullName, CompanyId = input.CompanyId };
+            var user = new ApplicationUser { UserName = username, Email = email, FullName = fullName, CompanyId = companyId };
 
-            var result = await this.userManager.CreateAsync(user, input.Password);
+            var result = await this.userManager.CreateAsync(user, password);
 
             if (result.Succeeded)
             {
@@ -80,17 +80,17 @@
             return true;
         }
 
-        public async Task EditAsync(UserEditViewModel input)
+        public async Task EditAsync(string id, string username, string email, string fullName, string companyId, string companyName, DateTime createdOn, string concurrencyStamp)
         {
             var user = new ApplicationUser
             {
-                Id = input.Id,
-                UserName = input.Username,
-                Email = input.Email,
-                FullName = input.FullName,
-                CompanyId = input.CompanyId,
-                CreatedOn = input.CreatedOn,
-                ConcurrencyStamp = input.ConcurrencyStamp,
+                Id = id,
+                UserName = username,
+                Email = email,
+                FullName = fullName,
+                CompanyId = companyId,
+                CreatedOn = createdOn,
+                ConcurrencyStamp = concurrencyStamp,
             };
 
             this.usersRepository.Update(user);

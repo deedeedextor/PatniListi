@@ -6,7 +6,6 @@
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc.Rendering;
-    using PatniListi.Web.ViewModels.Models.Routes;
 
     public interface IRoutesService
     {
@@ -24,6 +23,6 @@
 
         Task<T> GetByIdAsync<T>(string id);
 
-        Task<T> GetByNameAsync<T>(string startPoint, string EndPoint);
+        Task<T> GetByNameAsync<T>(string startPoint, string endPoint);
     }
 }

@@ -7,7 +7,6 @@
     using PatniListi.Data.Common.Repositories;
     using PatniListi.Data.Models;
     using PatniListi.Services.Mapping;
-    using PatniListi.Web.ViewModels.Administration.Companies;
 
     public class CompaniesService : ICompaniesService
     {
@@ -42,16 +41,16 @@
             return company.Id;
         }
 
-        public async Task EditAsync(CompanyEditViewModel input)
+        public async Task EditAsync(string id, string name, string bulstat, string vatNumber, string address, string phoneNumber)
         {
             var company = new Company
             {
-                Id = input.Id,
-                Name = input.Name,
-                Bulstat = input.Bulstat,
-                VatNumber = input.VatNumber,
-                PhoneNumber = input.PhoneNumber,
-                Address = input.Address,
+                Id = id,
+                Name = name,
+                Bulstat = bulstat,
+                VatNumber = vatNumber,
+                PhoneNumber = phoneNumber,
+                Address = address,
             };
 
             this.companiesRepository.Update(company);

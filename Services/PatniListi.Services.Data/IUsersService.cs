@@ -1,11 +1,11 @@
 ﻿namespace PatniListi.Services.Data
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc.Rendering;
-    using PatniListi.Web.ViewModels.Administration.Users;
 
     public interface IUsersService
     {
@@ -13,7 +13,7 @@
 
         IEnumerable<SelectListItem> GetUsersByCar(string carId);
 
-        Task CreateAsync(UserInputViewModel input);
+        Task CreateAsync(string username, string email, string password, string confirmPassword, string fullName, string companyId);
 
         Task AddRoleToUser(string userId, string roleName);
 
@@ -25,7 +25,7 @@
 
         IQueryable<T> GetAll<T>(string companyId);
 
-        Task EditAsync(UserEditViewModel input);
+        Task EditAsync(string id, string username, string email, string fullName, string companyId, string companyName, DateTime createdOn, string concurrencyStamp);
 
         Task<bool> DeleteAsync(string id, string fullName);
     }
