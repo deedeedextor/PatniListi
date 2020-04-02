@@ -33,7 +33,7 @@
 
         [Display(Name = "Цена на литър")]
         [Required]
-        [Range(AttributesConstraints.PriceMinLength, AttributesConstraints.PriceMaxLength, ErrorMessage = AttributesErrorMessages.RangeErrorMessage)]
+        [Range(AttributesConstraints.PriceMinRange, AttributesConstraints.PriceMaxRange, ErrorMessage = AttributesErrorMessages.RangeErrorMessage)]
         public decimal Price { get; set; }
 
         [Display(Name = "Количество")]

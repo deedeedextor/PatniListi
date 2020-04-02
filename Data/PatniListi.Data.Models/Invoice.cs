@@ -36,12 +36,12 @@
 
         [Display(Name = "Количество")]
         [Required]
-        [Range(1, double.MaxValue)]
+        [Range(1, 999.99)]
         public double Quantity { get; set; }
 
         [Display(Name = "Обща сума")]
         [Required]
-        [Range(1, double.MaxValue)]
+        [Range(1, 999.99)]
         public decimal TotalPrice { get; set; }
 
         [Display(Name = "Гориво")]

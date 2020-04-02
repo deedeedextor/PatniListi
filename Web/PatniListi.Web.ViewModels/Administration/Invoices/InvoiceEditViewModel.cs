@@ -30,17 +30,17 @@
 
         [Display(Name = "Цена на литър")]
         [Required(ErrorMessage = AttributesErrorMessages.RequiredErrorMessage)]
-        [Range(AttributesConstraints.PriceMinLength, AttributesConstraints.PriceMaxLength, ErrorMessage = AttributesErrorMessages.RangeErrorMessage)]
+        [Range(AttributesConstraints.PriceMinRange, AttributesConstraints.PriceMaxRange, ErrorMessage = AttributesErrorMessages.RangeErrorMessage)]
         public decimal Price { get; set; }
 
         [Display(Name = "Количество")]
         [Required(ErrorMessage = AttributesErrorMessages.RequiredErrorMessage)]
-        [Range(AttributesConstraints.QuantityMinLength, AttributesConstraints.QuantityMaxLength, ErrorMessage = AttributesErrorMessages.RangeErrorMessage)]
+        [Range(AttributesConstraints.QuantityMinRange, AttributesConstraints.QuantityMaxRange, ErrorMessage = AttributesErrorMessages.RangeErrorMessage)]
         public double Quantity { get; set; }
 
         [Display(Name = "Обща сума")]
         [Required(ErrorMessage = AttributesErrorMessages.RequiredErrorMessage)]
-        [Range(AttributesConstraints.TotalPriceMinLength, AttributesConstraints.TotalPriceMaxLength, ErrorMessage = AttributesErrorMessages.RangeErrorMessage)]
+        [Range(AttributesConstraints.TotalPriceMinRange, AttributesConstraints.TotalPriceMaxRange, ErrorMessage = AttributesErrorMessages.RangeErrorMessage)]
         public decimal TotalPrice { get; set; }
 
         [Display(Name = "Гориво")]

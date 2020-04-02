@@ -21,5 +21,7 @@
         public const string DateТimeErrorMessage = "Не може да въвеждате предходна дата.";
 
         public const string InvalidErrorMessage = "Невалиден \"{0}\".";
+
+        public const string InvalidPositiveRangeErrorMessage = "\"{0}\" трябва да бъде положително число.";
     }
 }

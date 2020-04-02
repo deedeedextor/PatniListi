@@ -33,29 +33,27 @@
 
         [Display(Name = "Начални километри")]
         [Required]
-        [Range(0, double.MaxValue)]
+        [Range(0, 1000000000.00)]
         public double StartKilometers { get; set; }
 
         [Display(Name = "Крайни километри")]
         [Required]
-        [Range(0, double.MaxValue)]
+        [Range(1, 1000000000.00)]
         public double EndKilometers { get; set; }
 
         [Display(Name = "Изминати километри")]
         [Required]
-        [Range(1, double.MaxValue)]
+        [Range(1, 1000000000.00)]
         public double TravelledDistance { get; set; }
-
-        [Display(Name = "Доливано")]
-        [Required]
-        public double AddedQuantity { get; set; }
 
         [Display(Name = "Разход")]
         [Required]
+        [Range(1, 1000000000.00)]
         public double FuelConsumption { get; set; }
 
         [Display(Name = "Остатък")]
         [Required]
+        [Range(1, 1000000000.00)]
         public double Residue { get; set; }
 
         [Required]

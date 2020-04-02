@@ -2,7 +2,9 @@
 {
     using System.ComponentModel.DataAnnotations;
 
-    public class RouteTransportWorkTicket
+    using PatniListi.Data.Common.Models;
+
+    public class RouteTransportWorkTicket : BaseDeletableModel<string>
     {
         [Required]
         public string RouteId { get; set; }

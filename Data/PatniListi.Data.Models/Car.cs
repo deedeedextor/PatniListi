@@ -33,7 +33,7 @@
 
         [Display(Name = "Начални километри")]
         [Required]
-        [Range(0, double.MaxValue)]
+        [Range(0, 1000000000.00)]
         public double StartKilometers { get; set; }
 
         [Display(Name = "Среден разход")]

@@ -19,7 +19,7 @@
         public const int CapacityFuelMax = 100;
         public const int CapacityFuelMin = 20;
 
-        public const double StartKilometersMaxRange = double.MaxValue;
+        public const double StartKilometersMaxRange = 1000000000.00;
         public const double StartKilometersMinRange = 0;
 
         public const int AverageConsumptionMaxRange = 20;
@@ -39,19 +39,26 @@
         public const int InvoiceLocationMaxLength = 60;
         public const int InvoiceLocationMinLength = 3;
 
-        public const double PriceMaxLength = 10.00;
-        public const double PriceMinLength = 0.10;
+        public const double PriceMaxRange = 10.00;
+        public const double PriceMinRange = 0.10;
 
-        public const double QuantityMaxLength = double.MaxValue;
-        public const double QuantityMinLength = 1.00;
+        public const double QuantityMaxRange = 999.99;
+        public const double QuantityMinRange = 1.00;
 
-        public const double TotalPriceMaxLength = double.MaxValue;
-        public const double TotalPriceMinLength = 1.00;
+        public const double TotalPriceMaxRange = 999.99;
+        public const double TotalPriceMinRange = 1.00;
 
         public const int BulstatMaxLength = 10;
 
         // Routes
         public const int RouteMaxLength = 60;
         public const int RouteMinLength = 2;
+
+        // TransportWorkTickets
+        public const double StartMaxRange = 1000000000.00;
+        public const double StartMinRange = 0;
+
+        public const double PositiveMaxRange = 1000000000.00;
+        public const double PositiveMinRange = 0;
     }
 }
