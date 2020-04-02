@@ -65,7 +65,11 @@
                 CarFuelType = carFromDb.FuelType,
                 CarModel = carFromDb.Model,
                 CarCompanyId = carFromDb.CompanyId,
+                CarInitialFuel = carFromDb.InitialFuel,
+                CarTankCapacity = carFromDb.TankCapacity,
                 AllDrivers = this.usersService.GetUsersByCar(id),
+                AllLitres = this.carsService.GetCurrentLitresByCarId(id),
+                AllTravelledDistance = this.carsService.GetCurrentTravelledDistanceByCarId(id),
             };
 
             if (viewModel == null || viewModel.AllDrivers == null)
@@ -85,6 +89,8 @@
             if (!this.ModelState.IsValid)
             {
                 input.AllDrivers = this.usersService.GetUsersByCar(input.CarId);
+                input.AllLitres = this.carsService.GetCurrentLitresByCarId(id);
+                input.AllTravelledDistance = this.carsService.GetCurrentTravelledDistanceByCarId(id);
                 return this.View(input);
             }
 
@@ -103,6 +109,8 @@
             }
 
             viewModel.AllDrivers = this.usersService.GetUsersByCar(viewModel.CarId);
+            viewModel.AllLitres = this.carsService.GetCurrentLitresByCarId(viewModel.CarId);
+            viewModel.AllTravelledDistance = this.carsService.GetCurrentTravelledDistanceByCarId(viewModel.CarId);
 
             return this.View(viewModel);
         }
@@ -150,6 +158,16 @@
             }
 
             return this.RedirectToAction("All", "Invoices", new { id = carId });
+        }
+
+        public IActionResult ValidateQuantity(double quantity, double currentLiters, double tankCapacity)
+        {
+            if (currentLiters + quantity > tankCapacity)
+            {
+                return this.Json(data: "Наличното и зареденото количество гориво не трбва да надвишават капацитета на резервоара");
+            }
+
+            return this.Json(data: true);
         }
     }
 }

@@ -4,11 +4,29 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
+    using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Rendering;
     using PatniListi.Common;
 
     public class InvoiceInputViewModel
     {
+        public string CarId { get; set; }
+
+        public string CarCompanyId { get; set; }
+
+        public IEnumerable<SelectListItem> AllDrivers { get; set; }
+
+        public double CarTankCapacity { get; set; }
+
+        public double CarInitialFuel { get; set; }
+
+        public double AllLitres { get; set; }
+
+        public double AllTravelledDistance { get; set; }
+
+        [Display(Name = "Налично гориво в момента")]
+        public double CurrentLiters => (this.CarInitialFuel + this.AllLitres) - this.AllTravelledDistance;
+
         [Display(Name = "Номер на фактура")]
         [Required(ErrorMessage = AttributesErrorMessages.RequiredErrorMessage)]
         [RegularExpression(@"^[0-9]+$", ErrorMessage = AttributesErrorMessages.InvalidErrorMessage)]
@@ -32,6 +50,7 @@
         [Display(Name = "Количество")]
         [Required(ErrorMessage = AttributesErrorMessages.RequiredErrorMessage)]
         [Range(AttributesConstraints.QuantityMinRange, AttributesConstraints.QuantityMaxRange, ErrorMessage = AttributesErrorMessages.RangeErrorMessage)]
+        [Remote("ValidateQuantity", "Invoices", ErrorMessage = "Наличното и заредено количество гориво не трябва да надвишават капацитета на резервоара", AdditionalFields = "CurrentLiters, CarTankCapacity")]
         public double Quantity { get; set; }
 
         [Display(Name = "Обща сума")]
@@ -50,11 +69,5 @@
 
         [Display(Name = "Въвел")]
         public string CreatedBy { get; set; }
-
-        public string CarId { get; set; }
-
-        public string CarCompanyId { get; set; }
-
-        public IEnumerable<SelectListItem> AllDrivers { get; set; }
     }
 }

@@ -117,24 +117,22 @@
         {
             var litres = this.carsRepository
                          .AllAsNoTracking()
-                         .SelectMany(c => c.Invoices
                          .Where(c => c.Id == id)
-                         .Select(i => i.Quantity))
-                         .Sum();
+                         .Select(i => i.Invoices.Sum(i => i.Quantity))
+                         .SingleOrDefault();
 
             return litres;
         }
 
         public double GetCurrentTravelledDistanceByCarId(string id)
         {
-            var litres = this.carsRepository
+            var travelledDistance = this.carsRepository
                             .AllAsNoTracking()
                             .Where(c => c.Id == id)
-                            .SelectMany(c => c.TransportWorkTickets
-                            .Select(i => i.TravelledDistance))
-                            .Sum();
+                            .Select(i => i.TransportWorkTickets.Sum(i => i.TravelledDistance))
+                            .SingleOrDefault();
 
-            return litres;
+            return travelledDistance;
         }
 
         public double GetCurrentFuelConsumptionByCarId(string id)
@@ -142,9 +140,8 @@
             var residue = this.carsRepository
                           .AllAsNoTracking()
                           .Where(c => c.Id == id)
-                          .SelectMany(c => c.TransportWorkTickets
-                          .Select(i => i.FuelConsumption))
-                          .Sum();
+                          .Select(i => i.TransportWorkTickets.Sum(i => i.FuelConsumption))
+                          .SingleOrDefault();
 
             return residue;
         }

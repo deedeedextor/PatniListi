@@ -11,17 +11,24 @@
             <form asp-area="Administration" asp-controller="Invoices" asp-action="Edit" asp-route-id="@Model.Id" method="post">
                 <hr />
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label asp-for="CarModel"></label>
                             <input asp-for="CarModel" readonly class="form-control text-white" value="@Model.CarModel" />
                             <span asp-validation-for="CarModel" class="text-danger"></span>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label asp-for="CarFuelType"></label>
                             <input asp-for="CarFuelType" readonly class="form-control text-white" value="@Model.CarFuelType" />
+                            <span asp-validation-for="CarFuelType" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="CurrentLiters"></label>
+                            <input asp-for="CurrentLiters" readonly class="form-control text-white" value="@Model.CurrentLiters.ToString("F2")" />
                             <span asp-validation-for="CarFuelType" class="text-danger"></span>
                         </div>
                     </div>
