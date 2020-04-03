@@ -1,0 +1,111 @@
+﻿@using  PatniListi.Web.Infrastructure;
+@model PaginatedList<PatniListi.Web.ViewModels.Models.Invoices.InvoiceViewModel>
+
+@{
+    ViewData["Title"] = "Фактури";
+}
+
+<section class="py-5">
+    <div class="container shadow py-4 px-4">
+        <h1 class="text-center">@ViewData["Title"]</h1>
+        <div>
+            <a class="nav-link btn btn-primary btn-block text-uppercase" asp-area="" asp-controller="Invoices" asp-action="Create">Добави фактура</a>
+
+            <div>
+                <div class="clearfix"></div>
+
+                @if (!Model.PreviousDisabled)
+                {
+                    <div class="float-md-left">
+                        <a asp-action="All"
+                           asp-route-pageNumber="@Model.PreviousPage"
+                           class="button">
+                            Предишна
+                        </a>
+                    </div>
+                }
+
+                @if (!Model.NextDisabled)
+                {
+                    <div class="float-md-right">
+                        <a asp-action="All"
+                           asp-route-pageNumber="@Model.NextPage"
+                           class="button">
+                            Следваща
+                        </a>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <br />
+        <br />
+
+        <table class="table table-responsive-md table-hover">
+            <tr class="text-white">
+                <th>
+                    Дата
+                </th>
+                <th>
+                    Номер
+                </th>
+                <th>
+                    Място
+                </th>
+                <th>
+                    Заредил
+                </th>
+                <th>
+                    Сума
+                </th>
+                <th>
+
+                </th>
+                <th>
+
+                </th>
+            </tr>
+            @foreach (var invoice in Model)
+            {
+                <tr>
+                    <td>
+                        @invoice.Date.ToShortDateString()
+                    </td>
+                    <td>
+                        @invoice.Number
+                    </td>
+                    <td>
+                        @invoice.Location
+                    </td>
+                    <td>
+                        @invoice.ApplicationUserFullName
+                    </td>
+                    <td>
+                        @invoice.TotalPrice
+                    </td>
+                    <td>
+                        <div class="form-group">
+                            <input type="hidden" asp-for="@invoice.CarId" readonly class="form-control" value="@invoice.CarId" />
+                        </div>
+                    </td>
+
+                    <td class="text-center">
+                        <div>
+                            <a href="/Invoices/Details/@invoice.Id" class="justify-content-md-between">Детайли</a>
+                        </div>
+                        <div>
+                            <a href="/Invoices/Edit/@invoice.Id" class="justify-content-md-between">Промени</a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </table>
+        <br />
+
+        <div class="form-group text-center">
+            <div class="button-holder">
+                <a asp-area="" asp-controller="Cars" asp-action="All" class="text-uppercase">Моите автомобили</a>
+            </div>
+        </div>
+    </div>
+</section>

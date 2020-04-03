@@ -1,0 +1,87 @@
+﻿@using  PatniListi.Web.Infrastructure;
+@model PaginatedList<PatniListi.Web.ViewModels.Models.Cars.CarViewModel>
+
+@{
+    ViewData["Title"] = "Моите автомобили";
+}
+
+    <section class="py-5">
+        <div class="container shadow py-4 px-4">
+            <h1 class="text-center">@ViewData["Title"]</h1>
+            <div>
+                <div>
+                    <div class="clearfix"></div>
+
+                    @if (!Model.PreviousDisabled)
+                    {
+                        <div class="float-md-left">
+                            <a asp-action="All"
+                               asp-route-pageNumber="@Model.PreviousPage"
+                               class="button">
+                                Предишна
+                            </a>
+                        </div>
+                    }
+
+                    @if (!Model.NextDisabled)
+                    {
+                        <div class="float-md-right">
+                            <a asp-action="All"
+                               asp-route-pageNumber="@Model.NextPage"
+                               class="button">
+                                Следваща
+                            </a>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <br />
+            <br />
+
+            <table class="table table-responsive-md table-hover">
+                <tr class="text-white">
+                    <th>
+                        Модел
+                    </th>
+                    <th>
+                        Hомер
+                    </th>
+                    <th>
+                        Гориво
+                    </th>
+                    <th>
+
+                    </th>
+                </tr>
+                @foreach (var car in Model)
+                {
+                    <tr>
+                        <td>
+                            @car.Model
+                        </td>
+                        <td>
+                            @car.LicensePlate
+                        </td>
+                        <td>
+                            @car.FuelType
+                        </td>
+
+                        <td class="text-center">
+                            <div>
+                                <a href="/Cars/Details/@car.Id" class="justify-content-md-between">Детайли</a>
+                            </div>
+                            <div>
+                                <a href="/Invoices/All/@car.Id" class="justify-content-md-between">Фактури</a>
+                            </div>
+                            <div>
+                                <a href="/TransportWorkTickets/All/@car.Id" class="justify-content-md-between">Пътни листи</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </table>
+            <br />
+
+        </div>
+     </section>

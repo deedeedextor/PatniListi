@@ -1,0 +1,72 @@
+﻿@model PatniListi.Web.ViewModels.Models.Invoices.InvoiceDetailsViewModel
+
+@{
+    ViewData["Title"] = $"Детайли за фактура: {Model.Number}";
+}
+
+<section class="py-5">
+    <div class="container shadow py-4 px-4">
+        <h1 class="text-center">@ViewData["Title"]</h1>
+        <table class="table table-responsive-md table-hover">
+            <thead>
+                <tr>
+                    <th class="text-white">Фактура: <br>@Model.Number</th>
+                    <th class="text-white">Дата: <br> @Model.Date.ToShortDateString()</th>
+                    <th class="text-white">Въвел: <br> @Model.CreatedBy</th>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <strong class="text-white">Заредил:</strong><br>
+                        <br />
+                        <p>@Model.ApplicationUserFullName</p>
+                        <p>@Model.CarModel</p>
+                        <p>@Model.CarCompanyName</p>
+                    </td>
+                    <td colspan="2">
+                        <strong class="text-white">Място на събитие:</strong><br>
+                        <br />
+                        <p>@Model.Location</p>
+                        <br>
+                        <br>
+                    </td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="text-white">
+                    <th>Гориво</th>
+                    <th>Количество</th>
+                    <th>Цена на литър без ДДС</th>
+                    <th>Сума</th>
+                </tr>
+                <tr>
+                    <td>@Model.CarFuelType</td>
+                    <td>@Model.Quantity</td>
+                    <td>@Model.PriceWithoutVat.ToString("F2")</td>
+                    <td>@Model.Sum.ToString("F2")</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th class="text-white"colspan="3">Междинна сума:</th>
+                    <td>@Model.Sum.ToString("F2")</td>
+                </tr>
+                <tr>
+                    <th class="text-white" colspan="2">ДДС:</th>
+                    <td> 20% </td>
+                    <td>@Model.SumWithVat.ToString("F2")</td>
+                </tr>
+                <tr>
+                    <th class="text-white" colspan="3">Общо дължимо:</th>
+                    <td>@Model.TotalPrice.ToString("F2")</td>
+                </tr>
+            </tfoot>
+        </table>
+
+        <div class="form-group text-center">
+            <div class="button-holder">
+                <a href="/Invoices/Edit?Id=@Model.Id" class="btn btn-primary btn-block text-uppercase">Промени</a>
+                <a asp-area="" asp-controller="Invoices" asp-action="All" asp-route-id="@Model.CarId" class="text-uppercase">Фактури</a>
+            </div>
+        </div>
+    </div>
+</section>

@@ -5,14 +5,18 @@
 
     using Microsoft.AspNetCore.Mvc;
     using PatniListi.Common;
+    using PatniListi.Data.Models;
+    using PatniListi.Services.Mapping;
 
-    public class InvoiceInputViewModel
+    public class InvoiceEditViewModel : IMapFrom<Invoice>
     {
+        public string Id { get; set; }
+
         public string CarId { get; set; }
 
         public string CarCompanyId { get; set; }
 
-        public double CarTankCapacity { get; set; }
+        public int CarTankCapacity { get; set; }
 
         public double CarInitialFuel { get; set; }
 
@@ -57,13 +61,17 @@
         [Display(Name = "Гориво")]
         public string CarFuelType { get; set; }
 
+        public string UserId { get; set; }
+
         [Display(Name = "Заредил")]
-        public string FullName { get; set; }
+        public string ApplicationUserFullName { get; set; }
 
         [Display(Name = "Автомобил")]
         public string CarModel { get; set; }
 
         [Display(Name = "Въвел")]
         public string CreatedBy { get; set; }
+
+        public DateTime CreatedOn { get; set; }
     }
 }

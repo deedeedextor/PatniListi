@@ -1,6 +1,7 @@
 ﻿namespace PatniListi.Web.ViewModels.Models.Invoices
 {
     using System;
+    using System.ComponentModel.DataAnnotations;
 
     using PatniListi.Data.Models;
     using PatniListi.Services.Mapping;
@@ -9,24 +10,21 @@
     {
         public string Id { get; set; }
 
+        [Display(Name = "Номер на фактура")]
         public string Number { get; set; }
 
+        [Display(Name = "Дата на фактура")]
         public DateTime Date { get; set; }
 
+        [Display(Name = "Място на зареждане")]
         public string Location { get; set; }
 
-        public string FuelType { get; set; }
+        [Display(Name = "Място на зареждане")]
+        public string ApplicationUserFullName { get; set; }
 
-        public decimal Price { get; set; }
+        [Display(Name = "Сума")]
+        public string TotalPrice { get; set; }
 
-        public double Quantity { get; set; }
-
-        public string CreatedBy { get; set; }
-
-        public string CreatedOn { get; set; }
-
-        public string UserFullName { get; set; }
-
-        public string CarModel { get; set; }
+        public string CarId { get; set; }
     }
 }
