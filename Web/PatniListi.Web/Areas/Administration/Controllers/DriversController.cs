@@ -64,7 +64,7 @@
                 return this.View(input);
             }
 
-            await this.usersService.CreateAsync(input);
+            await this.usersService.CreateAsync(input.Username, input.Email, input.Password, input.ConfirmPassword, input.FullName, input.CompanyId);
 
             return this.RedirectToAction("All", "Drivers");
         }
@@ -90,7 +90,7 @@
                 return this.View(input);
             }
 
-            await this.usersService.EditAsync(input);
+            await this.usersService.EditAsync(input.Id, input.Username, input.Email, input.FullName, input.CompanyId, input.CompanyName, input.CreatedOn, input.ConcurrencyStamp);
             return this.RedirectToAction("All", "Drivers");
         }
 

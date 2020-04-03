@@ -94,7 +94,7 @@
                 return this.View(input);
             }
 
-            await this.invoicesService.CreateAsync(input);
+            await this.invoicesService.CreateAsync(input.Number, input.Date, input.Location, input.Price, input.Quantity, input.FullName, input.CarId, input.CarCompanyId, input.CreatedBy, input.CarFuelType, input.TotalPrice);
 
             return this.RedirectToAction("All", "Invoices", new { id });
         }
@@ -129,7 +129,7 @@
                 return this.View(viewModel);
             }
 
-            await this.invoicesService.EditAsync(input, currentUserFullname);
+            await this.invoicesService.EditAsync(input.Id, input.Number, input.Date, input.Location, input.Price, input.Quantity, input.ApplicationUserFullName, input.CarId, input.CarCompanyId, input.CreatedBy, input.CreatedOn, input.CarFuelType, input.TotalPrice, currentUserFullname);
             return this.RedirectToAction("All", "Invoices", new { id = input.CarId });
         }
 

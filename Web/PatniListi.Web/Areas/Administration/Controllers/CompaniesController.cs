@@ -48,7 +48,7 @@
                 return this.View(input);
             }
 
-            await this.companiesService.EditAsync(input);
+            await this.companiesService.EditAsync(input.Id, input.Name, input.Bulstat, input.VatNumber, input.Address, input.PhoneNumber);
             return this.RedirectToAction("Details", "Companies", new { input.Id });
         }
     }
