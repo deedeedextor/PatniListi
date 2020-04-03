@@ -17,6 +17,8 @@
 
         IQueryable<T> GetAll<T>(string companyId);
 
+        IQueryable<T> GetCarsByUser<T>(string userId, string companyId);
+
         Task CreateAsync(CarInputViewModel input);
 
         Task<T> GetDetailsAsync<T>(string id);

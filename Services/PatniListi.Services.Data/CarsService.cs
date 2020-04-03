@@ -94,10 +94,18 @@
         public IQueryable<T> GetAll<T>(string companyId)
         {
             return this.carsRepository
-                .All()
+                .AllAsNoTracking()
                 .Where(c => c.CompanyId == companyId)
                 .OrderByDescending(c => c.CreatedOn)
                 .To<T>();
+        }
+
+        public IQueryable<T> GetCarsByUser<T>(string userId, string companyId)
+        {
+            return this.carsRepository
+                   .AllAsNoTracking()
+                   .Where(c => c.CompanyId == companyId && c.CarUsers.Any(cu => cu.UserId == userId))
+                   .To<T>();
         }
 
         public IEnumerable<SelectListItem> GetAll(string companyId)

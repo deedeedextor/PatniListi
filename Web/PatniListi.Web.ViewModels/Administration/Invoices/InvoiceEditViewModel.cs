@@ -20,7 +20,7 @@
 
         public IEnumerable<SelectListItem> AllDrivers { get; set; }
 
-        public double CarTankCapacity { get; set; }
+        public int CarTankCapacity { get; set; }
 
         public double CarInitialFuel { get; set; }
 
@@ -28,6 +28,7 @@
 
         public double AllTravelledDistance { get; set; }
 
+        [Display(Name = "Налично гориво в момента")]
         public double CurrentLiters => (this.CarInitialFuel + this.AllLitres) - this.AllTravelledDistance;
 
         [Display(Name = "Номер на фактура")]
@@ -64,8 +65,10 @@
         [Display(Name = "Гориво")]
         public string CarFuelType { get; set; }
 
+        public string UserId { get; set; }
+
         [Display(Name = "Заредил")]
-        public string FullName { get; set; }
+        public string ApplicationUserFullName { get; set; }
 
         [Display(Name = "Автомобил")]
         public string CarModel { get; set; }
