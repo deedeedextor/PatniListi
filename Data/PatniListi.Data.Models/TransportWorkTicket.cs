@@ -51,6 +51,9 @@
         [Range(1, 1000000000.00)]
         public double FuelConsumption { get; set; }
 
+        [Display(Name = "Наличност")]
+        public double FuelAvailability { get; set; }
+
         [Display(Name = "Остатък")]
         [Required]
         [Range(1, 1000000000.00)]

@@ -13,6 +13,16 @@
 
  */
 
+.dropdown {
+    margin-top: 7px;
+}
+
+#adminSubmenu, #Submenu {
+    position: absolute;
+    background-color: magenta;
+}
+
+
 /*MyCss*/
 #return-to-top {
     position: fixed;

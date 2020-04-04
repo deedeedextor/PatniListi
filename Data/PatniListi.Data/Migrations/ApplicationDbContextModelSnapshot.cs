@@ -635,6 +635,9 @@ namespace PatniListi.Data.Migrations
                     b.Property<double>("EndKilometers")
                         .HasColumnType("float");
 
+                    b.Property<double>("FuelAvailability")
+                        .HasColumnType("float");
+
                     b.Property<double>("FuelConsumption")
                         .HasColumnType("float");
 

@@ -1,6 +1,5 @@
 ﻿namespace PatniListi.Web.Controllers
 {
-    using System.Collections.Generic;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Authorization;
@@ -8,7 +7,6 @@
     using PatniListi.Common;
     using PatniListi.Services.Data;
     using PatniListi.Web.Infrastructure;
-    using PatniListi.Web.ViewModels.Administration.TransportWorkTickets;
     using PatniListi.Web.ViewModels.Models.Routes;
 
     [Authorize]
@@ -72,18 +70,6 @@
 
             await this.routesService.EditAsync(input.Id, input.StartPoint, input.EndPoint, input.Distance, input.CreatedOn);
             return this.RedirectToAction("All", "Routes");
-        }
-
-        public async Task<PartialViewResult> RouteDetailsPartial(TransportWorkTicketInputViewModel input)
-        {
-            input.Routes = new List<RouteDetailsViewModel>();
-            foreach (var routeId in input.Route)
-            {
-                var currentRoute = await this.routesService.GetByIdAsync<RouteDetailsViewModel>(routeId);
-                input.Routes.Add(currentRoute);
-            }
-
-            return this.PartialView("_RouteDetailsPartial", input);
         }
     }
 }
