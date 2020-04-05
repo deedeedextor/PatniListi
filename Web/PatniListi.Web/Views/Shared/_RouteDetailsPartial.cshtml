@@ -21,45 +21,27 @@
 
             </th>
         </tr>
-        @if (Model.Route != null)
-        {
-            Model.Routes = new List<RouteDetailsViewModel>();
-            foreach (var routeId in Model.Route)
-            {
-                var currentRoute = await this.routesService.GetByIdAsync<RouteDetailsViewModel>(routeId);
-                Model.Routes.Add(currentRoute);
-
-                <tr>
-                    <td>
-                        @currentRoute.Route
-                    </td>
-                    <td>
-                        @currentRoute.Distance
-                    </td>
-                </tr>
-            }
-
-            <tfoot>
-                @{
-                    var TotalDistance = Model.Routes.Select(r => r.Distance).Sum();
-                    this.ViewContext.HttpContext.Items["SubTotals"] = TotalDistance;
-                }
-                <tr>
-                    <td>Общо:</td>
-                    <td>@TotalDistance</td>
-                </tr>
-            </tfoot>
-        }
-        else
+        @foreach (var route in Model.Routes)
         {
             <tr>
-                <td>
-                    Няма избрани маршрути.
-                </td>
-                <td>
-                </td>
-            </tr>
+            <td>
+                @route.Route
+            </td>
+            <td>
+                @route.Distance
+            </td>
+        </tr>
         }
+
+        <tfoot>
+            @{
+                var TotalDistance = Model.Routes.Select(r => r.Distance).Sum();
+            }
+            <tr>
+                <td>Общо:</td>
+                <td id="totalDistance">@TotalDistance</td>
+            </tr>
+        </tfoot>
     </table>
 
 @section Scripts {

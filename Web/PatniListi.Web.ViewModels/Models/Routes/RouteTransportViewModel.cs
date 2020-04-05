@@ -1,5 +1,7 @@
 ﻿namespace PatniListi.Web.ViewModels.Models.Routes
 {
+    using System.ComponentModel.DataAnnotations;
+
     using PatniListi.Data.Models;
     using PatniListi.Services.Mapping;
 
@@ -7,10 +9,17 @@
     {
         public string RouteId { get; set; }
 
-        public virtual Route Route { get; set; }
+        [Display(Name = "Начална точка на тръгване")]
+        public string RouteStartPoint { get; set; }
+
+        [Display(Name = "Крайна точка на пристигане")]
+        public string RouteEndPoint { get; set; }
+
+        [Display(Name = "Разстояние")]
+        public double RouteDistance { get; set; }
+
+        public string Route => $"{this.RouteStartPoint} - {this.RouteEndPoint}";
 
         public string TransportWorkTicketId { get; set; }
-
-        public virtual TransportWorkTicket TransportWorkTicket { get; set; }
     }
 }

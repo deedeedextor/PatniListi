@@ -1,0 +1,98 @@
+﻿@using  PatniListi.Web.Infrastructure;
+@model PaginatedList<PatniListi.Web.ViewModels.Administration.TransportWorkTickets.TransportWorkTicketViewModel>
+
+@{
+    ViewData["Title"] = "Пътни листи";
+}
+
+    <section class="py-5">
+        <div class="container shadow py-4 px-4">
+            <h1 class="text-center">@ViewData["Title"]</h1>
+            <div>
+                <a class="nav-link btn btn-primary btn-block text-uppercase" asp-area="Administration" asp-controller="TransportWorkTickets" asp-action="Create">Добави пътен лист</a>
+
+                <div>
+                    <div class="clearfix"></div>
+
+                    @if (!Model.PreviousDisabled)
+                    {
+                        <div class="float-md-left">
+                            <a asp-action="All"
+                               asp-route-pageNumber="@Model.PreviousPage"
+                               class="button">
+                                Предишна
+                            </a>
+                        </div>
+                    }
+
+                    @if (!Model.NextDisabled)
+                    {
+                        <div class="float-md-right">
+                            <a asp-action="All"
+                               asp-route-pageNumber="@Model.NextPage"
+                               class="button">
+                                Следваща
+                            </a>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <br />
+            <br />
+
+            <table class="table table-responsive-md table-hover">
+                <tr class="text-white">
+                    <th>
+                        Дата на тръгване
+                    </th>
+                    <th>
+                        Автомобил
+                    </th>
+                    <th>
+                        Шофьор
+                    </th>
+                    <th>
+
+                    </th>
+                    <th>
+
+                    </th>
+                </tr>
+                @foreach (var workTicket in Model)
+                {
+                    <tr>
+                        <td>
+                            @workTicket.Date
+                        </td>
+                        <td>
+                            @workTicket.Car
+                        </td>
+                        <td>
+                            @workTicket.ApplicationUserFullName
+                        </td>
+                        <td>
+
+                        </td>
+                        <td class="text-center">
+                            <div>
+                                <a href="/Administration/TransportWorkTickets/Details/@workTicket.Id" class="justify-content-md-between">Детайли</a>
+                            </div>
+                            <div>
+                                <a href="/Administration/TransportWorkTickets/Edit/@workTicket.Id" class="justify-content-md-between">Промени</a>
+                            </div>
+                            <div>
+                                <a href="/Administration/TransportWorkTickets/Delete/@workTicket.Id" class="justify-content-md-between">Изтрий</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </table>
+
+            <div class="form-group text-center">
+                <div class="button-holder">
+                    <a asp-area="Administration" asp-controller="Cars" asp-action="All" class="text-uppercase">Автомобили</a>
+                </div>
+            </div>
+        </div>
+     </section>

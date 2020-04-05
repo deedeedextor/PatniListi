@@ -36,7 +36,7 @@
                         <div class="form-group">
                             <label asp-for="FuelType"></label>
                             <select asp-for="FuelType" asp-items="Model.AllTypes" class="form-control">
-                                <option value="@Model.FuelType" disabled>--Моля, изберете--</option>
+                                <option selected="selected" value="" disabled>--Моля, изберете--</option>
                             </select>
                             <span asp-validation-for="AllTypes" class="text-danger"></span>
                         </div>

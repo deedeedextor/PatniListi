@@ -1,0 +1,209 @@
+﻿@model PatniListi.Web.ViewModels.Administration.TransportWorkTickets.TransportWortkTicketEditViewModel
+
+@{
+    ViewData["Title"] = $"Промени пътен лист за {Model.CarModel}";
+}
+
+<section class="py-5">
+    <div class="container shadow py-4 px-4">
+        <h1 class="text-center">@ViewData["Title"]</h1>
+        <div class="card-body">
+            <form asp-area="Administration" asp-controller="TransportWorkTickets" asp-action="Edit" asp-route-id="@Model.Id" method="post">
+                <hr />
+                <fieldset>
+                    <legend class="text-white">Основни данни: </legend>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="ApplicationUserFullName"></label>
+                                <select asp-for="ApplicationUserFullName" asp-items="Model.AllDrivers" class="form-control">
+                                    <option selected="selected" value="@Model.ApplicationUserFullName" disabled>--Моля, изберете--</option>
+                                </select>
+                                <span asp-validation-for="AllDrivers" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Date"></label>
+                                <input asp-for="Date" type="text" id="datepicker" class="form-control datepicker" value="@Model.Date.ToShortDateString()" />
+                                <span asp-validation-for="Date" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label asp-for="Car"></label>
+                                <input asp-for="Car" readonly class="form-control text-white" value="@Model.Car" />
+                                <span asp-validation-for="Car" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label asp-for="CarFuelType"></label>
+                                <input asp-for="CarFuelType" readonly class="form-control text-white" value="@Model.CarFuelType" />
+                                <span asp-validation-for="CarFuelType" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label asp-for="CarAverageConsumption"></label>
+                                <input asp-for="CarAverageConsumption" readonly class="form-control text-white" value="@Model.CarAverageConsumption" />
+                                <span asp-validation-for="CarAverageConsumption" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="CreatedBy"></label>
+                                <input asp-for="CreatedBy" readonly class="form-control text-white" value="@Model.CreatedBy" />
+                                <span asp-validation-for="CreatedBy" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="CreatedOn"></label>
+                                <input asp-for="CreatedOn" type="text" readonly class="form-control text-white" value="@Model.CreatedOn.ToShortDateString()" />
+                                <span asp-validation-for="CreatedOn" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+                <br />
+
+                <fieldset>
+                    <legend class="text-white">Mаршрути: </legend>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label asp-for="Route"></label>
+                            <select asp-for="Route" asp-items="Model.AllRoutes" id="allRoutes" class="form-control">
+                                <option selected="selected" value="@Model.Routes.Select(r => r.Route).ToString()" disabled>--Моля, изберете--</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label></label>
+                            <div class="button-holder">
+                                <a class="nav-link btn btn-primary btn-block text-uppercase" asp-area="" asp-controller="Routes" asp-action="Create">Създай маршрут</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="partialPlaceHolder" style="display:none;">
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+                <br />
+
+                <fieldset>
+                    <legend class="text-white">Километраж: </legend>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label asp-for="StartKilometers"></label>
+                                <input asp-for="StartKilometers" id="startKilometers" readonly class="form-control text-white" />
+                                <span asp-validation-for="StartKilometers" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label asp-for="TravelledDistance"></label>
+                            <input asp-for="TravelledDistance" id="travelledDistance" readonly class="form-control text-white" />
+                            <span asp-validation-for="TravelledDistance" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label asp-for="EndKilometers"></label>
+                                <input asp-for="EndKilometers" id="endKilometers" readonly class="form-control text-white" />
+                                <span asp-validation-for="EndKilometers" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+                <br />
+
+                <fieldset>
+                    <legend class="text-white">Гориво: </legend>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label asp-for="FuelAvailability"></label>
+                                <input asp-for="FuelAvailability" id="fuelAvailability" readonly class="form-control text-white" value="@Model.FuelAvailability.ToString("F2")" />
+                                <span asp-validation-for="FuelAvailability" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label asp-for="FuelConsumption"></label>
+                                <input asp-for="FuelConsumption" id="fuelConsumption" readonly class="form-control text-white" value="@Model.FuelConsumption" />
+                                <span asp-validation-for="FuelConsumption" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label asp-for="Residue" class="text-md-left"></label>
+                                <input asp-for="Residue" id="residue" readonly class="form-control text-white" value="@Model.Residue" />
+                                <span asp-validation-for="Residue" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <input type="hidden" asp-for="CarId" readonly class="form-control" value="@Model.CarId" />
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <input type="hidden" asp-for="CarCompanyId" readonly class="form-control" value="@Model.CarCompanyId" />
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <input type="hidden" asp-for="CarStartKilometers" id="carStartKilometers" readonly class="form-control" value="@Model.CarStartKilometers" />
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <input type="hidden" asp-for="AllTravelledDistance" id="allTravelledDistance" readonly class="form-control" value="@Model.AllTravelledDistance" />
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <input type="hidden" asp-for="AllLiters" id="allLiters" readonly class="form-control" value="@Model.AllLiters" />
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <input type="hidden" asp-for="CarInitialFuel" id="carInitialFuel" readonly class="form-control" value="@Model.CarInitialFuel" />
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <input type="hidden" asp-for="AllFuelConsumption" id="allFuelConsumption" readonly class="form-control" value="@Model.AllFuelConsumption" />
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <input type="hidden" asp-for="Routes" readonly class="form-control" value="@Model.Routes" />
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+                <br />
+
+                <div class="form-group text-center">
+                    <div class="button-holder">
+                        <button type="submit" class="btn btn-primary btn-block text-uppercase">Добави</button>
+                        <a class="nav-link text-uppercase text-center" asp-area="Administration" asp-controller="TransportWorkTickets" asp-action="All" asp-route-id="@Model.CarId">Пътни листи</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
