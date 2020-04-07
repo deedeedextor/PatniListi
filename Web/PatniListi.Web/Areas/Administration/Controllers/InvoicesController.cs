@@ -164,7 +164,7 @@
         {
             if (currentLiters + quantity > tankCapacity)
             {
-                return this.Json(data: "Наличното и зареденото количество гориво не трбва да надвишават капацитета на резервоара");
+                return this.Json(data: "Наличното и заредено количество гориво не трябва да надвишават капацитета на резервоара");
             }
 
             return this.Json(data: true);

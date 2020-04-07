@@ -1,8 +1,6 @@
 ﻿namespace PatniListi.Web.Controllers
 {
     using System.Threading.Tasks;
-
-    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using PatniListi.Common;
     using PatniListi.Data.Common.Repositories;
@@ -10,7 +8,6 @@
     using PatniListi.Services.Messaging;
     using PatniListi.Web.ViewModels.Models.Contacts;
 
-    [Authorize]
     public class ContactsController : BaseController
     {
         private readonly IRepository<ContactFormEntry> contactsRepository;

@@ -7,8 +7,12 @@
 @if (this.SignInManager.IsSignedIn(this.User))
 {
     <li class="nav-item">
-        <a class="nav-link" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Здравей, @(this.User.Identity.Name)!</a>
+        <a class="nav-link" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Здравейте, @(this.User.Identity.Name)!</a>
     </li>
+    <li>
+        <a class="nav-link" asp-area="" asp-controller="Routes" asp-action="All">Маршрути</a>
+    </li>
+
     <li class="nav-item">
         <div class="dropdown">
             <div class="dropdown-content">
@@ -16,9 +20,6 @@
                 <ul class="collapse list-unstyled" id="Submenu">
                     <li class="active">
                         <a class="nav-link" asp-area="" asp-controller="Cars" asp-action="All">Моите автомобили</a>
-                    </li>
-                    <li>
-                        <a class="nav-link" asp-area="" asp-controller="Routes" asp-action="All">Маршрути</a>
                     </li>
                     <li>
                         <a class="nav-link" asp-area="" asp-controller="Reports" asp-action="All">Справки</a>

@@ -90,11 +90,11 @@
             await this.invoicesRepository.SaveChangesAsync();
         }
 
-        public IQueryable<T> GetAll<T>(string id)
+        public IQueryable<T> GetAll<T>(string carId)
         {
             return this.invoicesRepository
-                .All()
-                .Where(c => c.CarId == id)
+                .AllAsNoTracking()
+                .Where(c => c.CarId == carId)
                 .OrderByDescending(c => c.Date)
                 .To<T>();
         }
@@ -104,17 +104,17 @@
             return this.usersService.GetAll(companyId);
         }
 
-        public async Task<T> GetByIdAsync<T>(string id)
+        public async Task<T> GetByIdAsync<T>(string carId)
         {
             var viewModel = await this.invoicesRepository
                 .All()
-                .Where(c => c.CarId == id)
+                .Where(c => c.CarId == carId)
                 .To<T>()
                 .SingleOrDefaultAsync();
 
             if (viewModel == null)
             {
-                throw new ArgumentNullException(InvalidInvoiceErrorMessage, id);
+                throw new ArgumentNullException(InvalidInvoiceErrorMessage, carId);
             }
 
             return viewModel;
@@ -123,7 +123,7 @@
         public async Task<T> GetDetailsAsync<T>(string id)
         {
             var viewModel = await this.invoicesRepository
-                .All()
+                .AllAsNoTracking()
                 .Where(c => c.Id == id)
                 .To<T>()
                 .SingleOrDefaultAsync();

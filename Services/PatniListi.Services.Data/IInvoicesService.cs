@@ -6,9 +6,9 @@
 
     public interface IInvoicesService
     {
-        IQueryable<T> GetAll<T>(string id);
+        IQueryable<T> GetAll<T>(string carId);
 
-        Task<T> GetByIdAsync<T>(string id);
+        Task<T> GetByIdAsync<T>(string carId);
 
         Task CreateAsync(string number, DateTime date, string location, decimal price, double quantity, string driver, string carId, string carCompanyId, string createdBy, string fuelType, decimal totalPrice);
 
