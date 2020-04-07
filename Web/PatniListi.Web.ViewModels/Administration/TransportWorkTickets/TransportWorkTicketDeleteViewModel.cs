@@ -4,11 +4,12 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
+    using AutoMapper;
     using PatniListi.Data.Models;
     using PatniListi.Services.Mapping;
     using PatniListi.Web.ViewModels.Models.Routes;
 
-    public class TransportWorkTicketDeleteViewModel : IMapFrom<TransportWorkTicket>
+    public class TransportWorkTicketDeleteViewModel : IMapFrom<TransportWorkTicket>, IHaveCustomMappings
     {
         public string Id { get; set; }
 
@@ -28,6 +29,8 @@
 
         [Display(Name = "Въведен")]
         public string CreatedBy { get; set; }
+
+        public string ModifiedBy { get; set; }
 
         public string CarId { get; set; }
 
@@ -66,6 +69,13 @@
         public double Residue { get; set; }
 
         [Display(Name = "Маршрути")]
-        public ICollection<RouteDetailsViewModel> Routes { get; set; }
+        public ICollection<RouteTransportViewModel> Routes { get; set; }
+
+        public void CreateMappings(IProfileExpression configuration)
+        {
+            configuration
+                .CreateMap<TransportWorkTicket, TransportWorkTicketDeleteViewModel>()
+                .ForMember(x => x.Routes, y => y.MapFrom(x => x.RouteTransportWorkTickets));
+        }
     }
 }

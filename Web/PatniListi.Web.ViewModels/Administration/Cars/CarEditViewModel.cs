@@ -60,15 +60,17 @@
 
         public DateTime CreatedOn { get; set; }
 
+        public ICollection<CarUserViewModel> Drivers { get; set; }
+
         public IEnumerable<SelectListItem> AllDrivers { get; set; }
 
         public IEnumerable<SelectListItem> AllTypes { get; set; }
 
         public void CreateMappings(IProfileExpression configuration)
         {
-            configuration.CreateMap<Car, CarDetailsViewModel>()
+            configuration.CreateMap<Car, CarEditViewModel>()
                 .ForMember(x => x.FuelType, y => y.MapFrom(x => x.FuelType.ToString()))
-                .ForMember(x => x.AllDrivers, y => y.MapFrom(x => x.CarUsers));
+                .ForMember(x => x.Drivers, y => y.MapFrom(x => x.CarUsers));
         }
     }
 }

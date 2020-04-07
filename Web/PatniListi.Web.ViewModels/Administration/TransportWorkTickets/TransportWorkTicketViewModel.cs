@@ -25,6 +25,8 @@
 
         public string CarLicensePlate { get; set; }
 
+        public double TravelledDistance { get; set; }
+
         [Display(Name = "Автомобил")]
         public string Car => $"{this.CarModel} - {this.CarLicensePlate}";
     }

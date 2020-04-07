@@ -1,4 +1,7 @@
-﻿@model PatniListi.Web.ViewModels.Administration.TransportWorkTickets.TransportWorkTicketDeleteViewModel
+﻿@using PatniListi.Data.Models
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<ApplicationUser> UserManager
+@model PatniListi.Web.ViewModels.Administration.TransportWorkTickets.TransportWorkTicketDeleteViewModel
 
 @{
     ViewData["Title"] = $"Сигурни ли сте, че искате да изтриете пътен лист за автомобил {Model.Car}?";
@@ -21,7 +24,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label asp-for="Date"></label>
-                            <input asp-for="Date" type="text" readonly class="form-control" value="@Model.Date.ToShortDateString()" />
+                            <input asp-for="Date" type="text" readonly class="form-control text-white" value="@Model.Date.ToShortDateString()" />
                             <span asp-validation-for="Date" class="text-danger"></span>
                         </div>
                     </div>
@@ -56,7 +59,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label asp-for="CreatedOn"></label>
-                            <input asp-for="CreatedOn" type="text" readonly class="form-control text-white" value="@Model.CreatedOn" />
+                            <input asp-for="CreatedOn" type="text" readonly class="form-control text-white" value="@Model.CreatedOn.ToShortDateString()" />
                         </div>
                     </div>
                 </div>
@@ -91,14 +94,14 @@
                                         @route.Route
                                     </td>
                                     <td>
-                                        @route.Distance
+                                        @route.RouteDistance
                                     </td>
                                 </tr>
                             }
 
                             <tfoot>
                                 @{
-                                    var TotalDistance = Model.Routes.Select(r => r.Distance).Sum();
+                                    var TotalDistance = Model.Routes.Select(r => r.RouteDistance).Sum();
                                 }
                                 <tr>
                                     <td>Общо:</td>
@@ -106,7 +109,7 @@
                                 </tr>
                             </tfoot>
                         </table>
-                        </div>
+                    </div>
                 </div>
             </fieldset>
             <br />
@@ -160,12 +163,17 @@
                             <input type="hidden" asp-for="CarId" readonly class="form-control" value="@Model.CarId" />
                         </div>
                     </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <input type="hidden" asp-for="ModifiedBy" readonly class="form-control" value="@UserManager.GetUserAsync(this.User).Result?.FullName" />
+                        </div>
+                    </div>
                 </div>
             </fieldset>
             <br />
             <div class="form-group text-center">
                 <div class="button-holder">
-                    <button type="submit" class="btn btn-primary btn-block text-uppercase">Изтрий</button>
+                    <a href="/Administration/TransportWorkTickets/ConfirmDelete?Id=@Model.Id" class="btn btn-primary btn-block text-uppercase">Изтрий</a>
                     <a class="nav-link text-uppercase text-center" asp-area="Administration" asp-controller="TransportWorkTickets" asp-action="All" asp-route-id="@Model.CarId">Пътни листи</a>
                 </div>
             </div>

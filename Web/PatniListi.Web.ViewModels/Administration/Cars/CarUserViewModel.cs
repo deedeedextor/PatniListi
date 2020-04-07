@@ -10,5 +10,7 @@
         public string CarModel { get; set; }
 
         public string UserId { get; set; }
+
+        public string ApplicationUserFullName { get; set; }
     }
 }

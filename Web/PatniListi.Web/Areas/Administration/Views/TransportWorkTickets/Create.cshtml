@@ -28,7 +28,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label asp-for="Date"></label>
-                                <input asp-for="Date" type="text" id="datepicker" class="form-control datepicker" value="@DateTime.UtcNow" />
+                                <input asp-for="Date" type="text" id="datepicker" class="form-control datepicker" value="@DateTime.UtcNow.ToShortDateString()" />
                                 <span asp-validation-for="Date" class="text-danger"></span>
                             </div>
                         </div>
@@ -51,7 +51,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label asp-for="CarAverageConsumption"></label>
-                                <input asp-for="CarAverageConsumption" id="averageConsumption" readonly class="form-control text-white" value="@Model.CarAverageConsumption" />
+                                <input asp-for="CarAverageConsumption" id="carAverageConsumption" readonly class="form-control text-white" value="@Model.CarAverageConsumption" />
                                 <span asp-validation-for="CarAverageConsumption" class="text-danger"></span>
                             </div>
                         </div>

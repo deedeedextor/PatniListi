@@ -111,7 +111,7 @@
         public IEnumerable<SelectListItem> GetAll(string companyId)
         {
             return this.carsRepository
-                   .All()
+                   .AllAsNoTracking()
                    .Where(c => c.CompanyId == companyId)
                    .Select(c => new SelectListItem
                    {
@@ -132,40 +132,52 @@
             return litres;
         }
 
-        public double GetCurrentTravelledDistanceByCarId(string id)
+        public double GetCurrentTravelledDistanceByCarId(string carId, string transportWorkTicketId = null)
         {
-            var travelledDistance = this.carsRepository
+            var travelledDistance = 0.00;
+
+            if (transportWorkTicketId != null)
+            {
+                travelledDistance = this.carsRepository
                             .AllAsNoTracking()
-                            .Where(c => c.Id == id)
+                            .Where(c => c.Id == carId)
+                            .Select(i => i.TransportWorkTickets.Where(tr => tr.Id != transportWorkTicketId).Sum(i => i.TravelledDistance))
+                            .SingleOrDefault();
+            }
+            else
+            {
+                travelledDistance = this.carsRepository
+                            .AllAsNoTracking()
+                            .Where(c => c.Id == carId)
                             .Select(i => i.TransportWorkTickets.Sum(i => i.TravelledDistance))
                             .SingleOrDefault();
+            }
 
             return travelledDistance;
         }
 
-        public double GetCurrentFuelConsumptionByCarId(string id)
+        public double GetCurrentFuelConsumptionByCarId(string carId, string transportWorkTicketId = null)
         {
-            var residue = this.carsRepository
+            var residue = 0.00;
+
+            if (transportWorkTicketId != null)
+            {
+                residue = this.carsRepository
                           .AllAsNoTracking()
-                          .Where(c => c.Id == id)
+                          .Where(c => c.Id == carId)
+                          .Select(i => i.TransportWorkTickets.Where(tr => tr.Id != transportWorkTicketId).Sum(i => i.FuelConsumption))
+                          .SingleOrDefault();
+            }
+            else
+            {
+                residue = this.carsRepository
+                          .AllAsNoTracking()
+                          .Where(c => c.Id == carId)
                           .Select(i => i.TransportWorkTickets.Sum(i => i.FuelConsumption))
                           .SingleOrDefault();
+            }
 
             return residue;
-        }
-
-        public IEnumerable<SelectListItem> GetAllUsersForCar(string id)
-        {
-            return this.carsRepository
-                   .All()
-                   .Include(c => c.CarUsers)
-                   .Where(c => c.Id == id)
-                   .Select(c => new SelectListItem
-                   {
-                       Value = c.Model,
-                       Text = c.Model,
-                   })
-                   .ToList();
         }
 
         public async Task<T> GetByIdAsync<T>(string carId)
@@ -193,9 +205,9 @@
         {
             return new List<SelectListItem>
             {
-                new SelectListItem { Value = "0", Text = "Бензин" },
-                new SelectListItem { Value = "1", Text = "Дизел" },
-                new SelectListItem { Value = "2", Text = "Газ" },
+                new SelectListItem { Value = "Бензин", Text = "Бензин" },
+                new SelectListItem { Value = "Дизел", Text = "Дизел" },
+                new SelectListItem { Value = "Газ", Text = "Газ" },
             };
         }
     }

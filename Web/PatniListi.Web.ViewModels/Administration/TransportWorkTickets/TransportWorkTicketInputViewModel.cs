@@ -58,6 +58,7 @@
         public string Car => $"{this.CarModel} - {this.CarLicensePlate}";
 
         [Display(Name = "Маршрут")]
+        [Required(ErrorMessage = AttributesErrorMessages.RequiredErrorMessage)]
         public IEnumerable<string> Route { get; set; }
 
         [Display(Name = "Растояние")]

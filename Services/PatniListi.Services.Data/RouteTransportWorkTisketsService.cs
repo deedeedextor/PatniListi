@@ -53,15 +53,23 @@
             }
         }
 
-        public async Task UpdateAsync(string transportWorkTicketId, string companyId, IEnumerable<RouteTransportViewModel> collection)
+        public async Task UpdateAsync(string transportWorkTicketId, string companyId, IEnumerable<string> collection)
         {
+            var newRoutes = new List<RouteViewModel>();
+
             if (collection.Count() > 0)
             {
-                var routeTransportWorkTickets = await this.GetAllAsync<RouteTransportViewModel>(transportWorkTicketId);
-
-                if (routeTransportWorkTickets.Count() > 0)
+                foreach (var routeId in collection)
                 {
-                    foreach (var rtr in routeTransportWorkTickets)
+                    var routeTransportWorkTicket = await this.routesService.GetByIdAsync<RouteViewModel>(routeId);
+                    newRoutes.Add(routeTransportWorkTicket);
+                }
+
+                var allRoutes = await this.GetAllAsync<RouteTransportViewModel>(transportWorkTicketId);
+
+                if (allRoutes.Count() > 0)
+                {
+                    foreach (var rtr in allRoutes)
                     {
                         var routeTransportWorkTicket = new RouteTransportWorkTicket
                         {
@@ -75,11 +83,11 @@
                     }
                 }
 
-                foreach (var route in collection)
+                foreach (var route in newRoutes)
                 {
                     var routeTransportWorkTicket = new RouteTransportWorkTicket
                     {
-                        RouteId = route.RouteId,
+                        RouteId = route.Id,
                         TransportWorkTicketId = transportWorkTicketId,
                     };
 

@@ -29,8 +29,8 @@
 
         double GetCurrentLitresByCarId(string id);
 
-        double GetCurrentTravelledDistanceByCarId(string id);
+        double GetCurrentTravelledDistanceByCarId(string carId, string transportWorkTicketId = null);
 
-        double GetCurrentFuelConsumptionByCarId(string id);
+        double GetCurrentFuelConsumptionByCarId(string carId, string transportWorkTicketId = null);
     }
 }

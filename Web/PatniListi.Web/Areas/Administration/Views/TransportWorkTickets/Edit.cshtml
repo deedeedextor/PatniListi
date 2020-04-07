@@ -1,4 +1,7 @@
-﻿@model PatniListi.Web.ViewModels.Administration.TransportWorkTickets.TransportWortkTicketEditViewModel
+﻿@using PatniListi.Data.Models
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<ApplicationUser> UserManager
+@model PatniListi.Web.ViewModels.Administration.TransportWorkTickets.TransportWortkTicketEditViewModel
 
 @{
     ViewData["Title"] = $"Промени пътен лист за {Model.CarModel}";
@@ -48,7 +51,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label asp-for="CarAverageConsumption"></label>
-                                <input asp-for="CarAverageConsumption" readonly class="form-control text-white" value="@Model.CarAverageConsumption" />
+                                <input asp-for="CarAverageConsumption" id="carAverageConsumption" readonly class="form-control text-white" value="@Model.CarAverageConsumption" />
                                 <span asp-validation-for="CarAverageConsumption" class="text-danger"></span>
                             </div>
                         </div>
@@ -75,10 +78,20 @@
                 <fieldset>
                     <legend class="text-white">Mаршрути: </legend>
                     <div class="row">
+                        @{
+                            foreach (var route in Model.Routes)
+                            {
+                                if (Model.AllRoutes.Any(ar => ar.Value == route.RouteId))
+                                {
+                                    var value = Model.AllRoutes.FirstOrDefault(ar => ar.Value == route.RouteId);
+                                    value.Selected = true;
+                                }
+                            }
+                        }
                         <div class="col-md-12">
                             <label asp-for="Route"></label>
                             <select asp-for="Route" asp-items="Model.AllRoutes" id="allRoutes" class="form-control">
-                                <option selected="selected" value="@Model.Routes.Select(r => r.Route).ToString()" disabled>--Моля, изберете--</option>
+                                <option selected="selected" value="@Model.AllRoutes.Where(ar => ar.Selected == true)" disabled>--Моля, изберете--</option>
                             </select>
                         </div>
                     </div>
@@ -187,6 +200,11 @@
                         <div class="col-md-2">
                             <div class="form-group">
                                 <input type="hidden" asp-for="Routes" readonly class="form-control" value="@Model.Routes" />
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <input type="hidden" asp-for="ModifiedBy" readonly class="form-control" value="@UserManager.GetUserAsync(this.User).Result?.FullName" />
                             </div>
                         </div>
                     </div>

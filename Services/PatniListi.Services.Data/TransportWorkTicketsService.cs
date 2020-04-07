@@ -70,7 +70,10 @@
                 return false;
             }
 
+            transportWorkTicket.ModifiedBy = fullName;
+
             this.transportWorkTicketsRepository.Delete(transportWorkTicket);
+            await this.routeTransportWorkTicketsService.SetIsDeletedAsync(transportWorkTicket.Id, fullName);
             await this.transportWorkTicketsRepository.SaveChangesAsync();
 
             return true;
@@ -88,6 +91,7 @@
                 UserId = user.Id,
                 CarId = input.CarId,
                 CreatedBy = input.CreatedBy,
+                ModifiedBy = input.ModifiedBy,
                 StartKilometers = input.StartKilometers,
                 EndKilometers = input.EndKilometers,
                 FuelConsumption = input.FuelConsumption,
@@ -96,7 +100,7 @@
                 TravelledDistance = input.TravelledDistance,
             };
 
-            await this.routeTransportWorkTicketsService.UpdateAsync(input.Id, input.CarCompanyId, input.Routes);
+            await this.routeTransportWorkTicketsService.UpdateAsync(input.Id, input.CarCompanyId, input.Route);
 
             this.transportWorkTicketsRepository.Update(transportWorkTicket);
             await this.transportWorkTicketsRepository.SaveChangesAsync();

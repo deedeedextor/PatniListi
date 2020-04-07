@@ -36,7 +36,7 @@
                         <div class="form-group">
                             <label asp-for="FuelType"></label>
                             <select asp-for="FuelType" asp-items="Model.AllTypes" class="form-control">
-                                <option selected="selected" value="" disabled>--Моля, изберете--</option>
+                                <option selected="selected" value="@Model.FuelType" disabled>--Моля, изберете--</option>
                             </select>
                             <span asp-validation-for="AllTypes" class="text-danger"></span>
                         </div>
@@ -73,11 +73,22 @@
                     </div>
                 </div>
                 <div class="row">
+                    @{
+                        foreach (var driver in Model.Drivers)
+                        {
+                            if (Model.AllDrivers.Any(ar => ar.Value == driver.ApplicationUserFullName))
+                            {
+                                var value = Model.AllDrivers.FirstOrDefault(ar => ar.Value == driver.ApplicationUserFullName);
+                                value.Selected = true;
+                            }
+                        }
+                    }
                     <div class="col-md-12">
                         <div class="form-group">
+
                             <label asp-for="FullName"></label>
                             <select asp-for="FullName" asp-items="Model.AllDrivers" class="form-control">
-                                <option selected="selected" value="" disabled>--Моля, изберете--</option>
+                                <option selected="selected" value="@Model.AllDrivers.Where(d => d.Selected == true)" disabled>--Моля, изберете--</option>
                             </select>
                             <span asp-validation-for="AllDrivers" class="text-danger"></span>
                         </div>

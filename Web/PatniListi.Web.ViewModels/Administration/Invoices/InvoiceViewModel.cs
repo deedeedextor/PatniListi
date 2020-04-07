@@ -17,9 +17,6 @@
         public DateTime Date { get; set; }
 
         [Display(Name = "Място на зареждане")]
-        public string Location { get; set; }
-
-        [Display(Name = "Място на зареждане")]
         public string ApplicationUserFullName { get; set; }
 
         [Display(Name = "Сума")]

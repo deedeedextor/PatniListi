@@ -63,7 +63,7 @@
                 CarLicensePlate = carFromDb.LicensePlate,
                 CarStartKilometers = carFromDb.StartKilometers,
                 CarTankCapacity = carFromDb.TankCapacity,
-                AllDrivers = this.usersService.GetAll(carFromDb.CompanyId),
+                AllDrivers = this.usersService.GetUsersByCar(carFromDb.Id),
                 AllLiters = this.carsService.GetCurrentLitresByCarId(carFromDb.Id),
                 AllTravelledDistance = this.carsService.GetCurrentTravelledDistanceByCarId(carFromDb.Id),
                 AllFuelConsumption = this.carsService.GetCurrentFuelConsumptionByCarId(carFromDb.Id),
@@ -86,7 +86,7 @@
 
             if (!this.ModelState.IsValid)
             {
-                input.AllDrivers = this.usersService.GetAll(input.CarCompanyId);
+                input.AllDrivers = this.usersService.GetUsersByCar(id);
                 input.AllLiters = this.carsService.GetCurrentLitresByCarId(input.CarId);
                 input.AllTravelledDistance = this.carsService.GetCurrentTravelledDistanceByCarId(input.CarId);
                 input.AllFuelConsumption = this.carsService.GetCurrentFuelConsumptionByCarId(input.CarId);
@@ -122,10 +122,10 @@
                 return this.NotFound();
             }
 
-            viewModel.AllDrivers = this.usersService.GetAll(viewModel.CarCompanyId);
+            viewModel.AllDrivers = this.usersService.GetUsersByCar(viewModel.CarId);
             viewModel.AllLiters = this.carsService.GetCurrentLitresByCarId(viewModel.CarId);
-            viewModel.AllTravelledDistance = this.carsService.GetCurrentTravelledDistanceByCarId(viewModel.CarId);
-            viewModel.AllFuelConsumption = this.carsService.GetCurrentFuelConsumptionByCarId(viewModel.CarId);
+            viewModel.AllTravelledDistance = this.carsService.GetCurrentTravelledDistanceByCarId(viewModel.CarId, viewModel.Id);
+            viewModel.AllFuelConsumption = this.carsService.GetCurrentFuelConsumptionByCarId(viewModel.CarId, viewModel.Id);
             viewModel.AllRoutes = this.routesService.GetAll();
 
             return this.View(viewModel);
@@ -141,10 +141,10 @@
             {
                 var viewModel = await this.transportWorkTicketsService.GetDetailsAsync<TransportWortkTicketEditViewModel>(input.Id);
 
-                viewModel.AllDrivers = this.usersService.GetAll(viewModel.CarCompanyId);
+                viewModel.AllDrivers = this.usersService.GetUsersByCar(viewModel.CarId);
                 viewModel.AllLiters = this.carsService.GetCurrentLitresByCarId(viewModel.CarId);
-                viewModel.AllTravelledDistance = this.carsService.GetCurrentTravelledDistanceByCarId(viewModel.CarId);
-                viewModel.AllFuelConsumption = this.carsService.GetCurrentFuelConsumptionByCarId(viewModel.CarId);
+                viewModel.AllTravelledDistance = this.carsService.GetCurrentTravelledDistanceByCarId(viewModel.CarId, viewModel.Id);
+                viewModel.AllFuelConsumption = this.carsService.GetCurrentFuelConsumptionByCarId(viewModel.CarId, viewModel.Id);
                 viewModel.AllRoutes = this.routesService.GetAll();
 
                 return this.View(viewModel);
@@ -156,7 +156,7 @@
 
         public async Task<IActionResult> Delete(string id)
         {
-            var viewModel = await this.invoicesService.GetDetailsAsync<TransportWorkTicketDeleteViewModel>(id);
+            var viewModel = await this.transportWorkTicketsService.GetDetailsAsync<TransportWorkTicketDeleteViewModel>(id);
 
             if (!this.ModelState.IsValid)
             {

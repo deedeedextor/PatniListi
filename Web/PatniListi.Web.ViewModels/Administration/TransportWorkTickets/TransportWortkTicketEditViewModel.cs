@@ -42,6 +42,8 @@
         [Required(ErrorMessage = AttributesErrorMessages.RequiredErrorMessage)]
         public string CreatedBy { get; set; }
 
+        public string ModifiedBy { get; set; }
+
         public string CarId { get; set; }
 
         public string CarModel { get; set; }

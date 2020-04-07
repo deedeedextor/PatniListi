@@ -52,7 +52,7 @@
             {
                 foreach (var name in collection)
                 {
-                    var user = this.usersService.GetByNameAsync<UserViewModel>(name, companyId).Result;
+                    var user = await this.usersService.GetByNameAsync<UserViewModel>(name, companyId);
                     newDrivers.Add(user);
                 }
 
