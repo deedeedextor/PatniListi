@@ -1,17 +1,17 @@
 ﻿@using PatniListi.Data.Models
 @using Microsoft.AspNetCore.Identity
 @inject UserManager<ApplicationUser> UserManager
-@model PatniListi.Web.ViewModels.Administration.TransportWorkTickets.TransportWortkTicketEditViewModel
+@model PatniListi.Web.ViewModels.Models.TransportWorkTickets.TransportWorkTicketInputViewModel
 
 @{
-    ViewData["Title"] = $"Промени пътен лист за {Model.CarModel}";
+    ViewData["Title"] = $"Добави пътен лист за {Model.CarModel}";
 }
 
 <section class="py-5">
     <div class="container shadow py-4 px-4">
         <h1 class="text-center">@ViewData["Title"]</h1>
         <div class="card-body">
-            <form asp-area="Administration" asp-controller="TransportWorkTickets" asp-action="Edit" asp-route-id="@Model.Id" method="post">
+            <form asp-area="" asp-controller="TransportWorkTickets" asp-action="Create" method="post">
                 <hr />
                 <fieldset>
                     <legend class="text-white">Основни данни: </legend>
@@ -20,7 +20,7 @@
                             <div class="form-group">
                                 <label asp-for="ApplicationUserFullName"></label>
                                 <select asp-for="ApplicationUserFullName" asp-items="Model.AllDrivers" class="form-control">
-                                    <option selected="selected" value="@Model.ApplicationUserFullName" disabled>--Моля, изберете--</option>
+                                    <option selected="selected" value="" disabled>--Моля, изберете--</option>
                                 </select>
                                 <span asp-validation-for="AllDrivers" class="text-danger"></span>
                             </div>
@@ -28,7 +28,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label asp-for="Date"></label>
-                                <input asp-for="Date" type="text" id="datepicker" class="form-control datepicker" value="@Model.Date.ToShortDateString()" />
+                                <input asp-for="Date" type="text" id="datepicker" class="form-control datepicker" value="@DateTime.UtcNow.ToShortDateString()" />
                                 <span asp-validation-for="Date" class="text-danger"></span>
                             </div>
                         </div>
@@ -57,18 +57,11 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <div class="form-group">
                                 <label asp-for="CreatedBy"></label>
-                                <input asp-for="CreatedBy" readonly class="form-control text-white" value="@Model.CreatedBy" />
+                                <input asp-for="CreatedBy" type="text" readonly class="form-control text-white" value="@this.UserManager.GetUserAsync(this.User).Result?.FullName" />
                                 <span asp-validation-for="CreatedBy" class="text-danger"></span>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label asp-for="CreatedOn"></label>
-                                <input asp-for="CreatedOn" type="text" readonly class="form-control text-white" value="@Model.CreatedOn.ToShortDateString()" />
-                                <span asp-validation-for="CreatedOn" class="text-danger"></span>
                             </div>
                         </div>
                     </div>
@@ -78,20 +71,10 @@
                 <fieldset>
                     <legend class="text-white">Mаршрути: </legend>
                     <div class="row">
-                        @{
-                            foreach (var route in Model.Routes)
-                            {
-                                if (Model.AllRoutes.Any(ar => ar.Value == route.RouteId))
-                                {
-                                    var value = Model.AllRoutes.FirstOrDefault(ar => ar.Value == route.RouteId);
-                                    value.Selected = true;
-                                }
-                            }
-                        }
                         <div class="col-md-12">
                             <label asp-for="Route"></label>
                             <select asp-for="Route" asp-items="Model.AllRoutes" id="allRoutes" class="form-control">
-                                <option selected="selected" value="@Model.AllRoutes.Where(ar => ar.Selected == true)" disabled>--Моля, изберете--</option>
+                                <option selected="selected" value="" disabled>--Моля, изберете--</option>
                             </select>
                         </div>
                     </div>
@@ -103,11 +86,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div id="partialPlaceHolder" style="display:none;">
-                            </div>
-                        </div>
+                    <div id="partialPlaceHolder" style="display:none;">
                     </div>
                 </fieldset>
                 <br />
@@ -197,30 +176,21 @@
                                 <input type="hidden" asp-for="AllFuelConsumption" id="allFuelConsumption" readonly class="form-control" value="@Model.AllFuelConsumption" />
                             </div>
                         </div>
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <input type="hidden" asp-for="Routes" readonly class="form-control" value="@Model.Routes" />
-                            </div>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <input type="hidden" asp-for="ModifiedBy" readonly class="form-control" value="@UserManager.GetUserAsync(this.User).Result?.FullName" />
-                            </div>
-                        </div>
                     </div>
                 </fieldset>
                 <br />
 
                 <div class="form-group text-center">
                     <div class="button-holder">
-                        <input type="submit" value="Запази" class="btn btn-primary btn-block text-uppercase" />
-                        <a class="nav-link text-uppercase text-center" asp-area="Administration" asp-controller="TransportWorkTickets" asp-action="All" asp-route-id="@Model.CarId">Пътни листи</a>
+                        <button type="submit" class="btn btn-primary btn-block text-uppercase">Добави</button>
+                        <a class="nav-link text-uppercase text-center" asp-area="" asp-controller="TransportWorkTickets" asp-action="All" asp-route-id="@Model.CarId">Пътни листи</a>
                     </div>
                 </div>
             </form>
         </div>
     </div>
 </section>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

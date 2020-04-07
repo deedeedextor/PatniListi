@@ -1,0 +1,193 @@
+﻿@model PatniListi.Web.ViewModels.Models.TransportWorkTickets.TransportWorkTicketDetailsViewModel
+
+@{
+    ViewData["Title"] = $"Детайли за пътен лист";
+}
+
+<section class="py-5">
+    <div class="container shadow py-4 px-4">
+        <h1 class="text-center">@ViewData["Title"]</h1>
+        <div class="card-body">
+            <hr />
+            <fieldset>
+                <legend class="text-white">Основни данни: </legend>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="ApplicationUserFullName"></label>
+                            <input asp-for="Car" readonly class="form-control text-white" value="@Model.ApplicationUserFullName" />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Date"></label>
+                            <input asp-for="Date" type="text" readonly class="form-control text-white" value="@Model.Date.ToShortDateString()" />
+                            <span asp-validation-for="Date" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="Car"></label>
+                            <input asp-for="Car" readonly class="form-control text-white" value="@Model.Car" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="CarFuelType"></label>
+                            <input asp-for="CarFuelType" readonly class="form-control text-white" value="@Model.CarFuelType" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="CarAverageConsumption"></label>
+                            <input asp-for="CarAverageConsumption" readonly class="form-control text-white" value="@Model.CarAverageConsumption" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="CreatedBy"></label>
+                            <input asp-for="CreatedBy" readonly class="form-control text-white" value="@Model.CreatedBy" />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="CreatedOn"></label>
+                            <input asp-for="CreatedOn" type="text" readonly class="form-control text-white" value="@Model.CreatedOn.ToShortDateString()" />
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <br />
+            <br />
+
+            <fieldset>
+                <legend class="text-white">Mаршрути: </legend>
+                <div class="row">
+                    <div class="col-md-12">
+                        <label asp-for="Routes"></label>
+
+                        <table class="table table-responsive-md table-hover">
+                            <tr class="text-white">
+                                <th>
+                                    Маршрут
+                                </th>
+                                <th>
+                                    Разстояние
+                                </th>
+                                <th>
+
+                                </th>
+                                <th>
+
+                                </th>
+                            </tr>
+                            @if (Model.Routes != null)
+                            {
+                                foreach (var route in Model.Routes)
+                                {
+                                    <tr>
+                                        <td>
+                                            @route.Route
+                                        </td>
+                                        <td>
+                                            @route.RouteDistance
+                                        </td>
+                                    </tr>
+                                }
+
+                                <tfoot>
+                                    @{
+                                        var TotalDistance = Model.Routes.Select(r => r.RouteDistance).Sum();
+                                    }
+                                    <tr>
+                                        <td>Общо:</td>
+                                        <td>@TotalDistance</td>
+                                    </tr>
+                                </tfoot>
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td>
+                                        Няма избрани маршрути.
+                                    </td>
+                                    <td>
+                                    </td>
+                                </tr>
+                            }
+                        </table>
+                    </div>
+                </div>
+            </fieldset>
+            <br />
+
+            <fieldset>
+                <legend class="text-white">Километраж: </legend>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="StartKilometers"></label>
+                            <input asp-for="StartKilometers" readonly class="form-control text-white" value="@Model.StartKilometers" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label asp-for="TravelledDistance"></label>
+                        <input asp-for="TravelledDistance" readonly class="form-control text-white" value="@Model.TravelledDistance" />
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="EndKilometers"></label>
+                            <input asp-for="EndKilometers" readonly class="form-control text-white" value="@Model.EndKilometers" />
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <br />
+            <br />
+
+            <fieldset>
+                <legend class="text-white">Гориво: </legend>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="FuelAvailability"></label>
+                            <input asp-for="FuelAvailability" readonly class="form-control text-white" value="@Model.FuelAvailability" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="FuelConsumption"></label>
+                            <input asp-for="FuelConsumption" readonly class="form-control text-white" value="@Model.FuelConsumption" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="Residue" class="text-md-left"></label>
+                            <input asp-for="Residue" readonly class="form-control text-white" value="@Model.Residue" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <input type="hidden" asp-for="CarId" readonly class="form-control" value="@Model.CarId" />
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <br />
+            <div class="form-group text-center">
+                <div class="button-holder">
+                    <a href="/Administration/TransportWorkTickets/Edit?Id=@Model.Id" class="btn btn-primary btn-block text-uppercase">Промени</a>
+                    <a class="nav-link text-uppercase text-center" asp-area="" asp-controller="TransportWorkTickets" asp-action="All" asp-route-id="@Model.CarId">Пътни листи</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

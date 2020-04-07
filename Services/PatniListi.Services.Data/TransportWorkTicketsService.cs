@@ -1,6 +1,7 @@
 ﻿namespace PatniListi.Services.Data
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -29,27 +30,27 @@
             this.routesService = routesService;
         }
 
-        public async Task CreateAsync(TransportWorkTicketInputViewModel input)
+        public async Task CreateAsync(DateTime date, string applicationUserFullName, string carId, string carCompanyId, string createdBy, IEnumerable<string> route, double startKilometers, double endKilometers, double fuelConsumption, double residue, double fuelAvailability, double travelledDistance)
         {
-            var user = await this.usersService.GetByNameAsync<UserDetailsViewModel>(input.ApplicationUserFullName, input.CarCompanyId);
+            var user = await this.usersService.GetByNameAsync<UserDetailsViewModel>(applicationUserFullName, carCompanyId);
 
             var transportWorkTicket = new TransportWorkTicket
             {
-                Date = input.Date,
+                Date = date,
                 UserId = user.Id,
-                CarId = input.CarId,
-                CreatedBy = input.CreatedBy,
-                StartKilometers = input.StartKilometers,
-                EndKilometers = input.EndKilometers,
-                FuelConsumption = input.FuelConsumption,
-                Residue = input.Residue,
-                FuelAvailability = input.FuelAvailability,
-                TravelledDistance = input.TravelledDistance,
+                CarId = carId,
+                CreatedBy = createdBy,
+                StartKilometers = startKilometers,
+                EndKilometers = endKilometers,
+                FuelConsumption = fuelConsumption,
+                Residue = residue,
+                FuelAvailability = fuelAvailability,
+                TravelledDistance = travelledDistance,
             };
 
             await this.transportWorkTicketsRepository.AddAsync(transportWorkTicket);
 
-            foreach (var routeId in input.Route)
+            foreach (var routeId in route)
             {
                 var currentRoute = await this.routesService.GetByIdAsync<RouteViewModel>(routeId);
                 transportWorkTicket.RouteTransportWorkTickets.Add(new RouteTransportWorkTicket { RouteId = currentRoute.Id, TransportWorkTicketId = transportWorkTicket.Id });
@@ -79,28 +80,28 @@
             return true;
         }
 
-        public async Task EditAsync(TransportWortkTicketEditViewModel input, string fullName)
+        public async Task EditAsync(string id, DateTime date, string applicationUserFullName, string carId, string carCompanyId, string createdBy, DateTime createdOn, string modifiedBy, IEnumerable<string> route, double startKilometers, double endKilometers, double fuelConsumption, double residue, double fuelAvailability, double travelledDistance)
         {
-            var user = await this.usersService.GetByNameAsync<UserDetailsViewModel>(input.ApplicationUserFullName, input.CarCompanyId);
+            var user = await this.usersService.GetByNameAsync<UserDetailsViewModel>(applicationUserFullName, carCompanyId);
 
             var transportWorkTicket = new TransportWorkTicket
             {
-                Id = input.Id,
-                CreatedOn = input.CreatedOn,
-                Date = input.Date,
+                Id = id,
+                CreatedOn = createdOn,
+                Date = date,
                 UserId = user.Id,
-                CarId = input.CarId,
-                CreatedBy = input.CreatedBy,
-                ModifiedBy = input.ModifiedBy,
-                StartKilometers = input.StartKilometers,
-                EndKilometers = input.EndKilometers,
-                FuelConsumption = input.FuelConsumption,
-                FuelAvailability = input.FuelAvailability,
-                Residue = input.Residue,
-                TravelledDistance = input.TravelledDistance,
+                CarId = carId,
+                CreatedBy = createdBy,
+                ModifiedBy = modifiedBy,
+                StartKilometers = startKilometers,
+                EndKilometers = endKilometers,
+                FuelConsumption = fuelConsumption,
+                FuelAvailability = fuelAvailability,
+                Residue = residue,
+                TravelledDistance = travelledDistance,
             };
 
-            await this.routeTransportWorkTicketsService.UpdateAsync(input.Id, input.CarCompanyId, input.Route);
+            await this.routeTransportWorkTicketsService.UpdateAsync(id, carCompanyId, route);
 
             this.transportWorkTicketsRepository.Update(transportWorkTicket);
             await this.transportWorkTicketsRepository.SaveChangesAsync();

@@ -1,7 +1,7 @@
 ﻿@using PatniListi.Data.Models
 @using Microsoft.AspNetCore.Identity
 @inject UserManager<ApplicationUser> UserManager
-@model PatniListi.Web.ViewModels.Administration.TransportWorkTickets.TransportWortkTicketEditViewModel
+@model PatniListi.Web.ViewModels.Models.TransportWorkTickets.TransportWortkTicketEditViewModel
 
 @{
     ViewData["Title"] = $"Промени пътен лист за {Model.CarModel}";
@@ -11,7 +11,7 @@
     <div class="container shadow py-4 px-4">
         <h1 class="text-center">@ViewData["Title"]</h1>
         <div class="card-body">
-            <form asp-area="Administration" asp-controller="TransportWorkTickets" asp-action="Edit" asp-route-id="@Model.Id" method="post">
+            <form asp-area="" asp-controller="TransportWorkTickets" asp-action="Edit" asp-route-id="@Model.Id" method="post">
                 <hr />
                 <fieldset>
                     <legend class="text-white">Основни данни: </legend>
@@ -214,7 +214,7 @@
                 <div class="form-group text-center">
                     <div class="button-holder">
                         <input type="submit" value="Запази" class="btn btn-primary btn-block text-uppercase" />
-                        <a class="nav-link text-uppercase text-center" asp-area="Administration" asp-controller="TransportWorkTickets" asp-action="All" asp-route-id="@Model.CarId">Пътни листи</a>
+                        <a class="nav-link text-uppercase text-center" asp-area="" asp-controller="TransportWorkTickets" asp-action="All" asp-route-id="@Model.CarId">Пътни листи</a>
                     </div>
                 </div>
             </form>

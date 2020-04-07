@@ -1,19 +1,21 @@
-﻿namespace PatniListi.Web.Areas.Administration.Controllers
+﻿namespace PatniListi.Web.Controllers
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using PatniListi.Common;
     using PatniListi.Data.Models;
     using PatniListi.Services.Data;
     using PatniListi.Web.Infrastructure;
-    using PatniListi.Web.ViewModels.Administration.Cars;
-    using PatniListi.Web.ViewModels.Administration.TransportWorkTickets;
+    using PatniListi.Web.ViewModels.Models.Cars;
     using PatniListi.Web.ViewModels.Models.Routes;
+    using PatniListi.Web.ViewModels.Models.TransportWorkTickets;
 
-    public class TransportWorkTicketsController : AdministrationController
+    [Authorize]
+    public class TransportWorkTicketsController : BaseController
     {
         private readonly ITransportWorkTicketsService transportWorkTicketsService;
         private readonly ICarsService carsService;
@@ -95,7 +97,7 @@
                 return this.View(input);
             }
 
-            await this.transportWorkTicketsService.CreateAsync(input.Date, input.ApplicationUserFullName, input.CarId, input.CarCompanyId, input.CreatedBy, input.Route, input.StartKilometers, input.EndKilometers, input.FuelConsumption, input.Residue, input.FuelAvailability, input.TravelledDistance);
+            await this.transportWorkTicketsService.CreateAsync(input.Date, input.ApplicationUserFullName, input.CarId, input.CarCompanyId, input.CreatedBy, input.Route, input.StartKilometers, input.EndKilometers, input.FuelConsumption,input.Residue, input.FuelAvailability, input.TravelledDistance);
 
             return this.RedirectToAction("All", "TransportWorkTickets", new { id });
         }
@@ -152,33 +154,6 @@
 
             await this.transportWorkTicketsService.EditAsync(input.Id, input.Date, input.ApplicationUserFullName, input.CarId, input.CarCompanyId, input.CreatedBy, input.CreatedOn, input.ModifiedBy, input.Route, input.StartKilometers, input.EndKilometers, input.FuelConsumption, input.Residue, input.FuelAvailability, input.TravelledDistance);
             return this.RedirectToAction("All", "TransportWorkTickets", new { id = input.CarId });
-        }
-
-        public async Task<IActionResult> Delete(string id)
-        {
-            var viewModel = await this.transportWorkTicketsService.GetDetailsAsync<TransportWorkTicketDeleteViewModel>(id);
-
-            if (!this.ModelState.IsValid)
-            {
-                return this.NotFound();
-            }
-
-            return this.View(viewModel);
-        }
-
-        public async Task<IActionResult> ConfirmDelete(string id)
-        {
-            var carId = this.TempData.Peek("carId").ToString();
-            var currentUserFullname = this.userManager.GetUserAsync(this.User).Result?.FullName;
-
-            var deleted = await this.transportWorkTicketsService.DeleteAsync(id, currentUserFullname);
-
-            if (!deleted)
-            {
-                return this.NotFound();
-            }
-
-            return this.RedirectToAction("All", "TransportWorkTickets", new { id = carId });
         }
 
         public async Task<ActionResult> RouteDetailsPartial(string id)
