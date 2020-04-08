@@ -63,7 +63,7 @@
                 CarLicensePlate = carFromDb.LicensePlate,
                 CarStartKilometers = carFromDb.StartKilometers,
                 CarTankCapacity = carFromDb.TankCapacity,
-                AllDrivers = this.usersService.GetUsersByCar(carFromDb.Id),
+                AllDrivers = this.usersService.GetAll(carFromDb.CompanyId),
                 AllLiters = this.carsService.GetCurrentLitresByCarId(carFromDb.Id),
                 AllTravelledDistance = this.carsService.GetCurrentTravelledDistanceByCarId(carFromDb.Id),
                 AllFuelConsumption = this.carsService.GetCurrentFuelConsumptionByCarId(carFromDb.Id),
@@ -122,7 +122,7 @@
                 return this.NotFound();
             }
 
-            viewModel.AllDrivers = this.usersService.GetUsersByCar(viewModel.CarId);
+            viewModel.AllDrivers = this.usersService.GetAll(viewModel.CarCompanyId);
             viewModel.AllLiters = this.carsService.GetCurrentLitresByCarId(viewModel.CarId);
             viewModel.AllTravelledDistance = this.carsService.GetCurrentTravelledDistanceByCarId(viewModel.CarId, viewModel.Id);
             viewModel.AllFuelConsumption = this.carsService.GetCurrentFuelConsumptionByCarId(viewModel.CarId, viewModel.Id);

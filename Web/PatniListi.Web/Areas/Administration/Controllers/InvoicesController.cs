@@ -67,7 +67,7 @@
                 CarCompanyId = carFromDb.CompanyId,
                 CarInitialFuel = carFromDb.InitialFuel,
                 CarTankCapacity = carFromDb.TankCapacity,
-                AllDrivers = this.usersService.GetUsersByCar(id),
+                AllDrivers = this.usersService.GetAll(carFromDb.CompanyId),
                 AllLitres = this.carsService.GetCurrentLitresByCarId(id),
                 AllFuelConsumption = this.carsService.GetCurrentFuelConsumptionByCarId(carFromDb.Id),
             };
@@ -85,19 +85,17 @@
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(InvoiceInputViewModel input)
         {
-            var id = this.TempData.Peek("carId").ToString();
-
             if (!this.ModelState.IsValid)
             {
                 input.AllDrivers = this.usersService.GetUsersByCar(input.CarId);
-                input.AllLitres = this.carsService.GetCurrentLitresByCarId(id);
-                input.AllFuelConsumption = this.carsService.GetCurrentTravelledDistanceByCarId(id);
+                input.AllLitres = this.carsService.GetCurrentLitresByCarId(input.CarId);
+                input.AllFuelConsumption = this.carsService.GetCurrentTravelledDistanceByCarId(input.CarId);
                 return this.View(input);
             }
 
             await this.invoicesService.CreateAsync(input.Number, input.Date, input.Location, input.CurrentLiters, input.Price, input.Quantity, input.FullName, input.CarId, input.CarCompanyId, input.CreatedBy, input.CarFuelType, input.TotalPrice);
 
-            return this.RedirectToAction("All", "Invoices", new { id });
+            return this.RedirectToAction("All", "Invoices", new { input.CarId });
         }
 
         public async Task<IActionResult> Edit(string id)
@@ -109,7 +107,7 @@
                 return this.NotFound();
             }
 
-            viewModel.AllDrivers = this.usersService.GetUsersByCar(viewModel.CarId);
+            viewModel.AllDrivers = this.usersService.GetAll(viewModel.CarCompanyId);
 
             return this.View(viewModel);
         }
@@ -123,7 +121,7 @@
             if (!this.ModelState.IsValid)
             {
                 var viewModel = await this.invoicesService.GetDetailsAsync<InvoiceEditViewModel>(input.Id);
-                viewModel.AllDrivers = this.usersService.GetUsersByCar(viewModel.CarId);
+                viewModel.AllDrivers = this.usersService.GetAll(viewModel.CarCompanyId);
 
                 return this.View(viewModel);
             }

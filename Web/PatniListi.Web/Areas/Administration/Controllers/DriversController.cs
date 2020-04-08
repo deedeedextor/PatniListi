@@ -64,7 +64,12 @@
                 return this.View(input);
             }
 
-            await this.usersService.CreateAsync(input.Username, input.Email, input.Password, input.ConfirmPassword, input.FullName, input.CompanyId);
+            bool isCreated = await this.usersService.CreateAsync(input.Username, input.Email, input.Password, input.ConfirmPassword, input.FullName, input.CompanyId);
+
+            if (!isCreated)
+            {
+                return this.View(input);
+            }
 
             return this.RedirectToAction("All", "Drivers");
         }

@@ -9,7 +9,6 @@
     using PatniListi.Data.Common.Repositories;
     using PatniListi.Data.Models;
     using PatniListi.Services.Mapping;
-    using PatniListi.Web.ViewModels.Administration.TransportWorkTickets;
     using PatniListi.Web.ViewModels.Administration.Users;
     using PatniListi.Web.ViewModels.Models.Routes;
 

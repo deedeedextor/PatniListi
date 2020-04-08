@@ -61,7 +61,7 @@
                         <div class="form-group">
                             <label asp-for="ApplicationUserFullName"></label>
                             <select asp-for="ApplicationUserFullName" asp-items="Model.AllDrivers" class="form-control">
-                                <option value="@Model.ApplicationUserFullName" disabled>--Моля изберете--</option>
+                                <option selected="selected" value="@Model.ApplicationUserFullName" disabled>--Моля изберете--</option>
                             </select>
                             <span asp-validation-for="AllDrivers" class="text-danger"></span>
                         </div>

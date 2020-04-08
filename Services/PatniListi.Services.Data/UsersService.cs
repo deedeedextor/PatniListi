@@ -48,7 +48,7 @@
             await this.roleRepository.SaveChangesAsync();
         }
 
-        public async Task CreateAsync(string username, string email, string password, string confirmPassword, string fullName, string companyId)
+        public async Task<bool> CreateAsync(string username, string email, string password, string confirmPassword, string fullName, string companyId)
         {
             var user = new ApplicationUser { UserName = username, Email = email, FullName = fullName, CompanyId = companyId };
 
@@ -59,7 +59,10 @@
                 await this.AddRoleToUser(user.Id, "Driver");
 
                 this.logger.LogInformation("User created a new account with password.");
+                return true;
             }
+
+            return false;
         }
 
         public async Task<bool> DeleteAsync(string id, string fullName)

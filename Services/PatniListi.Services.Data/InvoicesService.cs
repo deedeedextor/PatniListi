@@ -60,6 +60,7 @@
                 return false;
             }
 
+            invoice.ModifiedBy = fullName;
             this.invoicesRepository.Delete(invoice);
             await this.invoicesRepository.SaveChangesAsync();
 

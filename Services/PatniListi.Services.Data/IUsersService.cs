@@ -13,7 +13,7 @@
 
         IEnumerable<SelectListItem> GetUsersByCar(string carId);
 
-        Task CreateAsync(string username, string email, string password, string confirmPassword, string fullName, string companyId);
+        Task<bool> CreateAsync(string username, string email, string password, string confirmPassword, string fullName, string companyId);
 
         Task AddRoleToUser(string userId, string roleName);
 
