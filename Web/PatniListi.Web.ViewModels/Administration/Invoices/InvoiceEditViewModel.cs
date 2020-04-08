@@ -22,14 +22,8 @@
 
         public int CarTankCapacity { get; set; }
 
-        public double CarInitialFuel { get; set; }
-
-        public double AllLitres { get; set; }
-
-        public double AllTravelledDistance { get; set; }
-
         [Display(Name = "Налично гориво в момента")]
-        public double CurrentLiters => (this.CarInitialFuel + this.AllLitres) - this.AllTravelledDistance;
+        public double CurrentLiters { get; set; }
 
         [Display(Name = "Номер на фактура")]
         [Required(ErrorMessage = AttributesErrorMessages.RequiredErrorMessage)]

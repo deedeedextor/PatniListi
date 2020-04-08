@@ -25,7 +25,7 @@
             this.usersService = usersService;
         }
 
-        public async Task CreateAsync(string number, DateTime date, string location, decimal price, double quantity, string driver, string carId, string carCompanyId, string createdBy, string fuelType, decimal totalPrice)
+        public async Task CreateAsync(string number, DateTime date, string location, double currentLiters, decimal price, double quantity, string driver, string carId, string carCompanyId, string createdBy, string fuelType, decimal totalPrice)
         {
             var user = await this.usersService.GetByNameAsync<UserViewModel>(driver, carCompanyId);
 
@@ -35,6 +35,7 @@
                 Date = date,
                 FuelType = fuelType,
                 Location = location,
+                CurrentLiters = currentLiters,
                 Price = price,
                 Quantity = quantity,
                 TotalPrice = totalPrice,
@@ -65,7 +66,7 @@
             return true;
         }
 
-        public async Task EditAsync(string id, string number, DateTime date, string location, decimal price, double quantity, string driver, string carId, string carCompanyId, string createdBy, DateTime createdOn, string carFuelType, decimal totalPrice, string currentDriver)
+        public async Task EditAsync(string id, string number, DateTime date, string location, double currentLiters, decimal price, double quantity, string driver, string carId, string carCompanyId, string createdBy, DateTime createdOn, string carFuelType, decimal totalPrice, string currentDriver)
         {
             var user = await this.usersService.GetByNameAsync<UserViewModel>(driver, carCompanyId);
 
@@ -76,6 +77,7 @@
                 Date = date,
                 FuelType = carFuelType,
                 Location = location,
+                CurrentLiters = currentLiters,
                 Price = price,
                 Quantity = quantity,
                 TotalPrice = totalPrice,

@@ -69,9 +69,10 @@
                 CarTankCapacity = carFromDb.TankCapacity,
                 AllDrivers = this.usersService.GetUsersByCar(id),
                 AllLitres = this.carsService.GetCurrentLitresByCarId(id),
-                AllTravelledDistance = this.carsService.GetCurrentTravelledDistanceByCarId(id),
+                AllFuelConsumption = this.carsService.GetCurrentFuelConsumptionByCarId(carFromDb.Id),
             };
 
+            viewModel.CurrentLiters = viewModel.Liters;
             if (viewModel == null || viewModel.AllDrivers == null)
             {
                 return this.NotFound();
@@ -90,11 +91,11 @@
             {
                 input.AllDrivers = this.usersService.GetUsersByCar(input.CarId);
                 input.AllLitres = this.carsService.GetCurrentLitresByCarId(id);
-                input.AllTravelledDistance = this.carsService.GetCurrentTravelledDistanceByCarId(id);
+                input.AllFuelConsumption = this.carsService.GetCurrentTravelledDistanceByCarId(id);
                 return this.View(input);
             }
 
-            await this.invoicesService.CreateAsync(input.Number, input.Date, input.Location, input.Price, input.Quantity, input.FullName, input.CarId, input.CarCompanyId, input.CreatedBy, input.CarFuelType, input.TotalPrice);
+            await this.invoicesService.CreateAsync(input.Number, input.Date, input.Location, input.CurrentLiters, input.Price, input.Quantity, input.FullName, input.CarId, input.CarCompanyId, input.CreatedBy, input.CarFuelType, input.TotalPrice);
 
             return this.RedirectToAction("All", "Invoices", new { id });
         }
@@ -109,8 +110,6 @@
             }
 
             viewModel.AllDrivers = this.usersService.GetUsersByCar(viewModel.CarId);
-            viewModel.AllLitres = this.carsService.GetCurrentLitresByCarId(viewModel.CarId);
-            viewModel.AllTravelledDistance = this.carsService.GetCurrentTravelledDistanceByCarId(viewModel.CarId);
 
             return this.View(viewModel);
         }
@@ -129,7 +128,7 @@
                 return this.View(viewModel);
             }
 
-            await this.invoicesService.EditAsync(input.Id, input.Number, input.Date, input.Location, input.Price, input.Quantity, input.ApplicationUserFullName, input.CarId, input.CarCompanyId, input.CreatedBy, input.CreatedOn, input.CarFuelType, input.TotalPrice, currentUserFullname);
+            await this.invoicesService.EditAsync(input.Id, input.Number, input.Date, input.Location, input.CurrentLiters, input.Price, input.Quantity, input.ApplicationUserFullName, input.CarId, input.CarCompanyId, input.CreatedBy, input.CreatedOn, input.CarFuelType, input.TotalPrice, currentUserFullname);
             return this.RedirectToAction("All", "Invoices", new { id = input.CarId });
         }
 
@@ -160,9 +159,9 @@
             return this.RedirectToAction("All", "Invoices", new { id = carId });
         }
 
-        public IActionResult ValidateQuantity(double quantity, double currentLiters, double tankCapacity)
+        public IActionResult ValidateQuantity(double quantity, double currentLiters, int carTankCapacity)
         {
-            if (currentLiters + quantity > tankCapacity)
+            if ((int)(currentLiters + quantity) > carTankCapacity)
             {
                 return this.Json(data: "Наличното и заредено количество гориво не трябва да надвишават капацитета на резервоара");
             }

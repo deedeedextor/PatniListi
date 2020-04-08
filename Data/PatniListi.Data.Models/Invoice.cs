@@ -2,6 +2,7 @@
 {
     using System;
     using System.ComponentModel.DataAnnotations;
+
     using Microsoft.AspNetCore.Mvc;
 
     using PatniListi.Data.Common.Attributes;
@@ -38,7 +39,7 @@
         [Display(Name = "Количество")]
         [Required]
         [Range(1, 999.99)]
-        [Remote("ValidateQuantity", "Invoices", ErrorMessage = "Наличното и заредено количество гориво не трябва да надвишават капацитета на резервоара", AdditionalFields = "CurrentLiters, CarTankCapacity")]
+        [Remote("ValidateQuantity", "Invoices", ErrorMessage = "Наличното и заредено количество гориво не трябва да надвишава капацитета на резервоара", AdditionalFields = "CurrentLiters, CarTankCapacity")]
         public double Quantity { get; set; }
 
         [Display(Name = "Обща сума")]
@@ -62,5 +63,8 @@
 
         [Required]
         public string CreatedBy { get; set; }
+
+        [Display(Name = "Налично гориво в момента")]
+        public double CurrentLiters { get; set; }
     }
 }
