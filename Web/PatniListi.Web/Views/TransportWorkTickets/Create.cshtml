@@ -5,6 +5,8 @@
 
 @{
     ViewData["Title"] = $"Добави пътен лист за {Model.CarModel}";
+
+    var driver = this.UserManager.GetUserAsync(this.User).Result?.FullName;
 }
 
 <section class="py-5">
@@ -19,10 +21,8 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label asp-for="ApplicationUserFullName"></label>
-                                <select asp-for="ApplicationUserFullName" asp-items="Model.AllDrivers" class="form-control">
-                                    <option selected="selected" value="" disabled>--Моля, изберете--</option>
-                                </select>
-                                <span asp-validation-for="AllDrivers" class="text-danger"></span>
+                                <input asp-for="ApplicationUserFullName" readonly class="form-control text-white" value="@driver" />
+                                <span asp-validation-for="ApplicationUserFullName" class="text-danger"></span>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -60,7 +60,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label asp-for="CreatedBy"></label>
-                                <input asp-for="CreatedBy" type="text" readonly class="form-control text-white" value="@this.UserManager.GetUserAsync(this.User).Result?.FullName" />
+                                <input asp-for="CreatedBy" type="text" readonly class="form-control text-white" value="@driver" />
                                 <span asp-validation-for="CreatedBy" class="text-danger"></span>
                             </div>
                         </div>

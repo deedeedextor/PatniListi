@@ -85,17 +85,17 @@
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(InvoiceInputViewModel input)
         {
+            var id = this.TempData.Peek("carId").ToString();
+
             if (!this.ModelState.IsValid)
             {
                 input.AllDrivers = this.usersService.GetUsersByCar(input.CarId);
-                input.AllLitres = this.carsService.GetCurrentLitresByCarId(input.CarId);
-                input.AllFuelConsumption = this.carsService.GetCurrentTravelledDistanceByCarId(input.CarId);
                 return this.View(input);
             }
 
             await this.invoicesService.CreateAsync(input.Number, input.Date, input.Location, input.CurrentLiters, input.Price, input.Quantity, input.FullName, input.CarId, input.CarCompanyId, input.CreatedBy, input.CarFuelType, input.TotalPrice);
 
-            return this.RedirectToAction("All", "Invoices", new { input.CarId });
+            return this.RedirectToAction("All", "Invoices", new { id });
         }
 
         public async Task<IActionResult> Edit(string id)

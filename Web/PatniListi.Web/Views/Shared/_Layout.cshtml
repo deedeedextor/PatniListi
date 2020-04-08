@@ -170,7 +170,7 @@
             var selectedIds = $(this).val();
 
             /* Request the partial view with .get request. */
-            $.get('/Administration/TransportWorkTickets/RouteDetailsPartial/' + selectedIds, function (data) {
+            $.get('/TransportWorkTickets/RouteDetailsPartial/' + selectedIds, function (data) {
 
                 /* data is the pure html returned from action method, load it to your page */
                 $('#partialPlaceHolder').html(data);

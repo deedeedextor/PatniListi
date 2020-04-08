@@ -92,8 +92,6 @@
 
             if (!this.ModelState.IsValid)
             {
-                input.AllLitres = this.carsService.GetCurrentLitresByCarId(id);
-                input.AllFuelConsumption = this.carsService.GetCurrentTravelledDistanceByCarId(id);
                 return this.View(input);
             }
 

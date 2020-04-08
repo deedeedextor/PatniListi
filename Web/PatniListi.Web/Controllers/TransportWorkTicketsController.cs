@@ -65,7 +65,6 @@
                 CarLicensePlate = carFromDb.LicensePlate,
                 CarStartKilometers = carFromDb.StartKilometers,
                 CarTankCapacity = carFromDb.TankCapacity,
-                AllDrivers = this.usersService.GetUsersByCar(carFromDb.Id),
                 AllLiters = this.carsService.GetCurrentLitresByCarId(carFromDb.Id),
                 AllTravelledDistance = this.carsService.GetCurrentTravelledDistanceByCarId(carFromDb.Id),
                 AllFuelConsumption = this.carsService.GetCurrentFuelConsumptionByCarId(carFromDb.Id),
@@ -88,7 +87,6 @@
 
             if (!this.ModelState.IsValid)
             {
-                input.AllDrivers = this.usersService.GetUsersByCar(id);
                 input.AllLiters = this.carsService.GetCurrentLitresByCarId(input.CarId);
                 input.AllTravelledDistance = this.carsService.GetCurrentTravelledDistanceByCarId(input.CarId);
                 input.AllFuelConsumption = this.carsService.GetCurrentFuelConsumptionByCarId(input.CarId);
@@ -97,7 +95,7 @@
                 return this.View(input);
             }
 
-            await this.transportWorkTicketsService.CreateAsync(input.Date, input.ApplicationUserFullName, input.CarId, input.CarCompanyId, input.CreatedBy, input.Route, input.StartKilometers, input.EndKilometers, input.FuelConsumption,input.Residue, input.FuelAvailability, input.TravelledDistance);
+            await this.transportWorkTicketsService.CreateAsync(input.Date, input.ApplicationUserFullName, input.CarId, input.CarCompanyId, input.CreatedBy, input.Route, input.StartKilometers, input.EndKilometers, input.FuelConsumption, input.Residue, input.FuelAvailability, input.TravelledDistance);
 
             return this.RedirectToAction("All", "TransportWorkTickets", new { id });
         }

@@ -98,8 +98,6 @@
         [Range(AttributesConstraints.PositiveMinRange, AttributesConstraints.PositiveMaxRange, ErrorMessage = AttributesErrorMessages.InvalidPositiveRangeErrorMessage)]
         public double Residue { get; set; }
 
-        public IEnumerable<SelectListItem> AllDrivers { get; set; }
-
         public IEnumerable<SelectListItem> AllRoutes { get; set; }
 
         [Display(Name = "Маршрути")]

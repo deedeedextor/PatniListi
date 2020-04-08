@@ -15,7 +15,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label asp-for="ApplicationUserFullName"></label>
-                            <input asp-for="Car" readonly class="form-control text-white" value="@Model.ApplicationUserFullName" />
+                            <input asp-for="ApplicationUserFullName" readonly class="form-control text-white" value="@Model.ApplicationUserFullName" />
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -180,7 +180,7 @@
             <br />
             <div class="form-group text-center">
                 <div class="button-holder">
-                    <a href="/Administration/TransportWorkTickets/Edit?Id=@Model.Id" class="btn btn-primary btn-block text-uppercase">Промени</a>
+                    <a href="/TransportWorkTickets/Edit?Id=@Model.Id" class="btn btn-primary btn-block text-uppercase">Промени</a>
                     <a class="nav-link text-uppercase text-center" asp-area="" asp-controller="TransportWorkTickets" asp-action="All" asp-route-id="@Model.CarId">Пътни листи</a>
                 </div>
             </div>
