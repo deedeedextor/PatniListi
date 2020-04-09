@@ -1,6 +1,7 @@
 ﻿namespace PatniListi.Web.Controllers
 {
     using System.Threading.Tasks;
+
     using Microsoft.AspNetCore.Mvc;
     using PatniListi.Common;
     using PatniListi.Data.Common.Repositories;

@@ -34,7 +34,6 @@
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(RouteInputViewModel input, string returnUrl)
         {
             if (!this.ModelState.IsValid)
@@ -60,7 +59,6 @@
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(RouteEditViewModel input)
         {
             if (!this.ModelState.IsValid)

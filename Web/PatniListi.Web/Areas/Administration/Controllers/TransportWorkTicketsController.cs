@@ -79,7 +79,6 @@
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(TransportWorkTicketInputViewModel input)
         {
             var id = this.TempData.Peek("carId").ToString();
@@ -132,7 +131,6 @@
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(TransportWortkTicketEditViewModel input)
         {
             var currentUserFullname = this.userManager.GetUserAsync(this.User).Result?.FullName;

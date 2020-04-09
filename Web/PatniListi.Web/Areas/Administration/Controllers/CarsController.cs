@@ -70,7 +70,6 @@
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CarInputViewModel input)
         {
             if (!this.ModelState.IsValid)
@@ -102,7 +101,6 @@
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(CarEditViewModel input)
         {
             var currentUserFullname = this.userManager.GetUserAsync(this.User).Result?.FullName;

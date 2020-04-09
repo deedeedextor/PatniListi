@@ -1,9 +1,6 @@
 ﻿namespace PatniListi.Web.Areas.Administration.Controllers
 {
-    using System;
     using System.Threading.Tasks;
-
-    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using PatniListi.Common;
@@ -56,7 +53,6 @@
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(UserInputViewModel input)
         {
             if (!this.ModelState.IsValid)
@@ -87,7 +83,6 @@
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(UserEditViewModel input)
         {
             if (!this.ModelState.IsValid)

@@ -40,7 +40,6 @@
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(CompanyEditViewModel input)
         {
             if (!this.ModelState.IsValid)

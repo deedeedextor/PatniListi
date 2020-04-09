@@ -83,7 +83,6 @@
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(InvoiceInputViewModel input)
         {
             var id = this.TempData.Peek("carId").ToString();
@@ -113,7 +112,6 @@
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(InvoiceEditViewModel input)
         {
             var currentUserFullname = this.userManager.GetUserAsync(this.User).Result?.FullName;
