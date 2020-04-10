@@ -102,9 +102,13 @@
                 .To<T>();
         }
 
-        public IEnumerable<SelectListItem> GetAll(string companyId)
+        public IQueryable<T> GetAllInvoicesForPeriod<T>(string carId, DateTime from, DateTime to)
         {
-            return this.usersService.GetAll(companyId);
+            return this.invoicesRepository
+                .AllAsNoTracking()
+                .Where(c => c.CarId == carId && (c.Date >= from && c.Date <= to))
+                .OrderByDescending(c => c.Date)
+                .To<T>();
         }
 
         public async Task<T> GetByIdAsync<T>(string carId)

@@ -115,6 +115,15 @@
                 .To<T>();
         }
 
+        public IQueryable<T> GetAllTransportWorkTicketsForPeriod<T>(string carId, DateTime from, DateTime to)
+        {
+            return this.transportWorkTicketsRepository
+                .AllAsNoTracking()
+                .Where(tr => tr.CarId == carId && (tr.Date >= from && tr.Date <= to))
+                .OrderByDescending(c => c.Date)
+                .To<T>();
+        }
+
         public async Task<T> GetDetailsAsync<T>(string id)
         {
             var viewModel = await this.transportWorkTicketsRepository

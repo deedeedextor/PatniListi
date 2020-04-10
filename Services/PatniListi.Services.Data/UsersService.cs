@@ -112,7 +112,7 @@
         public IEnumerable<SelectListItem> GetAll(string companyId)
         {
             return this.usersRepository
-                .All()
+                .AllAsNoTracking()
                 .Where(u => u.CompanyId == companyId)
                 .Select(u => new SelectListItem
                 {
@@ -125,7 +125,7 @@
         public IEnumerable<SelectListItem> GetUsersByCar(string carId)
         {
             return this.usersRepository
-                .All()
+                .AllAsNoTracking()
                 .SelectMany(u => u.CarUsers)
                 .Where(u => u.CarId == carId)
                 .Select(u => new SelectListItem

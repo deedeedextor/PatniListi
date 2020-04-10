@@ -1,0 +1,184 @@
+﻿@using PatniListi.Data.Models
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<ApplicationUser> UserManager
+@model PatniListi.Web.ViewModels.Models.TransportWorkTicketReports.TransportWorkTicketReportsIndexViewModel
+
+@{
+    ViewData["Title"] = $"Справка пътни листи";
+}
+
+<section class="py-5">
+    <div class="container shadow py-4 px-4">
+        <h1 class="text-center">@ViewData["Title"]</h1>
+        <div class="card-body">
+            <form asp-area="" asp-controller="TransportWorkTicketReports" asp-action="Index" method="post"
+                data-ajax="true"
+                data-ajax-method="POST"
+                data-ajax-mode="replace"
+                data-ajax-update="#content">
+                <hr />
+                <fieldset>
+                    <legend class="text-white">Пътни листи: </legend>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="From"></label>
+                                <input asp-for="From" type="text" id="datepicker" class="form-control datepicker" value="@DateTime.UtcNow.ToShortDateString()" />
+                                <span asp-validation-for="From" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="To"></label>
+                                <input asp-for="To" type="text" id="datepicker" class="form-control datepicker" value="@DateTime.UtcNow.ToShortDateString()" />
+                                <span asp-validation-for="To" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label asp-for="CarId"></label>
+                                <select asp-for="CarId" asp-items="@Model.AllCars" id="carModel" class="form-control">
+                                    <option selected="selected" value="@Model.CarId" disabled>--Моля, изберете--</option>
+                                </select>
+                                <span asp-validation-for="AllCars" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label></label>
+                            <div class="button-holder">
+                                <input type="submit" value="Покажи резултати" class="btn btn-primary btn-block text-uppercase" /> 
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+
+                    <div class="row">
+                        <div id="content" class="col-md-12">
+
+                            <table class="table table-responsive-md table-hover">
+                                <tr class="text-white text-center">
+                                    <th>
+                                        Дата
+                                    </th>
+                                    <th>
+                                        Автомобил
+                                    </th>
+                                    <th>
+                                        Шофьор
+                                    </th>
+                                    <th>
+                                        Създаден на
+                                    </th>
+                                    <th>
+                                        Начален километраж
+                                    </th>
+                                    <th>
+                                        Пробег
+                                    </th>
+                                    <th>
+                                        Краен километраж
+                                    </th>
+                                    <th>
+                                        Налично гориво
+                                    </th>
+                                    <th>
+                                        Разход
+                                    </th>
+                                    <th colspan="5">
+                                        Остатък гориво
+                                    </th>
+                                </tr>
+                                @foreach (var transportWorkTicket in Model.TransportWorkTickets)
+                                {
+                                    <tr class="text-white text-center">
+                                        <td>
+                                            @transportWorkTicket.Date.ToShortDateString()
+                                        </td>
+                                        <td>
+                                            @transportWorkTicket.Car
+                                        </td>
+                                        <td>
+                                            @transportWorkTicket.ApplicationUserFullName
+                                        </td>
+                                        <td>
+                                            @transportWorkTicket.CreatedOn.ToShortDateString()
+                                        </td>
+                                        <td>
+                                            @transportWorkTicket.StartKilometers
+                                        </td>
+                                        <td>
+                                            @transportWorkTicket.TravelledDistance
+                                        </td>
+                                        <td>
+                                            @transportWorkTicket.EndKilometers
+                                        </td>
+                                        <td>
+                                            @transportWorkTicket.FuelAvailability
+                                        </td>
+                                        <td>
+                                            @transportWorkTicket.FuelConsumption
+                                        </td>
+                                        <td colspan="5">
+                                            @transportWorkTicket.Residue
+                                        </td>
+                                    </tr>
+
+                                    <tr class="text-white text-center">
+                                        <th class="text-white" colspan="5">Маршрут</th>
+                                        <th class="text-white" colspan="5">Километри</th>
+                                    </tr>
+                                    foreach (var route in transportWorkTicket.Routes)
+                                    {
+
+                                        <tr class="text-white text-center">
+                                            <td class="text-white" colspan="5">
+                                                @route.Route
+                                            </td>
+                                            <td class="text-white" colspan="5">
+                                                @route.RouteDistance
+                                            </td>
+                                            <td>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+
+                                <tfoot>
+                                    @{
+                                        var TotalDistance = Model.TransportWorkTickets.Select(tr => tr.TravelledDistance).Sum();
+                                        var TotalFuelConsumption = Model.TransportWorkTickets.Select(tr => tr.FuelConsumption).Sum();
+                                    }
+                                    <tr class="text-white text-center">
+                                        <th class="text-white" colspan="4"></th>
+                                        <th class="text-white" colspan="1">Общ пробег:</th>
+                                        <td id="TotalDistance">@TotalDistance</td>
+
+                                        <th class="text-white" colspan="1"></th>
+                                        <th class="text-white" colspan="1">Литри:</th>
+                                        <td id="TotalFuelConsumption">@TotalFuelConsumption</td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </fieldset>
+                <br />
+
+            </form>
+        </div>
+    </div>
+</section>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+}

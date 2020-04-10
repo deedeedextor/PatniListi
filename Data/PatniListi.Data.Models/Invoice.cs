@@ -29,6 +29,7 @@
         [Display(Name = "Място на зареждане")]
         [Required]
         [StringLength(60)]
+        [RegularExpression(@"^[А-Яа-я ]+$")]
         public string Location { get; set; }
 
         [Display(Name = "Цена на литър")]

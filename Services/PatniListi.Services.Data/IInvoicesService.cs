@@ -8,6 +8,8 @@
     {
         IQueryable<T> GetAll<T>(string carId);
 
+        IQueryable<T> GetAllInvoicesForPeriod<T>(string carId, DateTime from, DateTime to);
+
         Task<T> GetByIdAsync<T>(string carId);
 
         Task CreateAsync(string number, DateTime date, string location, double currentLiters, decimal price, double quantity, string driver, string carId, string carCompanyId, string createdBy, string fuelType, decimal totalPrice);

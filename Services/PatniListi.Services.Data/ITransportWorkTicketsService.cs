@@ -11,6 +11,8 @@
     {
         public IQueryable<T> GetAll<T>(string id);
 
+        IQueryable<T> GetAllTransportWorkTicketsForPeriod<T>(string carId, DateTime from, DateTime to);
+
         Task CreateAsync(DateTime date, string applicationUserFullName, string carId, string carCompanyId, string createdBy, IEnumerable<string> route, double startKilometers, double endKilometers, double fuelConsumption, double residue, double fuelAvailability, double travelledDistance);
 
         Task<T> GetDetailsAsync<T>(string id);

@@ -16,6 +16,8 @@
 
     public class CarsService : ICarsService
     {
+        private const string InvalidCarErrorMessage = "Не съществуващ автомобил.";
+
         private readonly IDeletableEntityRepository<Car> carsRepository;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IUsersService usersService;
@@ -115,10 +117,25 @@
                    .Where(c => c.CompanyId == companyId)
                    .Select(c => new SelectListItem
                    {
-                       Value = c.Model,
+                       Value = c.Id,
                        Text = c.Model,
                    })
                    .ToList();
+        }
+
+        public IEnumerable<SelectListItem> GetAllCarsByUserId(string userId, string companyId)
+        {
+            var cars = this.carsRepository
+                   .AllAsNoTracking()
+                   .Where(c => c.CompanyId == companyId && c.CarUsers.Any(cu => cu.UserId == userId))
+                   .Select(cu => new SelectListItem
+                   {
+                       Value = cu.Id,
+                       Text = cu.Model,
+                   })
+                   .ToList();
+
+            return cars;
         }
 
         public double GetCurrentLitresByCarId(string id)

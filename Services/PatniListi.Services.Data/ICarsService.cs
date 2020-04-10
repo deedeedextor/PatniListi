@@ -15,6 +15,8 @@
 
         IEnumerable<SelectListItem> GetAll(string companyId);
 
+        IEnumerable<SelectListItem> GetAllCarsByUserId(string userId, string companyId);
+
         IQueryable<T> GetAll<T>(string companyId);
 
         IQueryable<T> GetCarsByUser<T>(string userId, string companyId);

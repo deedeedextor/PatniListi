@@ -33,6 +33,7 @@
 
         [Display(Name = "Място на зареждане")]
         [Required(ErrorMessage = AttributesErrorMessages.RequiredErrorMessage)]
+        [RegularExpression(@"^[А-Яа-я ]+$")]
         [StringLength(AttributesConstraints.InvoiceLocationMaxLength, ErrorMessage = AttributesErrorMessages.StringLengthErrorMessage, MinimumLength = AttributesConstraints.InvoiceLocationMinLength)]
         public string Location { get; set; }
 
