@@ -85,11 +85,11 @@
 
     <footer class="footer">
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-sm-4">
                 <h3 class="title">&copy; @DateTime.Now.Year - @GlobalConstants.SystemName</h3>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-sm-4">
                 <ul class="nav">
                     <li class="nav-item">
                         <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Guidance">Ръководство</a>
@@ -102,7 +102,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="col-md-4">
+            <div class="col-sm-4">
                 <h3 class="title">Последвайте ни:</h3>
                 <div class="btn-wrapper profile">
                     <a target="_blank" href="https://twitter.com/creativetim" class="btn btn-icon btn-neutral btn-round btn-simple" data-toggle="tooltip" data-original-title="Follow us">
@@ -192,6 +192,20 @@
             });
         });
 
+            $('#carModel').change(function () {
+
+                /* Get the selected value of dropdownlist */
+                var selectedId = $(this).val();
+
+                /* Request the partial view with .get request. */
+                $.get('/InvoiceReports/InvoiceReportsPartial/' + selectedId, function (data) {
+
+                    /* data is the pure html returned from action method, load it to your page */
+                    $('#partialInvoicePlaceHolder').html(data);
+                    /* little fade in effect */
+                    $('#partialInvoicePlaceHolder').fadeIn('fast');
+                })
+            });
         });
 
         function scrollToDownload() {
