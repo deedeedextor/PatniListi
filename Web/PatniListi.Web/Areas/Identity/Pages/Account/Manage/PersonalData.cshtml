@@ -1,0 +1,28 @@
+﻿@page
+@model PersonalDataModel
+@{
+    ViewData["Title"] = "Лични данни";
+    ViewData["ActivePage"] = ManageNavPages.PersonalData;
+}
+
+<div class="row">
+    <div class="col-md-9">
+        <h4 class="text-md-center">@ViewData["Title"]</h4>
+        <p>Акаунтът ви съдържа лична информация, която вие сте ни предоставили. Тази страница ви дава възможност да я свалите или изтриете.</p>
+        <hr/>
+
+        <p>
+            Изтриването на личните данни води до изтриване на акаунта. Те не могат да бъдат възстановени в последствие.
+        </p>
+        <form id="download-data" asp-page="DownloadPersonalData" method="post" class="form-group">
+            <button class="btn btn-primary" type="submit">Свали</button>
+        </form>
+        <p>
+            <a id="delete" asp-page="DeletePersonalData" class="btn btn-primary">Изтрий</a>
+        </p>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
