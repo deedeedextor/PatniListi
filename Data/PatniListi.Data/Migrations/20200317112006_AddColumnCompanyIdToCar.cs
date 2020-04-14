@@ -10,7 +10,7 @@
                 name: "CompanyId",
                 table: "Cars",
                 nullable: false,
-                defaultValue: "");
+                defaultValue: string.Empty);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Cars_CompanyId",

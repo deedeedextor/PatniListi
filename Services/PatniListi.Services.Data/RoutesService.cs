@@ -91,11 +91,11 @@
             return viewModel;
         }
 
-        public async Task<T> GetByNameAsync<T>(string startPoint, string EndPoint)
+        public async Task<T> GetByNameAsync<T>(string startPoint, string endPoint)
         {
             var viewModel = await this.routesRepository
                 .AllAsNoTracking()
-                .Where(r => r.StartPoint == startPoint && r.EndPoint == EndPoint)
+                .Where(r => r.StartPoint == startPoint && r.EndPoint == endPoint)
                 .To<T>()
                 .SingleOrDefaultAsync();
 

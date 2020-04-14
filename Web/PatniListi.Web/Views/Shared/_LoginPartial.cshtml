@@ -12,17 +12,20 @@
     <li>
         <a class="nav-link" asp-area="" asp-controller="Routes" asp-action="All">Маршрути</a>
     </li>
+    <li>
+        <a class="nav-link" asp-area="" asp-controller="Cars" asp-action="All">Моите автомобили</a>
+    </li>
 
     <li class="nav-item">
         <div class="dropdown">
             <div class="dropdown-content">
-                <a href="#Submenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle text-primary">Контрол панел</a>
+                <a href="#Submenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle text-primary">Справка</a>
                 <ul class="collapse list-unstyled" id="Submenu">
-                    <li class="active">
-                        <a class="nav-link" asp-area="" asp-controller="Cars" asp-action="All">Моите автомобили</a>
+                    <li>
+                        <a class="nav-link" asp-area="" asp-controller="InvoiceReports" asp-action="Index">Фактури</a>
                     </li>
                     <li>
-                        <a class="nav-link" asp-area="" asp-controller="Reports" asp-action="All">Справки</a>
+                        <a class="nav-link" asp-area="" asp-controller="TransportWorkTicketReports" asp-action="Index">Пътни листи</a>
                     </li>
                 </ul>
             </div>

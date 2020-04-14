@@ -16,13 +16,11 @@
     {
         private readonly ICarsService carsService;
         private readonly UserManager<ApplicationUser> userManager;
-        private readonly IUsersService usersService;
 
-        public CarsController(ICarsService carsService, UserManager<ApplicationUser> userManager, IUsersService usersService)
+        public CarsController(ICarsService carsService, UserManager<ApplicationUser> userManager)
         {
             this.carsService = carsService;
             this.userManager = userManager;
-            this.usersService = usersService;
         }
 
         public async Task<IActionResult> All(int? pageNumber)

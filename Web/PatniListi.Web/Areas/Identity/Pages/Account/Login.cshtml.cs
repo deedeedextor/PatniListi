@@ -1,6 +1,5 @@
 ﻿namespace PatniListi.Web.Areas.Identity.Pages.Account
 {
-    using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.Linq;
@@ -17,16 +16,13 @@
     [AllowAnonymous]
     public class LoginModel : PageModel
     {
-        private readonly UserManager<ApplicationUser> userManager;
         private readonly SignInManager<ApplicationUser> signInManager;
         private readonly ILogger<LoginModel> logger;
 
         public LoginModel(
-            SignInManager<ApplicationUser> signInManager, 
-            ILogger<LoginModel> logger,
-            UserManager<ApplicationUser> userManager)
+            SignInManager<ApplicationUser> signInManager,
+            ILogger<LoginModel> logger)
         {
-            this.userManager = userManager;
             this.signInManager = signInManager;
             this.logger = logger;
         }

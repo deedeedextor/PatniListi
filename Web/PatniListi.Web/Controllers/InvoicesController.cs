@@ -17,14 +17,12 @@
     {
         private readonly IInvoicesService invoicesService;
         private readonly UserManager<ApplicationUser> userManager;
-        private readonly IUsersService usersService;
         private readonly ICarsService carsService;
 
-        public InvoicesController(IInvoicesService invoicesService, UserManager<ApplicationUser> userManager, IUsersService usersService, ICarsService carsService)
+        public InvoicesController(IInvoicesService invoicesService, UserManager<ApplicationUser> userManager, ICarsService carsService)
         {
             this.invoicesService = invoicesService;
             this.userManager = userManager;
-            this.usersService = usersService;
             this.carsService = carsService;
         }
 
