@@ -98,7 +98,7 @@
             return this.carsRepository
                 .AllAsNoTracking()
                 .Where(c => c.CompanyId == companyId)
-                .OrderByDescending(c => c.CreatedOn)
+                .OrderBy(c => c.Model)
                 .To<T>();
         }
 

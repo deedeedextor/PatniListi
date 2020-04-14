@@ -111,7 +111,7 @@
             return this.transportWorkTicketsRepository
                 .All()
                 .Where(c => c.CarId == id)
-                .OrderByDescending(c => c.Date)
+                .OrderBy(c => c.Date)
                 .To<T>();
         }
 
@@ -120,7 +120,7 @@
             return this.transportWorkTicketsRepository
                 .AllAsNoTracking()
                 .Where(tr => tr.CarId == carId && (tr.Date >= from && tr.Date <= to))
-                .OrderByDescending(c => c.Date)
+                .OrderBy(c => c.Date)
                 .To<T>();
         }
 

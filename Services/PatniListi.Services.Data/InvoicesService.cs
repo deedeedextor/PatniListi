@@ -1,11 +1,9 @@
 ﻿namespace PatniListi.Services.Data
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
-    using Microsoft.AspNetCore.Mvc.Rendering;
     using Microsoft.EntityFrameworkCore;
     using PatniListi.Data.Common.Repositories;
     using PatniListi.Data.Models;
@@ -98,7 +96,7 @@
             return this.invoicesRepository
                 .AllAsNoTracking()
                 .Where(c => c.CarId == carId)
-                .OrderByDescending(c => c.Date)
+                .OrderBy(c => c.Date)
                 .To<T>();
         }
 
@@ -107,24 +105,8 @@
             return this.invoicesRepository
                 .AllAsNoTracking()
                 .Where(c => c.CarId == carId && (c.Date >= from && c.Date <= to))
-                .OrderByDescending(c => c.Date)
+                .OrderBy(c => c.Date)
                 .To<T>();
-        }
-
-        public async Task<T> GetByIdAsync<T>(string carId)
-        {
-            var viewModel = await this.invoicesRepository
-                .All()
-                .Where(c => c.CarId == carId)
-                .To<T>()
-                .SingleOrDefaultAsync();
-
-            if (viewModel == null)
-            {
-                throw new ArgumentNullException(InvalidInvoiceErrorMessage, carId);
-            }
-
-            return viewModel;
         }
 
         public async Task<T> GetDetailsAsync<T>(string id)

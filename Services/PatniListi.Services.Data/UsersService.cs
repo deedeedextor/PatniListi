@@ -105,7 +105,7 @@
             return this.usersRepository
                 .All()
                 .Where(u => u.CompanyId == companyId)
-                .OrderByDescending(u => u.CreatedOn)
+                .OrderBy(u => u.UserName)
                 .To<T>();
         }
 

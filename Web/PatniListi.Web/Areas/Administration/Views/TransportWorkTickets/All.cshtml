@@ -59,31 +59,34 @@
 
                     </th>
                 </tr>
-                @foreach (var workTicket in Model)
+                @for (int i = 0; i < Model.Count; i++)
                 {
                     <tr>
                         <td>
-                            @workTicket.Date.ToShortDateString()
+                            @Model[i].Date.ToShortDateString()
                         </td>
                         <td>
-                            @workTicket.Car
+                            @Model[i].Car
                         </td>
                         <td>
-                            @workTicket.ApplicationUserFullName
+                            @Model[i].ApplicationUserFullName
                         </td>
                         <td>
-                            @workTicket.TravelledDistance.ToString("F2")
+                            @Model[i].TravelledDistance.ToString("F2")
                         </td>
                         <td class="text-center">
                             <div>
-                                <a href="/Administration/TransportWorkTickets/Details/@workTicket.Id" class="justify-content-md-between">Детайли</a>
+                                <a href="/Administration/TransportWorkTickets/Details/@Model[i].Id" class="justify-content-md-between">Детайли</a>
                             </div>
                             <div>
-                                <a href="/Administration/TransportWorkTickets/Edit/@workTicket.Id" class="justify-content-md-between">Промени</a>
+                                <a href="/Administration/TransportWorkTickets/Edit/@Model[i].Id" class="justify-content-md-between">Промени</a>
                             </div>
-                            <div>
-                                <a href="/Administration/TransportWorkTickets/Delete/@workTicket.Id" class="justify-content-md-between">Изтрий</a>
-                            </div>
+                            @if (Model[i] == Model[Model.Count - 1])
+                            {
+                                <div>
+                                    <a href="/Administration/TransportWorkTickets/Delete/@Model[i].Id" class="justify-content-md-between">Изтрий</a>
+                                </div>
+                            }
                         </td>
                     </tr>
                 }
