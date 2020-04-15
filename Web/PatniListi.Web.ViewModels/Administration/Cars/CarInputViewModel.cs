@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-
+    using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Rendering;
     using PatniListi.Common;
 
@@ -18,6 +18,7 @@
         [Required(ErrorMessage = AttributesErrorMessages.RequiredErrorMessage)]
         [RegularExpression(@"^[A-Z 0-9 A-Z]+$", ErrorMessage = AttributesErrorMessages.InvalidErrorMessage)]
         [StringLength(AttributesConstraints.LicensePlateMaxLength, ErrorMessage = AttributesErrorMessages.StringLengthErrorMessage, MinimumLength = AttributesConstraints.LicensePlateMinLength)]
+        [Remote("ValidateLicensePlate", "Cars", ErrorMessage = "Регистрационният номер е зает.")]
         public string LicensePlate { get; set; }
 
         [Display(Name = "Вид гориво")]

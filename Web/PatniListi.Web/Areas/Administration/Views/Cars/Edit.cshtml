@@ -87,7 +87,7 @@
                         <div class="form-group">
 
                             <label asp-for="FullName"></label>
-                            <select asp-for="FullName" asp-items="Model.AllDrivers" class="form-control">
+                            <select asp-for="FullName" asp-items="Model.AllDrivers" multiple="multiple" class="form-control">
                                 <option selected="selected" value="@Model.AllDrivers.Where(d => d.Selected == true)" disabled>--Моля, изберете--</option>
                             </select>
                             <span asp-validation-for="AllDrivers" class="text-danger"></span>

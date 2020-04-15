@@ -120,5 +120,29 @@
 
             return this.RedirectToAction("All", "Drivers");
         }
+
+        public IActionResult ValidateUsername(string username)
+        {
+            bool exists = this.usersService.IsUsernameInUse(username);
+
+            if (exists)
+            {
+                return this.Json(data: "Потребителското име е заето.");
+            }
+
+            return this.Json(data: true);
+        }
+
+        public IActionResult ValidateEmail(string email)
+        {
+            bool exists = this.usersService.IsEmailInUse(email);
+
+            if (exists)
+            {
+                return this.Json(data: "Имейл адресът е зает.");
+            }
+
+            return this.Json(data: true);
+        }
     }
 }

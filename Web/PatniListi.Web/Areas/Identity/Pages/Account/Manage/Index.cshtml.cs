@@ -91,6 +91,7 @@
         {
             [Phone]
             [Required(ErrorMessage = "Моля, въведете телефонен номер.")]
+            [RegularExpression(@"^[+359[0-9 ]+$", ErrorMessage = "Невалиден телефонен номер.")]
             [Display(Name = "Телефон")]
             public string PhoneNumber { get; set; }
         }

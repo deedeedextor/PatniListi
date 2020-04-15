@@ -1,21 +1,19 @@
 ﻿@page
 @model EmailModel
 @{
-    ViewData["Title"] = "Имейл адрес";
     ViewData["ActivePage"] = ManageNavPages.Email;
 }
 
 <partial name="_StatusMessage" model="Model.StatusMessage" />
 <div class="row">
     <div class="col-md-9">
-        <h4 class="text-md-center">@ViewData["Title"]</h4>
         <form id="email-form" method="post">
             <div class="form-group">
                 <label asp-for="Email"></label>
                 @if (Model.IsEmailConfirmed)
                 {
                     <div class="input-group">
-                        <input asp-for="Email" class="form-control text-white" disabled />
+                        <input asp-for="Email" class="text-white form-control" disabled />
                         <div class="input-group-append">
                             <span class="input-group-text text-success font-weight-bold">✓</span>
                         </div>
@@ -32,7 +30,11 @@
                 <input asp-for="Input.NewEmail" class="form-control" />
                 <span asp-validation-for="Input.NewEmail" class="text-danger"></span>
             </div>
-            <button id="change-email-button" type="submit" asp-page-handler="ChangeEmail" class="btn btn-primary">Промени имейл</button>
+            <div class="form-group">
+                <div class="button-container">
+                    <button id="change-email-button" type="submit" asp-page-handler="ChangeEmail" class="btn btn-primary">Промени имейл</button>
+                </div>
+            </div>
         </form>
     </div>
 </div>

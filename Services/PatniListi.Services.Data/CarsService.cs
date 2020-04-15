@@ -227,5 +227,19 @@
                 new SelectListItem { Value = "Газ", Text = "Газ" },
             };
         }
+
+        public bool IsLicensePlateExist(string licensePlate)
+        {
+            var exists = this.carsRepository
+                .AllAsNoTracking()
+                .Any(c => c.LicensePlate == licensePlate);
+
+            if (exists)
+            {
+                return true;
+            }
+
+            return false;
+        }
     }
 }

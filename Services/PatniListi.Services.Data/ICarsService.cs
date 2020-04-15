@@ -23,6 +23,8 @@
 
         Task CreateAsync(CarInputViewModel input);
 
+        bool IsLicensePlateExist(string licensePlate);
+
         Task<T> GetDetailsAsync<T>(string id);
 
         Task EditAsync(CarEditViewModel input, string fullName);

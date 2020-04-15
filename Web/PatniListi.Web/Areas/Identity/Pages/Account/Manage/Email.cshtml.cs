@@ -139,7 +139,7 @@
         public class InputModel
         {
             [Required(ErrorMessage = "Моля, въведете имейл адрес.")]
-            [EmailAddress]
+            [EmailAddress(ErrorMessage = "Невалиден имейл адрес.")]
             [Display(Name = "Нов имейл адрес")]
             public string NewEmail { get; set; }
         }

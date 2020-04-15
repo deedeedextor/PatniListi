@@ -3,6 +3,7 @@
     using System;
     using System.ComponentModel.DataAnnotations;
 
+    using Microsoft.AspNetCore.Mvc;
     using PatniListi.Common;
     using PatniListi.Data.Models;
     using PatniListi.Services.Mapping;
@@ -13,11 +14,13 @@
 
         [Required(ErrorMessage = AttributesErrorMessages.RequiredErrorMessage)]
         [StringLength(AttributesConstraints.UsernameMaxLength, ErrorMessage = AttributesErrorMessages.StringLengthErrorMessage, MinimumLength = AttributesConstraints.UsernameMinLength)]
+        [Remote("ValidateUsername", "Drivers", ErrorMessage = "Потребителското име е заето.")]
         [Display(Name = "Потребителско име")]
         public string Username { get; set; }
 
         [Required(ErrorMessage = AttributesErrorMessages.RequiredErrorMessage)]
         [EmailAddress(ErrorMessage = AttributesErrorMessages.EmailErrorMessage)]
+        [Remote("ValidateEmail", "Drivers", ErrorMessage = "Имейл адресът е зает.")]
         [Display(Name = "Имейл")]
         public string Email { get; set; }
 

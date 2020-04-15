@@ -19,6 +19,10 @@
 
         Task<T> GetByIdAsync<T>(string userId);
 
+        bool IsUsernameInUse(string username);
+
+        bool IsEmailInUse(string email);
+
         Task<T> GetByNameAsync<T>(string fullName, string companyId);
 
         Task<T> GetDetailsAsync<T>(string userId);

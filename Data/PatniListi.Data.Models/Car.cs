@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-
+    using Microsoft.AspNetCore.Mvc;
     using PatniListi.Data.Common.Models;
     using PatniListi.Data.Models.Enums;
 
@@ -25,6 +25,7 @@
         [Display(Name = "Номер")]
         [Required]
         [RegularExpression(@"^[A-Z 0-9 A-Z]+$")]
+        [Remote("ValidateLicensePlate", "Cars", ErrorMessage = "Регистрационният номер е зает.")]
         [MaxLength(10)]
         public string LicensePlate { get; set; }
 

@@ -186,5 +186,33 @@
 
             return viewModel;
         }
+
+        public bool IsUsernameInUse(string username)
+        {
+            var exists = this.usersRepository
+                .AllAsNoTracking()
+                .Any(u => u.UserName == username);
+
+            if (exists)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public bool IsEmailInUse(string email)
+        {
+            var exists = this.usersRepository
+                .AllAsNoTracking()
+                .Any(u => u.Email == email);
+
+            if (exists)
+            {
+                return true;
+            }
+
+            return false;
+        }
     }
 }

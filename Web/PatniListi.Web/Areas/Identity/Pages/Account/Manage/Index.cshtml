@@ -1,14 +1,12 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Профил";
     ViewData["ActivePage"] = ManageNavPages.Index;
 }
 
 <partial name="_StatusMessage" model="Model.StatusMessage" />
 <div class="row">
     <div class="col-md-9">
-        <h4 class="text-md-center">@ViewData["Title"]</h4>
         <form id="profile-form" method="post">
             <div class="form-group">
                 <label asp-for="Username"></label>
