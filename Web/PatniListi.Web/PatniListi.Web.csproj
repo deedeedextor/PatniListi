@@ -58,4 +58,8 @@
   <ItemGroup>
     <Folder Include="Areas\Administration\Views\Shared\" />
   </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Views\Shared\NotFound.cshtml" />
+  </ItemGroup>
 </Project>
