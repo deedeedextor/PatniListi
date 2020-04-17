@@ -22,7 +22,5 @@
         IEnumerable<SelectListItem> GetAll();
 
         Task<T> GetByIdAsync<T>(string id);
-
-        Task<T> GetByNameAsync<T>(string startPoint, string endPoint);
     }
 }

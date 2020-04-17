@@ -12,8 +12,6 @@
 
     public class InvoicesService : IInvoicesService
     {
-        private const string InvalidInvoiceErrorMessage = "Не съществуваща фактура.";
-
         private readonly IDeletableEntityRepository<Invoice> invoicesRepository;
         private readonly IUsersService usersService;
 
@@ -26,6 +24,11 @@
         public async Task CreateAsync(string number, DateTime date, string location, double currentLiters, decimal price, double quantity, string driver, string carId, string carCompanyId, string createdBy, string fuelType, decimal totalPrice)
         {
             var user = await this.usersService.GetByNameAsync<UserViewModel>(driver, carCompanyId);
+
+            if (user == null)
+            {
+                return;
+            }
 
             var invoice = new Invoice
             {
@@ -65,9 +68,14 @@
             return true;
         }
 
-        public async Task EditAsync(string id, string number, DateTime date, string location, double currentLiters, decimal price, double quantity, string driver, string carId, string carCompanyId, string createdBy, DateTime createdOn, string carFuelType, decimal totalPrice, string currentDriver)
+        public async Task EditAsync(string id, string number, DateTime date, string location, double currentLiters, decimal price, double quantity, string driver, string carId, string carCompanyId, string createdBy, DateTime createdOn, string modifiedBy, string carFuelType, decimal totalPrice)
         {
             var user = await this.usersService.GetByNameAsync<UserViewModel>(driver, carCompanyId);
+
+            if (user == null)
+            {
+                return;
+            }
 
             var invoice = new Invoice
             {
@@ -84,7 +92,7 @@
                 CarId = carId,
                 CreatedBy = createdBy,
                 CreatedOn = createdOn,
-                ModifiedBy = currentDriver,
+                ModifiedBy = modifiedBy,
             };
 
             this.invoicesRepository.Update(invoice);
@@ -116,11 +124,6 @@
                 .Where(c => c.Id == id)
                 .To<T>()
                 .SingleOrDefaultAsync();
-
-            if (viewModel == null)
-            {
-                throw new ArgumentNullException(InvalidInvoiceErrorMessage, id);
-            }
 
             return viewModel;
         }

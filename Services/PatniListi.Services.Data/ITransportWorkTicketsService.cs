@@ -5,8 +5,6 @@
     using System.Linq;
     using System.Threading.Tasks;
 
-    using PatniListi.Web.ViewModels.Administration.TransportWorkTickets;
-
     public interface ITransportWorkTicketsService
     {
         public IQueryable<T> GetAll<T>(string id);

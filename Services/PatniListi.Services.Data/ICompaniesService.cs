@@ -2,8 +2,6 @@
 {
     using System.Threading.Tasks;
 
-    using PatniListi.Web.ViewModels.Administration.Companies;
-
     public interface ICompaniesService
     {
         Task<string> CreateAsync(string companyName);

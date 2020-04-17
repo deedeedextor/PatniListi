@@ -5,7 +5,6 @@
     using System.Linq;
     using System.Threading.Tasks;
 
-    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc.Rendering;
     using Microsoft.EntityFrameworkCore;
     using PatniListi.Data.Common.Repositories;
@@ -16,18 +15,12 @@
 
     public class CarsService : ICarsService
     {
-        private const string InvalidCarErrorMessage = "Не съществуващ автомобил.";
-
         private readonly IDeletableEntityRepository<Car> carsRepository;
-        private readonly UserManager<ApplicationUser> userManager;
-        private readonly IUsersService usersService;
         private readonly ICarUsersService carUsersService;
 
-        public CarsService(IDeletableEntityRepository<Car> carsRepository, UserManager<ApplicationUser> userManager, IUsersService usersService, ICarUsersService carUsersService)
+        public CarsService(IDeletableEntityRepository<Car> carsRepository, ICarUsersService carUsersService)
         {
             this.carsRepository = carsRepository;
-            this.userManager = userManager;
-            this.usersService = usersService;
             this.carUsersService = carUsersService;
         }
 
@@ -195,15 +188,6 @@
             }
 
             return residue;
-        }
-
-        public async Task<T> GetByIdAsync<T>(string carId)
-        {
-            return await this.carsRepository
-                .All()
-                .Where(c => c.Id == carId)
-                .To<T>()
-                .SingleOrDefaultAsync();
         }
 
         public async Task<T> GetDetailsAsync<T>(string id)

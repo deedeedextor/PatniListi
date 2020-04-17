@@ -4,7 +4,6 @@
     using System.Linq;
     using System.Threading.Tasks;
 
-    using Microsoft.AspNetCore.Mvc.Rendering;
     using Microsoft.EntityFrameworkCore;
     using PatniListi.Data.Common.Repositories;
     using PatniListi.Data.Models;
@@ -22,9 +21,9 @@
             this.usersService = usersService;
         }
 
-        public async Task SetIsDeletedAsync(string id, string fullName)
+        public async Task SetIsDeletedAsync(string carId, string fullName)
         {
-            var carUsersFromDb = await this.GetAllAsync<UserCarViewModel>(id);
+            var carUsersFromDb = await this.GetAllAsync<UserCarViewModel>(carId);
 
             if (carUsersFromDb != null)
             {
@@ -96,28 +95,6 @@
                 .Where(cu => cu.CarId == id)
                 .To<T>()
                 .ToListAsync();
-        }
-
-        public async Task<T> GetByIdAsync<T>(string id)
-        {
-            return await this.carUsersRepository
-                .All()
-                .Where(cu => cu.CarId == id)
-                .To<T>()
-                .SingleOrDefaultAsync();
-        }
-
-        public IEnumerable<SelectListItem> GetAllUsersForCar(string carId)
-        {
-            return this.carUsersRepository
-                .All()
-                .Where(c => c.CarId == carId)
-                .Select(c => new SelectListItem
-                {
-                    Value = c.ApplicationUser.FullName,
-                    Text = c.ApplicationUser.FullName,
-                })
-                .ToList();
         }
     }
 }

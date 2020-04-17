@@ -16,8 +16,6 @@
 
     public class UsersService : IUsersService
     {
-        private const string InvalidUserIdErrorMessage = "Не съществуващ потребител.";
-
         private readonly IDeletableEntityRepository<ApplicationUser> usersRepository;
         private readonly IDeletableEntityRepository<ApplicationRole> roleRepository;
         private readonly UserManager<ApplicationUser> userManager;
@@ -42,7 +40,17 @@
         {
             var user = await this.userManager.FindByIdAsync(userId);
 
+            if (user == null)
+            {
+                return;
+            }
+
             var role = await this.roleManager.FindByNameAsync(roleName);
+
+            if (role == null)
+            {
+                return;
+            }
 
             user.Roles.Add(new IdentityUserRole<string> { UserId = user.Id, RoleId = role.Id });
             await this.roleRepository.SaveChangesAsync();
@@ -145,11 +153,6 @@
                 .To<T>()
                 .FirstOrDefaultAsync();
 
-            if (viewModel == null)
-            {
-                throw new ArgumentNullException(InvalidUserIdErrorMessage, userId);
-            }
-
             return viewModel;
         }
 
@@ -160,11 +163,6 @@
                       .Where(u => u.FullName == fullName && u.CompanyId == companyId)
                       .To<T>()
                       .FirstOrDefaultAsync();
-
-            if (viewModel == null)
-            {
-                throw new ArgumentNullException(InvalidUserIdErrorMessage, fullName);
-            }
 
             return viewModel;
         }
@@ -178,11 +176,6 @@
                    .Include(u => u.CarUsers)
                    .To<T>()
                    .FirstOrDefaultAsync();
-
-            if (viewModel == null)
-            {
-                throw new ArgumentNullException(InvalidUserIdErrorMessage, userId);
-            }
 
             return viewModel;
         }

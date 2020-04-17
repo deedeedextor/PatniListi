@@ -83,27 +83,6 @@
                 .To<T>()
                 .SingleOrDefaultAsync();
 
-            if (viewModel == null)
-            {
-                throw new ArgumentNullException(InvalidRouteErrorMessage);
-            }
-
-            return viewModel;
-        }
-
-        public async Task<T> GetByNameAsync<T>(string startPoint, string endPoint)
-        {
-            var viewModel = await this.routesRepository
-                .AllAsNoTracking()
-                .Where(r => r.StartPoint == startPoint && r.EndPoint == endPoint)
-                .To<T>()
-                .SingleOrDefaultAsync();
-
-            if (viewModel == null)
-            {
-                throw new ArgumentNullException(InvalidRouteErrorMessage);
-            }
-
             return viewModel;
         }
 
@@ -114,11 +93,6 @@
                 .Where(r => r.Id == id)
                 .To<T>()
                 .SingleOrDefaultAsync();
-
-            if (viewModel == null)
-            {
-                throw new ArgumentNullException(InvalidRouteErrorMessage);
-            }
 
             return viewModel;
         }

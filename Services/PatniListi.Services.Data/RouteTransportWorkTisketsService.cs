@@ -1,6 +1,5 @@
 ﻿namespace PatniListi.Services.Data
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
@@ -22,18 +21,9 @@
             this.routesService = routesService;
         }
 
-        public async Task<T> GetByIdAsync<T>(string id)
+        public async Task SetIsDeletedAsync(string transportWorkTicketId, string fullName)
         {
-            return await this.routeTransportWorkTicketsRepository
-                .AllAsNoTracking()
-                .Where(rtr => rtr.TransportWorkTicketId == id)
-                .To<T>()
-                .SingleOrDefaultAsync();
-        }
-
-        public async Task SetIsDeletedAsync(string id, string fullName)
-        {
-            var routeTransportWorkTicketsFromDb = await this.GetAllAsync<RouteTransportViewModel>(id);
+            var routeTransportWorkTicketsFromDb = await this.GetAllAsync<RouteTransportViewModel>(transportWorkTicketId);
 
             if (routeTransportWorkTicketsFromDb != null)
             {
@@ -98,11 +88,11 @@
             }
         }
 
-        public async Task<List<T>> GetAllAsync<T>(string id)
+        public async Task<List<T>> GetAllAsync<T>(string transportWorkTicketId)
         {
             return await this.routeTransportWorkTicketsRepository
                 .All()
-                .Where(rtr => rtr.TransportWorkTicketId == id)
+                .Where(rtr => rtr.TransportWorkTicketId == transportWorkTicketId)
                 .To<T>()
                 .ToListAsync();
         }

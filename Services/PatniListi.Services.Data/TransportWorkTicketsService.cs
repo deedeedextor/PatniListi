@@ -14,8 +14,6 @@
 
     public class TransportWorkTicketsService : ITransportWorkTicketsService
     {
-        private const string InvalidRouteErrorMessage = "Не съществуващ пътен лист.";
-
         private readonly IDeletableEntityRepository<TransportWorkTicket> transportWorkTicketsRepository;
         private readonly IUsersService usersService;
         private readonly IRouteTransportWorkTicketsService routeTransportWorkTicketsService;
@@ -32,6 +30,11 @@
         public async Task CreateAsync(DateTime date, string applicationUserFullName, string carId, string carCompanyId, string createdBy, IEnumerable<string> route, double startKilometers, double endKilometers, double fuelConsumption, double residue, double fuelAvailability, double travelledDistance)
         {
             var user = await this.usersService.GetByNameAsync<UserDetailsViewModel>(applicationUserFullName, carCompanyId);
+
+            if (user == null)
+            {
+                return;
+            }
 
             var transportWorkTicket = new TransportWorkTicket
             {
@@ -83,6 +86,11 @@
         {
             var user = await this.usersService.GetByNameAsync<UserDetailsViewModel>(applicationUserFullName, carCompanyId);
 
+            if (user == null)
+            {
+                return;
+            }
+
             var transportWorkTicket = new TransportWorkTicket
             {
                 Id = id,
@@ -132,11 +140,6 @@
                 .Include(tr => tr.RouteTransportWorkTickets)
                 .To<T>()
                 .FirstOrDefaultAsync();
-
-            if (viewModel == null)
-            {
-                throw new ArgumentNullException(InvalidRouteErrorMessage);
-            }
 
             return viewModel;
         }

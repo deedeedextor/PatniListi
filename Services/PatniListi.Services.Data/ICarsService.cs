@@ -9,8 +9,6 @@
 
     public interface ICarsService
     {
-        Task<T> GetByIdAsync<T>(string carId);
-
         IEnumerable<SelectListItem> GetFuelType();
 
         IEnumerable<SelectListItem> GetAll(string companyId);
