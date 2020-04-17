@@ -27,11 +27,6 @@
         {
             var user = await this.userManager.GetUserAsync(this.User);
 
-            if (user == null)
-            {
-                return this.NotFound();
-            }
-
             var cars = this.carsService
                 .GetCarsByUser<CarViewModel>(user.Id, user.CompanyId);
 

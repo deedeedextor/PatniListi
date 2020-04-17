@@ -30,11 +30,6 @@
         {
             this.TempData["carId"] = id;
 
-            if (id == null)
-            {
-                return this.NotFound();
-            }
-
             var invoices = this.invoicesService
                 .GetAll<InvoiceViewModel>(id);
 
@@ -59,6 +54,7 @@
             var id = this.TempData.Peek("carId").ToString();
 
             var carFromDb = await this.carsService.GetDetailsAsync<CarDetailsViewModel>(id);
+
             var viewModel = new InvoiceInputViewModel
             {
                 CarId = carFromDb.Id,
@@ -72,6 +68,7 @@
             };
 
             viewModel.CurrentLiters = viewModel.Liters;
+
             if (viewModel == null)
             {
                 return this.NotFound();
@@ -85,14 +82,12 @@
         {
             var id = this.TempData.Peek("carId").ToString();
 
-            var user = await this.userManager.GetUserAsync(this.User);
-
             if (!this.ModelState.IsValid)
             {
                 return this.View(input);
             }
 
-            await this.invoicesService.CreateAsync(input.Number, input.Date, input.Location, input.CurrentLiters, input.Price, input.Quantity, user.FullName, input.CarId, input.CarCompanyId, input.CreatedBy, input.CarFuelType, input.TotalPrice);
+            await this.invoicesService.CreateAsync(input.Number, input.Date, input.Location, input.CurrentLiters, input.Price, input.Quantity, input.FullName, input.CarId, input.CarCompanyId, input.CreatedBy, input.CarFuelType, input.TotalPrice);
 
             return this.RedirectToAction("All", "Invoices", new { id });
         }
@@ -112,8 +107,6 @@
         [HttpPost]
         public async Task<IActionResult> Edit(InvoiceEditViewModel input)
         {
-            var currentUserFullname = this.userManager.GetUserAsync(this.User).Result?.FullName;
-
             if (!this.ModelState.IsValid)
             {
                 var viewModel = await this.invoicesService.GetDetailsAsync<InvoiceEditViewModel>(input.Id);
@@ -121,7 +114,8 @@
                 return this.View(viewModel);
             }
 
-            await this.invoicesService.EditAsync(input.Id, input.Number, input.Date, input.Location, input.CurrentLiters, input.Price, input.Quantity, input.ApplicationUserFullName, input.CarId, input.CarCompanyId, input.CreatedBy, input.CreatedOn, input.CarFuelType, input.TotalPrice, currentUserFullname);
+            await this.invoicesService.EditAsync(input.Id, input.Number, input.Date, input.Location, input.CurrentLiters, input.Price, input.Quantity, input.ApplicationUserFullName, input.CarId, input.CarCompanyId, input.CreatedBy, input.CreatedOn, input.ModifiedBy, input.CarFuelType, input.TotalPrice);
+
             return this.RedirectToAction("All", "Invoices", new { id = input.CarId });
         }
 
@@ -130,6 +124,29 @@
             if ((int)(currentLiters + quantity) > carTankCapacity)
             {
                 return this.Json(data: "Наличното и зареденото количество гориво не трбва да надвишават капацитета на резервоара");
+            }
+
+            return this.Json(data: true);
+        }
+
+        public IActionResult ValidateNumber(string number, string id)
+        {
+            bool exists = this.invoicesService.IsNumberExist(number);
+
+            if (exists && id == null)
+            {
+                return this.Json(data: "Номерът на фактурата е зает.");
+            }
+            else if (exists && id != null)
+            {
+                if (number == this.invoicesService.GetInvoiceNumberById(id))
+                {
+                    return this.Json(data: true);
+                }
+                else
+                {
+                    return this.Json(data: "Номерът на фактурата е зает.");
+                }
             }
 
             return this.Json(data: true);

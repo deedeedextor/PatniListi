@@ -3,7 +3,7 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
-    [AllowAnonymous] // Only needed if authorization is set up globally for the app
+    [AllowAnonymous]
     [Route("Error")]
     public class ErrorController : BaseController
     {

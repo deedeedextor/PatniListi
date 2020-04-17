@@ -8,6 +8,8 @@
 
     public class InvoiceInputViewModel
     {
+        public string Id { get; set; }
+
         public string CarId { get; set; }
 
         public string CarCompanyId { get; set; }
@@ -28,6 +30,7 @@
         [Display(Name = "Номер на фактура")]
         [Required(ErrorMessage = AttributesErrorMessages.RequiredErrorMessage)]
         [RegularExpression(@"^[0-9]+$", ErrorMessage = AttributesErrorMessages.InvalidErrorMessage)]
+        [Remote("ValidateNumber", "Invoices", AdditionalFields = "Id", ErrorMessage = "Номерът на фактурата е зает.")]
         public string Number { get; set; }
 
         [Display(Name = "Дата на фактура")]

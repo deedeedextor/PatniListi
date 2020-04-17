@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-
+    using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Rendering;
     using PatniListi.Common;
 
@@ -26,6 +26,7 @@
 
         [Display(Name = "До дата")]
         [Required(ErrorMessage = AttributesErrorMessages.RequiredErrorMessage)]
+        [Remote("ValidatePeriodBetweenDates", "InvoiceReports", AdditionalFields = "From", ErrorMessage = "Избраният период не може да бъде по-голям от месец.")]
         public DateTime To { get; set; }
 
         public IEnumerable<InvoiceReportsViewModel> Invoices { get; set; }

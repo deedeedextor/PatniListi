@@ -127,5 +127,28 @@
 
             return viewModel;
         }
+
+        public string GetInvoiceNumberById(string id)
+        {
+            return this.invoicesRepository
+                .AllAsNoTracking()
+                .Where(i => i.Id == id)
+                .Select(i => i.Number)
+                .SingleOrDefault();
+        }
+
+        public bool IsNumberExist(string number)
+        {
+            var exists = this.invoicesRepository
+                .AllAsNoTracking()
+                .Any(c => c.Number == number);
+
+            if (exists)
+            {
+                return true;
+            }
+
+            return false;
+        }
     }
 }

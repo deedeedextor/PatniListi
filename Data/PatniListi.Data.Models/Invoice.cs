@@ -18,6 +18,7 @@
         [Display(Name = "Номер на фактура")]
         [Required]
         [RegularExpression(@"^[0-9]+$")]
+        [Remote("ValidateNumber", "Invoices", AdditionalFields="Id", ErrorMessage = "Номерът на фактурата е зает.")]
         public string Number { get; set; }
 
         [Display(Name = "Дата на фактура")]

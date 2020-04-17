@@ -57,11 +57,11 @@
 
             var viewModel = new CarInputViewModel
             {
-                AllDrivers = this.usersService.GetAll(companyId),
                 AllTypes = this.carsService.GetFuelType(),
+                AllDrivers = this.usersService.GetAll(companyId),
             };
 
-            if (companyId == null || viewModel == null)
+            if (viewModel == null)
             {
                 return this.NotFound();
             }
@@ -94,8 +94,8 @@
                 return this.NotFound();
             }
 
-            carToEdit.AllDrivers = this.usersService.GetAll(carToEdit.CompanyId);
             carToEdit.AllTypes = this.carsService.GetFuelType();
+            carToEdit.AllDrivers = this.usersService.GetAll(carToEdit.CompanyId);
 
             return this.View(carToEdit);
         }
@@ -109,8 +109,8 @@
             {
                 var carToEdit = await this.carsService.GetDetailsAsync<CarEditViewModel>(input.Id);
 
-                carToEdit.AllDrivers = this.usersService.GetAll(carToEdit.CompanyId);
                 carToEdit.AllTypes = this.carsService.GetFuelType();
+                carToEdit.AllDrivers = this.usersService.GetAll(carToEdit.CompanyId);
 
                 return this.View(carToEdit);
             }
@@ -147,13 +147,24 @@
             return this.RedirectToAction("All", "Cars");
         }
 
-        public IActionResult ValidateLicensePlate(string licensePlate)
+        public IActionResult ValidateLicensePlate(string licensePlate, string id)
         {
             bool exists = this.carsService.IsLicensePlateExist(licensePlate);
 
-            if (exists)
+            if (exists && id == null)
             {
                 return this.Json(data: "Регистрационният номер е зает.");
+            }
+            else if (exists && id != null)
+            {
+                if (licensePlate == this.carsService.GetLicensePlateById(id))
+                {
+                    return this.Json(data: true);
+                }
+                else
+                {
+                    return this.Json(data: "Регистрационният номер е зает.");
+                }
             }
 
             return this.Json(data: true);

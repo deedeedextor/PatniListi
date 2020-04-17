@@ -92,6 +92,7 @@
             }
 
             await this.usersService.EditAsync(input.Id, input.Username, input.Email, input.FullName, input.CompanyId, input.CompanyName, input.CreatedOn, input.ConcurrencyStamp);
+
             return this.RedirectToAction("All", "Drivers");
         }
 
@@ -121,25 +122,47 @@
             return this.RedirectToAction("All", "Drivers");
         }
 
-        public IActionResult ValidateUsername(string username)
+        public IActionResult ValidateUsername(string username, string id)
         {
             bool exists = this.usersService.IsUsernameInUse(username);
 
-            if (exists)
+            if (exists && id == null)
             {
                 return this.Json(data: "Потребителското име е заето.");
+            }
+            else if (exists && id != null)
+            {
+                if (username == this.usersService.GetUsernameById(id))
+                {
+                    return this.Json(data: true);
+                }
+                else
+                {
+                    return this.Json(data: "Номерът на фактурата е зает.");
+                }
             }
 
             return this.Json(data: true);
         }
 
-        public IActionResult ValidateEmail(string email)
+        public IActionResult ValidateEmail(string email, string id)
         {
             bool exists = this.usersService.IsEmailInUse(email);
 
-            if (exists)
+            if (exists && id == null)
             {
                 return this.Json(data: "Имейл адресът е зает.");
+            }
+            else if (exists && id != null)
+            {
+                if (email == this.usersService.GetEmailById(id))
+                {
+                    return this.Json(data: true);
+                }
+                else
+                {
+                    return this.Json(data: "Имейл адресът е зает.");
+                }
             }
 
             return this.Json(data: true);

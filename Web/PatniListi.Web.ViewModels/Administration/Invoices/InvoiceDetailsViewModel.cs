@@ -35,8 +35,9 @@
         [Display(Name = "Гориво")]
         public string CarFuelType { get; set; }
 
-        [Display(Name = "Автомобил")]
         public string CarModel { get; set; }
+
+        public string CarLicensePlate { get; set; }
 
         [Display(Name = "Въвел")]
         public string CreatedBy { get; set; }
@@ -44,6 +45,9 @@
         public string CarId { get; set; }
 
         public string CarCompanyId { get; set; }
+
+        [Display(Name = "Автомобил")]
+        public string Car => $"{this.CarModel} - {this.CarLicensePlate}";
 
         [Display(Name = "Фирма")]
         public string CarCompanyName { get; set; }

@@ -14,13 +14,13 @@
 
         [Required(ErrorMessage = AttributesErrorMessages.RequiredErrorMessage)]
         [StringLength(AttributesConstraints.UsernameMaxLength, ErrorMessage = AttributesErrorMessages.StringLengthErrorMessage, MinimumLength = AttributesConstraints.UsernameMinLength)]
-        [Remote("ValidateUsername", "Drivers", ErrorMessage = "Потребителското име е заето.")]
+        [Remote("ValidateUsername", "Drivers", AdditionalFields = "Id", ErrorMessage = "Потребителското име е заето.")]
         [Display(Name = "Потребителско име")]
         public string Username { get; set; }
 
         [Required(ErrorMessage = AttributesErrorMessages.RequiredErrorMessage)]
         [EmailAddress(ErrorMessage = AttributesErrorMessages.EmailErrorMessage)]
-        [Remote("ValidateEmail", "Drivers", ErrorMessage = "Имейл адресът е зает.")]
+        [Remote("ValidateEmail", "Drivers", AdditionalFields = "Id", ErrorMessage = "Имейл адресът е зает.")]
         [Display(Name = "Имейл")]
         public string Email { get; set; }
 

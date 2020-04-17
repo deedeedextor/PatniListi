@@ -39,6 +39,12 @@
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             var viewModel = await this.usersService.GetByIdAsync<ApplicationUserHomeViewModel>(userId);
+
+            if (viewModel == null)
+            {
+                return this.NotFound();
+            }
+
             return this.View(viewModel);
         }
 

@@ -225,5 +225,14 @@
 
             return false;
         }
+
+        public string GetLicensePlateById(string id)
+        {
+            return this.carsRepository
+                .AllAsNoTracking()
+                .Where(c => c.Id == id)
+                .Select(c => c.LicensePlate)
+                .SingleOrDefault();
+        }
     }
 }

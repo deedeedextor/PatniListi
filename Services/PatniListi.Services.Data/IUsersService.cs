@@ -32,5 +32,9 @@
         Task EditAsync(string id, string username, string email, string fullName, string companyId, string companyName, DateTime createdOn, string concurrencyStamp);
 
         Task<bool> DeleteAsync(string id, string fullName);
+
+        string GetUsernameById(string id);
+
+        string GetEmailById(string id);
     }
 }

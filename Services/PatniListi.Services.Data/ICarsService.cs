@@ -34,5 +34,7 @@
         double GetCurrentTravelledDistanceByCarId(string carId, string transportWorkTicketId = null);
 
         double GetCurrentFuelConsumptionByCarId(string carId, string transportWorkTicketId = null);
+
+        string GetLicensePlateById(string id);
     }
 }

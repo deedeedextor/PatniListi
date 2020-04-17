@@ -1,5 +1,6 @@
 ﻿namespace PatniListi.Web.Controllers
 {
+    using System;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Authorization;
@@ -63,6 +64,18 @@
             }
 
             return this.View("Index", viewModel);
+        }
+
+        public IActionResult ValidatePeriodBetweenDates(DateTime from, DateTime to)
+        {
+            var daysBetween = (to - from).TotalDays;
+
+            if (daysBetween > 31)
+            {
+                return this.Json(data: "Избраният период не може да бъде по-голям от месец.");
+            }
+
+            return this.Json(data: true);
         }
     }
 }

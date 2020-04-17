@@ -1,5 +1,6 @@
 ﻿namespace PatniListi.Web.Controllers
 {
+    using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
@@ -37,11 +38,6 @@
         public async Task<IActionResult> All(string id, int? pageNumber)
         {
             this.TempData["carId"] = id;
-
-            if (id == null)
-            {
-                return this.NotFound();
-            }
 
             var workTickets = this.transportWorkTicketsService
                 .GetAll<TransportWorkTicketViewModel>(id);
@@ -133,8 +129,6 @@
         [HttpPost]
         public async Task<IActionResult> Edit(TransportWortkTicketEditViewModel input)
         {
-            var currentUserFullname = this.userManager.GetUserAsync(this.User).Result?.FullName;
-
             if (!this.ModelState.IsValid)
             {
                 var viewModel = await this.transportWorkTicketsService.GetDetailsAsync<TransportWortkTicketEditViewModel>(input.Id);
@@ -149,6 +143,7 @@
             }
 
             await this.transportWorkTicketsService.EditAsync(input.Id, input.Date, input.ApplicationUserFullName, input.CarId, input.CarCompanyId, input.CreatedBy, input.CreatedOn, input.ModifiedBy, input.Route, input.StartKilometers, input.EndKilometers, input.FuelConsumption, input.Residue, input.FuelAvailability, input.TravelledDistance);
+
             return this.RedirectToAction("All", "TransportWorkTickets", new { id = input.CarId });
         }
 
@@ -166,6 +161,18 @@
             }
 
             return this.PartialView("_RouteDetailsPartial", viewModel);
+        }
+
+        public IActionResult ValidatePeriodBetweenDates(DateTime from, DateTime to)
+        {
+            var daysBetween = (to - from).TotalDays;
+
+            if (daysBetween > 31)
+            {
+                return this.Json(data: "Избраният период не може да бъде по-голям от месец.");
+            }
+
+            return this.Json(data: true);
         }
     }
 }

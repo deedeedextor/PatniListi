@@ -24,6 +24,7 @@
         [Display(Name = "Номер на фактура")]
         [Required(ErrorMessage = AttributesErrorMessages.RequiredErrorMessage)]
         [RegularExpression(@"^[0-9]+$", ErrorMessage = AttributesErrorMessages.InvalidErrorMessage)]
+        [Remote("ValidateNumber", "Invoices", AdditionalFields = "Id", ErrorMessage = "Номерът на фактурата е зает.")]
         public string Number { get; set; }
 
         [Display(Name = "Дата на фактура")]
@@ -63,6 +64,8 @@
 
         [Display(Name = "Автомобил")]
         public string CarModel { get; set; }
+
+        public string ModifiedBy { get; set; }
 
         [Display(Name = "Въвел")]
         public string CreatedBy { get; set; }

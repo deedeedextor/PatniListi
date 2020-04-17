@@ -18,16 +18,14 @@
         private readonly ITransportWorkTicketsService transportWorkTicketsService;
         private readonly ICarsService carsService;
         private readonly IUsersService usersService;
-        private readonly IInvoicesService invoicesService;
         private readonly IRoutesService routesService;
         private readonly UserManager<ApplicationUser> userManager;
 
-        public TransportWorkTicketsController(ITransportWorkTicketsService transportWorkTicketsService, ICarsService carsService, IUsersService usersService, IInvoicesService invoicesService, IRoutesService routesService, UserManager<ApplicationUser> userManager)
+        public TransportWorkTicketsController(ITransportWorkTicketsService transportWorkTicketsService, ICarsService carsService, IUsersService usersService, IRoutesService routesService, UserManager<ApplicationUser> userManager)
         {
             this.transportWorkTicketsService = transportWorkTicketsService;
             this.carsService = carsService;
             this.usersService = usersService;
-            this.invoicesService = invoicesService;
             this.routesService = routesService;
             this.userManager = userManager;
         }
@@ -85,7 +83,7 @@
 
             if (!this.ModelState.IsValid)
             {
-                input.AllDrivers = this.usersService.GetUsersByCar(id);
+                input.AllDrivers = this.usersService.GetUsersByCar(input.CarId);
                 input.AllLiters = this.carsService.GetCurrentLitresByCarId(input.CarId);
                 input.AllTravelledDistance = this.carsService.GetCurrentTravelledDistanceByCarId(input.CarId);
                 input.AllFuelConsumption = this.carsService.GetCurrentFuelConsumptionByCarId(input.CarId);
@@ -133,8 +131,6 @@
         [HttpPost]
         public async Task<IActionResult> Edit(TransportWortkTicketEditViewModel input)
         {
-            var currentUserFullname = this.userManager.GetUserAsync(this.User).Result?.FullName;
-
             if (!this.ModelState.IsValid)
             {
                 var viewModel = await this.transportWorkTicketsService.GetDetailsAsync<TransportWortkTicketEditViewModel>(input.Id);
@@ -149,6 +145,7 @@
             }
 
             await this.transportWorkTicketsService.EditAsync(input.Id, input.Date, input.ApplicationUserFullName, input.CarId, input.CarCompanyId, input.CreatedBy, input.CreatedOn, input.ModifiedBy, input.Route, input.StartKilometers, input.EndKilometers, input.FuelConsumption, input.Residue, input.FuelAvailability, input.TravelledDistance);
+
             return this.RedirectToAction("All", "TransportWorkTickets", new { id = input.CarId });
         }
 
@@ -156,7 +153,7 @@
         {
             var viewModel = await this.transportWorkTicketsService.GetDetailsAsync<TransportWorkTicketDeleteViewModel>(id);
 
-            if (!this.ModelState.IsValid)
+            if (viewModel == null)
             {
                 return this.NotFound();
             }

@@ -207,5 +207,23 @@
 
             return false;
         }
+
+        public string GetUsernameById(string id)
+        {
+            return this.usersRepository
+                .AllAsNoTracking()
+                .Where(u => u.Id == id)
+                .Select(u => u.UserName)
+                .SingleOrDefault();
+        }
+
+        public string GetEmailById(string id)
+        {
+            return this.usersRepository
+                .AllAsNoTracking()
+                .Where(u => u.Id == id)
+                .Select(u => u.Email)
+                .SingleOrDefault();
+        }
     }
 }
