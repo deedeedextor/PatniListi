@@ -64,6 +64,7 @@
         {
             [Required(ErrorMessage = "Моля, попълнете имейл адрес")]
             [EmailAddress]
+            [Display(Name = "Имейл адрес")]
             public string Email { get; set; }
         }
     }

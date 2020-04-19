@@ -121,7 +121,7 @@
 
                 foreach (var error in result.Errors)
                 {
-                    this.ModelState.AddModelError(string.Empty, error.Description);
+                    this.ModelState.AddModelError(string.Empty, "Съществуващ потребител или имейл.");
                 }
             }
 
