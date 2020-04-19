@@ -11,6 +11,7 @@ PatniListi give you the oppurtunity to have all the needed information at a glan
 You can keep track of your transport work tickets, invoices and expences.
 
 **Using ASP.NET Core 3.1 Template by :**
+
 [Nikolay Kostov](https://github.com/NikolayIt/)
 
 **Description and Features:**
