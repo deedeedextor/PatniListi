@@ -41,7 +41,7 @@
             return this.View(viewModel);
         }
 
-        [HttpPost]
+        [HttpGet]
         public async Task<IActionResult> Index(TransportWorkTicketReportsIndexViewModel viewModel)
         {
             var user = await this.userManager.GetUserAsync(this.User);

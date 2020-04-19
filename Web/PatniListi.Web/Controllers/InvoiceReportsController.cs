@@ -4,6 +4,7 @@
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using PatniListi.Data.Models;
@@ -42,7 +43,7 @@
             return this.View(viewModel);
         }
 
-        [HttpPost]
+        [HttpGet]
         public async Task<IActionResult> Index(InvoiceReportsIndexViewModel viewModel)
         {
             var user = await this.userManager.GetUserAsync(this.User);

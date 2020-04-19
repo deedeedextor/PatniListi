@@ -11,11 +11,7 @@
     <div class="container shadow py-4 px-4">
         <h1 class="text-center">@ViewData["Title"]</h1>
         <div class="card-body">
-            <form asp-area="" asp-controller="TransportWorkTicketReports" asp-action="Index" method="post"
-                data-ajax="true"
-                data-ajax-method="POST"
-                data-ajax-mode="replace"
-                data-ajax-update="#content">
+            <form asp-area="" asp-controller="TransportWorkTicketReports" asp-action="Index" method="get">
                 <hr />
                 <fieldset>
                     <legend class="text-white">Пътни листи: </legend>
@@ -24,14 +20,14 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label asp-for="From"></label>
-                                <input asp-for="From" type="text" id="datepicker" class="form-control datepicker" value="@DateTime.UtcNow.ToShortDateString()" />
+                                <input asp-for="From" type="text" id="datepicker" class="form-control datepicker" value="@(Model.From > DateTime.MinValue ? Model.From.ToShortDateString() : DateTime.UtcNow.ToShortDateString())" />
                                 <span asp-validation-for="From" class="text-danger"></span>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label asp-for="To"></label>
-                                <input asp-for="To" type="text" id="datepicker" class="form-control datepicker" value="@DateTime.UtcNow.ToShortDateString()" />
+                                <input asp-for="To" type="text" id="datepicker" class="form-control datepicker" value="@(Model.To > DateTime.MinValue ? Model.To.ToShortDateString() : DateTime.UtcNow.ToShortDateString())" />
                                 <span asp-validation-for="To" class="text-danger"></span>
                             </div>
                         </div>
@@ -51,7 +47,7 @@
                         <div class="col-md-12">
                             <label></label>
                             <div class="button-holder">
-                                <input type="submit" value="Покажи резултати" class="btn btn-primary btn-block text-uppercase" /> 
+                                <input type="submit" value="Покажи резултати" class="btn btn-primary btn-block text-uppercase" />
                             </div>
                         </div>
                     </div>
