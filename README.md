@@ -1,6 +1,6 @@
-#####**PatniListi -> IN PROGRESS**
+# PatniListi -> IN PROGRESS
 
-####**My first project using ASP.NET Core**
+### My first project using ASP.NET Core
 
     Suitable for:
     
@@ -14,7 +14,7 @@ You can keep track of your transport work tickets, invoices and expences.
 
 [Nikolay Kostov](https://github.com/NikolayIt/)
 
-**Description and Features:**
+### **Description and Features:**
 
 ***Admin features:***
 
@@ -44,7 +44,7 @@ Every company has one adminitrator who is taking care of all the cars and driver
   - car's license plate
   - invoice's number and quantity (according to car's tank capacity)
 
-**Technologies used:**
+### **Technologies used:**
 
 .NET Core 3.1
 
@@ -70,6 +70,6 @@ CSS
 
 SendGrid
 
-**Dependencies:**
+### **Dependencies:**
 
 [SendGrid](https://sendgrid.com/)
