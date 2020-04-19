@@ -18,7 +18,7 @@
         [Display(Name = "Номер на фактура")]
         [Required]
         [RegularExpression(@"^[0-9]+$")]
-        [Remote("ValidateNumber", "Invoices", AdditionalFields="Id", ErrorMessage = "Номерът на фактурата е зает.")]
+        [Remote("ValidateNumber", "Validation", "", AdditionalFields="Id", ErrorMessage = "Номерът на фактурата е зает.")]
         public string Number { get; set; }
 
         [Display(Name = "Дата на фактура")]
@@ -41,7 +41,7 @@
         [Display(Name = "Количество")]
         [Required]
         [Range(1, 999.99)]
-        [Remote("ValidateQuantity", "Invoices", ErrorMessage = "Наличното и заредено количество гориво не трябва да надвишава капацитета на резервоара", AdditionalFields = "CurrentLiters, CarTankCapacity")]
+        [Remote("ValidateQuantity", "Validation", "", ErrorMessage = "Наличното и заредено количество гориво не трябва да надвишава капацитета на резервоара", AdditionalFields = "CurrentLiters, CarTankCapacity")]
         public double Quantity { get; set; }
 
         [Display(Name = "Обща сума")]

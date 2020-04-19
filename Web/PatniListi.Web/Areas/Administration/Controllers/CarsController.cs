@@ -146,28 +146,5 @@
 
             return this.RedirectToAction("All", "Cars");
         }
-
-        public IActionResult ValidateLicensePlate(string licensePlate, string id)
-        {
-            bool exists = this.carsService.IsLicensePlateExist(licensePlate);
-
-            if (exists && id == null)
-            {
-                return this.Json(data: "Регистрационният номер е зает.");
-            }
-            else if (exists && id != null)
-            {
-                if (licensePlate == this.carsService.GetLicensePlateById(id))
-                {
-                    return this.Json(data: true);
-                }
-                else
-                {
-                    return this.Json(data: "Регистрационният номер е зает.");
-                }
-            }
-
-            return this.Json(data: true);
-        }
     }
 }

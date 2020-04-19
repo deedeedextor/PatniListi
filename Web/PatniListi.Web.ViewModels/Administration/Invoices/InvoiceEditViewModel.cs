@@ -28,7 +28,7 @@
         [Display(Name = "Номер на фактура")]
         [Required(ErrorMessage = AttributesErrorMessages.RequiredErrorMessage)]
         [RegularExpression(@"^[0-9]+$", ErrorMessage = AttributesErrorMessages.InvalidErrorMessage)]
-        [Remote("ValidateNumber", "Invoices", AdditionalFields = "Id", ErrorMessage = "Номерът на фактурата е зает.")]
+        [Remote("ValidateNumber", "Validation", "", AdditionalFields = "Id", ErrorMessage = "Номерът на фактурата е зает.")]
         public string Number { get; set; }
 
         [Display(Name = "Дата на фактура")]
@@ -36,7 +36,7 @@
         [Required(ErrorMessage = AttributesErrorMessages.RequiredErrorMessage)]
         public DateTime Date { get; set; }
 
-        [Display(Name = "Място на зареждане")]
+        [Display(Name = "Град на зареждане")]
         [Required(ErrorMessage = AttributesErrorMessages.RequiredErrorMessage)]
         [RegularExpression(@"^[А-Яа-я ]+$")]
         [StringLength(AttributesConstraints.InvoiceLocationMaxLength, ErrorMessage = AttributesErrorMessages.StringLengthErrorMessage, MinimumLength = AttributesConstraints.InvoiceLocationMinLength)]
@@ -50,7 +50,7 @@
         [Display(Name = "Количество")]
         [Required(ErrorMessage = AttributesErrorMessages.RequiredErrorMessage)]
         [Range(AttributesConstraints.QuantityMinRange, AttributesConstraints.QuantityMaxRange, ErrorMessage = AttributesErrorMessages.RangeErrorMessage)]
-        [Remote("ValidateQuantity", "Invoices", ErrorMessage = "Наличното и заредено количество гориво не трябва да надвишават капацитета на резервоара", AdditionalFields = "CurrentLiters, CarTankCapacity")]
+        [Remote("ValidateQuantity", "Validation", "", ErrorMessage = "Наличното и заредено количество гориво не трябва да надвишават капацитета на резервоара", AdditionalFields = "CurrentLiters, CarTankCapacity")]
         public double Quantity { get; set; }
 
         [Display(Name = "Обща сума")]
