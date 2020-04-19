@@ -17,7 +17,7 @@
         [Display(Name = "Дата на фактура")]
         public DateTime Date { get; set; }
 
-        [Display(Name = "Място на зареждане")]
+        [Display(Name = "Град на зареждане")]
         public string Location { get; set; }
 
         [Display(Name = "Заредил")]

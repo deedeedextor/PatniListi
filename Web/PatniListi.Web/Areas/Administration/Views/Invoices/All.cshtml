@@ -96,12 +96,6 @@
                         <div>
                             <a href="/Administration/Invoices/Edit/@Model[i].Id" class="justify-content-md-between">Промени</a>
                         </div>
-                        @if (Model[i] == Model[Model.Count - 1])
-                        {
-                            <div>
-                                <a href="/Administration/Invoices/Delete/@Model[i].Id" class="justify-content-md-between">Изтрий</a>
-                            </div>
-                        }
                     </td>
                 </tr>
             }
