@@ -1,6 +1,6 @@
-**#####PatniListi -> IN PROGRESS**
+#####**PatniListi -> IN PROGRESS**
 
-**####My first project using ASP.NET Core**
+####**My first project using ASP.NET Core**
 
     Suitable for:
     
