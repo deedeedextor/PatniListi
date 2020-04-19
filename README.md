@@ -26,12 +26,14 @@ Every company has one adminitrator who is taking care of all the cars and driver
   - delete drivers, cars and transport work tickets
   - create reports for every single car in the company
 	
-***Drivers futures:***
+***Drivers features:***
 
   - update their profile info
   - add/update invoices and transport work tickets
   - create reports for the distributed cars
   
+***Other features:***
+
 + Report filtration for invoices and tranport work tickets within a month period.
 + Route section where you can add non-existing routes or update already existing ones.
 + Pagination implemented in all listing pages.
@@ -39,7 +41,7 @@ Every company has one adminitrator who is taking care of all the cars and driver
 
   - existing username and email
   - car's license plate
-  - invoice's number and qauntity (according to car's tank capacity)
+  - invoice's number and quantity (according to car's tank capacity)
 
 **Technologies used:**
 
