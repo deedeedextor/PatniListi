@@ -74,9 +74,3 @@ SendGrid
 ### **Dependencies:**
 
 [SendGrid](https://sendgrid.com/)
-
-
-### **Screen Shots:**
-
-![Drivers - Administration page](C:\Users\Diana\Pictures\Saved Pictures\Annotation 2020-04-20 141234.png)
-
