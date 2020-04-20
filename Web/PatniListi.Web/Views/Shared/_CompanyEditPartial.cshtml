@@ -6,5 +6,5 @@
 
 @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
 {
-        <a type="button" id="hideButton" class="btn btn-primary" asp-area="Administration" asp-controller="Companies" asp-action="Edit" asp-route-id="@this.UserManager.GetUserAsync(User).Result?.CompanyId">Моля, завършете регистрацията на фирмата.</a>
+        <a type="button" id="hideButton" class="btn btn-primary btn-block" asp-area="Administration" asp-controller="Companies" asp-action="Edit" asp-route-id="@this.UserManager.GetUserAsync(User).Result?.CompanyId">Моля, завършете регистрацията на фирмата.</a>
 }

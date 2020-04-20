@@ -8,42 +8,42 @@
     ViewData["Title"] = "Kонтакти";
 }
 
-<div class="container justify-content-around">
-    <div class="text-center">
-        <h1 class="profile-title">Може да ни откриете на посочените адреси!</h1>
-    </div>
+    <div class="container justify-content-around">
+        <div class="shadow py-4 px-4">
+            <div class="text-center">
+                <h1 class="profile-title">Може да ни откриете на посочените адреси!</h1>
+                <hr/>
 
-    <div class="row">
-        <div class="col-md-4">
-            <div class="h1 text-center text-white">@ViewData["Title"]</div>
-            <div class="shadow py-4 px-4">
-                <h3>"Пътни Листи"</h3>
-                <address>
-                    гр. София <br />
-                    "Тинтява 17-18"<br />
-                    <abbr title="Phone">Тел:</abbr>
-                    +359 878 32 19 64
-                </address>
+            </div>
 
-                <h3>Офиси:</h3>
-                <address>
-                    гр.Пловдив<br />
-                    ул. Светлина 18 <br />
-                    <abbr title="Phone">Тел:</abbr>
-                    +359 878 32 25 00
-                </address>
-                <p class="mb-0"><strong>Емейл: </strong><i><a href="mailto:patni.Listi.bg@gmail.com">patniListi.bg@gmail.com</a></i></p>
-                <p class="mb-0"><strong>Skype: </strong><i>patniListi</i></p>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="h1 text-center text-white">@ViewData["Title"]</div>
+                    <h3>"Пътни Листи"</h3>
+                    <address>
+                        гр. София <br />
+                        "Тинтява 17-18"<br />
+                        <abbr title="Phone">Тел:</abbr>
+                        +359 878 32 19 64
+                    </address>
+
+                    <h3>Офиси:</h3>
+                    <address>
+                        гр.Пловдив<br />
+                        ул. Светлина 18 <br />
+                        <abbr title="Phone">Тел:</abbr>
+                        +359 878 32 25 00
+                    </address>
+                    <p class="mb-0"><strong>Емейл: </strong><i><a href="mailto:patni.Listi.bg@gmail.com">patniListi.bg@gmail.com</a></i></p>
+                    <p class="mb-0"><strong>Skype: </strong><i>patniListi</i></p>
+                </div>
+
+                <div class="iframe-container col-md-8 embed-responsive-item">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2933.7442397451514!2d23.350088315921738!3d42.666774979167336!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40aa85cca4a719b7%3A0xdf53fcbcd8e758d7!2sSoftware%20University!5e0!3m2!1sen!2sbg!4v1587371574639!5m2!1sen!2sbg" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+                </div>
             </div>
         </div>
-
-        <!--TO DO: iframe - responsive-->
-        <div class="col-md-8 embed-responsive-item">
-            <iframe src="https://www.google.com/maps/embed?pb=!4v1582904563796!6m8!1m7!1sN98_3geNdNXxW6KeqYhTkA!2m2!1d42.66698633873362!2d23.3491565338628!3f191.26414!4f0!5f0.7820865974627469" width="600" height="450" frameborder="0" style="border:0;"
-                    allowfullscreen=""></iframe>
-        </div>
     </div>
-</div>
 
 @if (this.SignInManager.IsSignedIn(this.User))
 {
