@@ -5,10 +5,8 @@
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using PatniListi.Common;
-    using PatniListi.Data.Models;
     using PatniListi.Services.Data;
     using PatniListi.Web.Infrastructure;
     using PatniListi.Web.ViewModels.Models.Cars;
@@ -21,18 +19,14 @@
         private readonly ITransportWorkTicketsService transportWorkTicketsService;
         private readonly ICarsService carsService;
         private readonly IUsersService usersService;
-        private readonly IInvoicesService invoicesService;
         private readonly IRoutesService routesService;
-        private readonly UserManager<ApplicationUser> userManager;
 
-        public TransportWorkTicketsController(ITransportWorkTicketsService transportWorkTicketsService, ICarsService carsService, IUsersService usersService, IInvoicesService invoicesService, IRoutesService routesService, UserManager<ApplicationUser> userManager)
+        public TransportWorkTicketsController(ITransportWorkTicketsService transportWorkTicketsService, ICarsService carsService, IUsersService usersService, IRoutesService routesService)
         {
             this.transportWorkTicketsService = transportWorkTicketsService;
             this.carsService = carsService;
             this.usersService = usersService;
-            this.invoicesService = invoicesService;
             this.routesService = routesService;
-            this.userManager = userManager;
         }
 
         public async Task<IActionResult> All(string id, int? pageNumber)

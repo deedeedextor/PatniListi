@@ -2,6 +2,7 @@
 {
     using System.Threading.Tasks;
 
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using PatniListi.Common;
     using PatniListi.Data.Common.Repositories;
@@ -25,6 +26,7 @@
             return this.View();
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Contact(ContactFormViewModel input)
         {
@@ -53,6 +55,7 @@
             return this.RedirectToAction("ThankYou");
         }
 
+        [Authorize]
         public IActionResult ThankYou()
         {
             return this.View();

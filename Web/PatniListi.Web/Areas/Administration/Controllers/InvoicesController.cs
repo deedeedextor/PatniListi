@@ -1,11 +1,8 @@
 ﻿namespace PatniListi.Web.Areas.Administration.Controllers
 {
     using System.Threading.Tasks;
-
-    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using PatniListi.Common;
-    using PatniListi.Data.Models;
     using PatniListi.Services.Data;
     using PatniListi.Web.Infrastructure;
     using PatniListi.Web.ViewModels.Administration.Cars;
@@ -14,14 +11,12 @@
     public class InvoicesController : AdministrationController
     {
         private readonly IInvoicesService invoicesService;
-        private readonly UserManager<ApplicationUser> userManager;
         private readonly IUsersService usersService;
         private readonly ICarsService carsService;
 
-        public InvoicesController(IInvoicesService invoicesService, UserManager<ApplicationUser> userManager, IUsersService usersService, ICarsService carsService)
+        public InvoicesController(IInvoicesService invoicesService, IUsersService usersService, ICarsService carsService)
         {
             this.invoicesService = invoicesService;
-            this.userManager = userManager;
             this.usersService = usersService;
             this.carsService = carsService;
         }

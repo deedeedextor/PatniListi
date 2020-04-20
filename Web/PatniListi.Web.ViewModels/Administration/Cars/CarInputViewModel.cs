@@ -15,6 +15,7 @@
         [Display(Name = "Модел")]
         [Required(ErrorMessage = AttributesErrorMessages.RequiredErrorMessage)]
         [StringLength(AttributesConstraints.CarModelMaxLength, ErrorMessage = AttributesErrorMessages.StringLengthErrorMessage, MinimumLength = AttributesConstraints.CarModelMinLength)]
+        [RegularExpression(@"^[А-Я][а-я]+ [А-Я][а-я]+$", ErrorMessage = AttributesErrorMessages.InvalidErrorMessage)]
         public string Model { get; set; }
 
         [Display(Name = "Регистрационен номер")]

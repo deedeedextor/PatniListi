@@ -4,5 +4,11 @@
     ViewData["Title"] = "Потвърдете имейл";
 }
 
-<h1 class="text-md-center">@ViewData["Title"]</h1>
-<partial name="_StatusMessage" model="Model.StatusMessage" />
+<section class="py-5">
+    <div class="container shadow py-4 px-4">
+        <h1 class="text-md-center">@ViewData["Title"]</h1>
+        <hr/>
+
+        <partial name="_StatusMessage" model="Model.StatusMessage" />
+    </div>
+</section>

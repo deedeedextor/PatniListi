@@ -21,6 +21,7 @@
         [Display(Name = "Модел")]
         [Required]
         [MaxLength(40)]
+        [RegularExpression(@"^[А-Я][а-я]+ [А-Я][а-я]+$")]
         public string Model { get; set; }
 
         [Display(Name = "Номер")]

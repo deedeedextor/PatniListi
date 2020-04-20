@@ -34,7 +34,7 @@
 
         [Display(Name = "Град на зареждане")]
         [Required(ErrorMessage = AttributesErrorMessages.RequiredErrorMessage)]
-        [RegularExpression(@"^[А-Яа-я ]+$")]
+        [RegularExpression(@"^[А-Яа-я ]+$", ErrorMessage = AttributesErrorMessages.InvalidErrorMessage)]
         [StringLength(AttributesConstraints.InvoiceLocationMaxLength, ErrorMessage = AttributesErrorMessages.StringLengthErrorMessage, MinimumLength = AttributesConstraints.InvoiceLocationMinLength)]
         public string Location { get; set; }
 

@@ -3,10 +3,8 @@
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using PatniListi.Common;
-    using PatniListi.Data.Models;
     using PatniListi.Services.Data;
     using PatniListi.Web.Infrastructure;
     using PatniListi.Web.ViewModels.Models.Cars;
@@ -16,13 +14,11 @@
     public class InvoicesController : BaseController
     {
         private readonly IInvoicesService invoicesService;
-        private readonly UserManager<ApplicationUser> userManager;
         private readonly ICarsService carsService;
 
-        public InvoicesController(IInvoicesService invoicesService, UserManager<ApplicationUser> userManager, ICarsService carsService)
+        public InvoicesController(IInvoicesService invoicesService, ICarsService carsService)
         {
             this.invoicesService = invoicesService;
-            this.userManager = userManager;
             this.carsService = carsService;
         }
 
@@ -64,7 +60,7 @@
                 CarInitialFuel = carFromDb.InitialFuel,
                 CarTankCapacity = carFromDb.TankCapacity,
                 AllLitres = this.carsService.GetCurrentLitresByCarId(id),
-                AllFuelConsumption = this.carsService.GetCurrentTravelledDistanceByCarId(id),
+                AllFuelConsumption = this.carsService.GetCurrentFuelConsumptionByCarId(id),
             };
 
             viewModel.CurrentLiters = viewModel.Liters;

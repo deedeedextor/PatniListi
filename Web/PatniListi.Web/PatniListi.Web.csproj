@@ -57,6 +57,7 @@
 
   <ItemGroup>
     <Folder Include="Areas\Administration\Views\Shared\" />
+    <Folder Include="wwwroot\Images\" />
   </ItemGroup>
 
   <ItemGroup>
