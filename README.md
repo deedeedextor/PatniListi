@@ -4,11 +4,12 @@
 
     Suitable for:
     
-    -small companies
+    -small and medium-sized companies
     -individuals
 
 PatniListi give you the oppurtunity to have all the needed information at a glance.
-You can keep track of your transport work tickets, invoices and expences.
+Free program for generating transport work tickets and invoices for fuels.
+Helping you keep track of your expenses.
 
 **Using ASP.NET Core 3.1 Template by :**
 
