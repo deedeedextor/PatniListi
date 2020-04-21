@@ -1,5 +1,7 @@
 ﻿namespace PatniListi.Web.Controllers
 {
+    using System;
+
     using Microsoft.AspNetCore.Mvc;
     using PatniListi.Services.Data;
 
@@ -113,6 +115,18 @@
                 {
                     return this.Json(data: "Номерът на фактурата е зает.");
                 }
+            }
+
+            return this.Json(data: true);
+        }
+
+        public IActionResult ValidatePeriodBetweenDates(DateTime from, DateTime to)
+        {
+            var daysBetween = (to - from).TotalDays;
+
+            if (daysBetween > 31)
+            {
+                return this.Json(data: "Избраният период не може да бъде по-голям от месец.");
             }
 
             return this.Json(data: true);

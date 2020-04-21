@@ -1,5 +1,6 @@
 ﻿namespace PatniListi.Web.ViewModels.Administration.Companies
 {
+    using System;
     using System.ComponentModel.DataAnnotations;
 
     using PatniListi.Common;
@@ -30,5 +31,7 @@
         [Display(Name = "Телефон")]
         [RegularExpression(@"^[+359 [0-9 ]+$", ErrorMessage = AttributesErrorMessages.InvalidErrorMessage)]
         public string PhoneNumber { get; set; }
+
+        public DateTime CreatedOn { get; set; }
     }
 }

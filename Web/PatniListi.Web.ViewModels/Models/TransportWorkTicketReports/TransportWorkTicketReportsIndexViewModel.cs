@@ -22,12 +22,14 @@
         public IEnumerable<SelectListItem> AllCars { get; set; }
 
         [Display(Name = "От дата")]
+        [DataType(DataType.Date)]
         [Required(ErrorMessage = AttributesErrorMessages.RequiredErrorMessage)]
         public DateTime From { get; set; }
 
         [Display(Name = "До дата")]
+        [DataType(DataType.Date)]
         [Required(ErrorMessage = AttributesErrorMessages.RequiredErrorMessage)]
-        [Remote("ValidatePeriodBetweenDates", "InvoiceReports", AdditionalFields = "From", ErrorMessage = "Избраният период не може да бъде по-голям от месец.")]
+        [Remote("ValidatePeriodBetweenDates", "Validation", "", AdditionalFields = "From", ErrorMessage = "Избраният период не може да бъде по-голям от месец.")]
         public DateTime To { get; set; }
 
         public IEnumerable<TransportWorkTicketReportsViewModel> TransportWorkTickets { get; set; }
