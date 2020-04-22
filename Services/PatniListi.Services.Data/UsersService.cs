@@ -122,6 +122,7 @@
             return this.usersRepository
                 .AllAsNoTracking()
                 .Where(u => u.CompanyId == companyId)
+                .OrderBy(u => u.FullName)
                 .Select(u => new SelectListItem
                 {
                     Value = u.FullName,
@@ -134,6 +135,7 @@
         {
             return this.usersRepository
                 .AllAsNoTracking()
+                .OrderBy(u => u.FullName)
                 .SelectMany(u => u.CarUsers)
                 .Where(u => u.CarId == carId)
                 .Select(u => new SelectListItem

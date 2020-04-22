@@ -88,6 +88,7 @@
 
         public IQueryable<T> GetAll<T>(string companyId)
         {
+
             return this.carsRepository
                 .AllAsNoTracking()
                 .Where(c => c.CompanyId == companyId)
@@ -108,6 +109,7 @@
             return this.carsRepository
                    .AllAsNoTracking()
                    .Where(c => c.CompanyId == companyId)
+                   .OrderBy(c => c.Model)
                    .Select(c => new SelectListItem
                    {
                        Value = c.Id,
@@ -121,6 +123,7 @@
             var cars = this.carsRepository
                    .AllAsNoTracking()
                    .Where(c => c.CompanyId == companyId && c.CarUsers.Any(cu => cu.UserId == userId))
+                   .OrderBy(c => c.Model)
                    .Select(cu => new SelectListItem
                    {
                        Value = cu.Id,
