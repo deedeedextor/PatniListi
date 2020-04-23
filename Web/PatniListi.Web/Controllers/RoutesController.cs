@@ -21,10 +21,10 @@
 
         public async Task<IActionResult> All(int? pageNumber)
         {
-            var invoices = this.routesService
+            var routes = this.routesService
                 .GetAll<RouteViewModel>();
 
-            return this.View(await PaginatedList<RouteViewModel>.CreateAsync(invoices, pageNumber ?? GlobalConstants.DefaultPageNumber, GlobalConstants.PageSize));
+            return this.View(await PaginatedList<RouteViewModel>.CreateAsync(routes, pageNumber ?? GlobalConstants.DefaultPageNumber, GlobalConstants.PageSize));
         }
 
         public IActionResult Create()
@@ -66,7 +66,14 @@
                 return this.View(input);
             }
 
-            await this.routesService.EditAsync(input.Id, input.StartPoint, input.EndPoint, input.Distance, input.CreatedOn);
+            var route = this.routesService.GetById(input.Id);
+
+            route.StartPoint = input.StartPoint;
+            route.EndPoint = input.EndPoint;
+            route.Distance = input.Distance;
+            route.CreatedOn = input.CreatedOn;
+
+            await this.routesService.EditAsync(route);
             return this.RedirectToAction("All", "Routes");
         }
     }

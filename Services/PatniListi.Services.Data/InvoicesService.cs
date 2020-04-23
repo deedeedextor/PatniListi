@@ -49,25 +49,6 @@
             await this.invoicesRepository.SaveChangesAsync();
         }
 
-        public async Task<bool> DeleteAsync(string id, string fullName)
-        {
-            var invoice = await this.invoicesRepository
-                .All()
-                .Where(i => i.Id == id)
-                .SingleOrDefaultAsync();
-
-            if (invoice == null)
-            {
-                return false;
-            }
-
-            invoice.ModifiedBy = fullName;
-            this.invoicesRepository.Delete(invoice);
-            await this.invoicesRepository.SaveChangesAsync();
-
-            return true;
-        }
-
         public async Task EditAsync(string id, string number, DateTime date, string location, double currentLiters, decimal price, double quantity, string driver, string carId, string carCompanyId, string createdBy, DateTime createdOn, string modifiedBy, string carFuelType, decimal totalPrice)
         {
             var user = await this.usersService.GetByNameAsync<UserViewModel>(driver, carCompanyId);

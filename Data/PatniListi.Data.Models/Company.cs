@@ -6,7 +6,7 @@
 
     using PatniListi.Data.Common.Models;
 
-    public class Company : BaseModel<string>
+    public class Company : BaseModel<string> 
     {
         public Company()
         {
@@ -29,7 +29,7 @@
 
         [Display(Name = "Адрес")]
         [RegularExpression(@"^[#.0-9а-яА-Я\s,-]+$")]
-        [StringLength(30)]
+        [StringLength(60)]
         public string Address { get; set; }
 
         [Display(Name = "Телефон")]

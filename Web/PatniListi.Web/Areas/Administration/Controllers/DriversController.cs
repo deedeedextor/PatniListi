@@ -7,6 +7,7 @@
     using PatniListi.Common;
     using PatniListi.Data.Models;
     using PatniListi.Services.Data;
+    using PatniListi.Services.Mapping;
     using PatniListi.Web.Infrastructure;
     using PatniListi.Web.ViewModels.Administration.Users;
 
@@ -61,13 +62,15 @@
                 return this.View(input);
             }
 
-            bool isCreated = await this.usersService.CreateAsync(input.Username, input.Email, input.Password, input.ConfirmPassword, input.FullName, input.CompanyId);
+            var user = AutoMapperConfig.MapperInstance.Map<ApplicationUser>(input);
+            var result = await this.userManager.CreateAsync(user, input.Password);
 
-            if (!isCreated)
+            if (!result.Succeeded)
             {
                 return this.View(input);
             }
 
+            await this.userManager.AddToRoleAsync(user, "Driver");
             return this.RedirectToAction("All", "Drivers");
         }
 
@@ -91,7 +94,26 @@
                 return this.View(input);
             }
 
-            await this.usersService.EditAsync(input.Id, input.Username, input.Email, input.FullName, input.CompanyId, input.CompanyName, input.CreatedOn, input.ConcurrencyStamp);
+            var user = await this.userManager.FindByIdAsync(input.Id);
+
+            user.UserName = input.Username;
+            user.Email = input.Email;
+            user.PasswordHash = input.PasswordHash;
+            user.FullName = input.FullName;
+            user.CompanyId = input.CompanyId;
+            user.LastLoggingDate = input.LastLoggingDate;
+            user.NormalizedEmail = input.NormalizedEmail;
+            user.NormalizedUserName = input.NormalizedUserName;
+            user.CreatedOn = input.CreatedOn;
+            user.ConcurrencyStamp = input.ConcurrencyStamp;
+            user.SecurityStamp = input.SecurityStamp;
+
+            var result = await this.userManager.UpdateAsync(user);
+
+            if (!result.Succeeded)
+            {
+                return this.View(input);
+            }
 
             return this.RedirectToAction("All", "Drivers");
         }

@@ -1,6 +1,5 @@
 ﻿namespace PatniListi.Services.Data
 {
-    using System;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -21,7 +20,7 @@
         public int GetUsersCount(string companyName)
         {
             var count = this.companiesRepository
-                .All()
+                .AllAsNoTracking()
                 .Where(c => c.Name == companyName)
                 .Select(c => c.Users.Count())
                 .SingleOrDefault();
@@ -42,19 +41,8 @@
             return company.Id;
         }
 
-        public async Task EditAsync(string id, string name, string bulstat, string vatNumber, string address, string phoneNumber, DateTime createdOn)
+        public async Task EditAsync(Company company)
         {
-            var company = new Company
-            {
-                Id = id,
-                Name = name,
-                Bulstat = bulstat,
-                VatNumber = vatNumber,
-                PhoneNumber = phoneNumber,
-                Address = address,
-                CreatedOn = createdOn,
-            };
-
             this.companiesRepository.Update(company);
             await this.companiesRepository.SaveChangesAsync();
         }
@@ -77,6 +65,13 @@
                 .FirstOrDefaultAsync();
 
             return viewModel;
+        }
+
+        public Company GetById(string id)
+        {
+            return this.companiesRepository
+                .AllAsNoTracking()
+                .FirstOrDefault(c => c.Id == id);
         }
     }
 }

@@ -126,7 +126,7 @@
 
             if (daysBetween > 31)
             {
-                return this.Json(data: "Избраният период не може да бъде по-голям от месец.");
+                return this.Json(data: "Избраният период не може да бъде повече от месец.");
             }
 
             return this.Json(data: true);

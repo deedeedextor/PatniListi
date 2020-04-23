@@ -16,31 +16,15 @@
     public class CarsService : ICarsService
     {
         private readonly IDeletableEntityRepository<Car> carsRepository;
-        private readonly ICarUsersService carUsersService;
 
-        public CarsService(IDeletableEntityRepository<Car> carsRepository, ICarUsersService carUsersService)
+        public CarsService(IDeletableEntityRepository<Car> carsRepository)
         {
             this.carsRepository = carsRepository;
-            this.carUsersService = carUsersService;
         }
 
-        public async Task CreateAsync(CarInputViewModel input)
+        public async Task CreateAsync(Car car)
         {
-            var car = new Car
-            {
-                Model = input.Model,
-                LicensePlate = input.LicensePlate,
-                FuelType = (Fuel)Enum.Parse(typeof(Fuel), input.FuelType),
-                StartKilometers = input.StartKilometers,
-                AverageConsumption = input.AverageConsumption,
-                TankCapacity = input.TankCapacity,
-                InitialFuel = input.InitialFuel,
-                CompanyId = input.CompanyId,
-            };
-
             await this.carsRepository.AddAsync(car);
-            await this.carUsersService.UpdateAsync(car.Id, car.CompanyId, input.FullName);
-
             await this.carsRepository.SaveChangesAsync();
         }
 
@@ -57,31 +41,13 @@
             }
 
             this.carsRepository.Delete(car);
-            await this.carUsersService.SetIsDeletedAsync(car.Id, fullName);
             await this.carsRepository.SaveChangesAsync();
 
             return true;
         }
 
-        public async Task EditAsync(CarEditViewModel input, string fullName)
+        public async Task EditAsync(Car car, string fullName)
         {
-            var car = new Car
-            {
-                Id = input.Id,
-                Model = input.Model,
-                LicensePlate = input.LicensePlate,
-                FuelType = (Fuel)Enum.Parse(typeof(Fuel), input.FuelType),
-                StartKilometers = input.StartKilometers,
-                AverageConsumption = input.AverageConsumption,
-                TankCapacity = input.TankCapacity,
-                InitialFuel = input.InitialFuel,
-                CompanyId = input.CompanyId,
-                CreatedOn = input.CreatedOn,
-                ModifiedBy = fullName,
-            };
-
-            await this.carUsersService.UpdateAsync(input.Id, input.CompanyId, input.FullName);
-
             this.carsRepository.Update(car);
             await this.carsRepository.SaveChangesAsync();
         }
@@ -171,11 +137,11 @@
 
         public double GetCurrentFuelConsumptionByCarId(string carId, string transportWorkTicketId = null)
         {
-            var residue = 0.00;
+            var fuelConsumption = 0.00;
 
             if (transportWorkTicketId != null)
             {
-                residue = this.carsRepository
+                fuelConsumption = this.carsRepository
                           .AllAsNoTracking()
                           .Where(c => c.Id == carId)
                           .Select(i => i.TransportWorkTickets.Where(tr => tr.Id != transportWorkTicketId).Sum(i => i.FuelConsumption))
@@ -183,14 +149,14 @@
             }
             else
             {
-                residue = this.carsRepository
+                fuelConsumption = this.carsRepository
                           .AllAsNoTracking()
                           .Where(c => c.Id == carId)
                           .Select(i => i.TransportWorkTickets.Sum(i => i.FuelConsumption))
                           .SingleOrDefault();
             }
 
-            return residue;
+            return fuelConsumption;
         }
 
         public async Task<T> GetDetailsAsync<T>(string id)
@@ -218,7 +184,7 @@
         public bool IsLicensePlateExist(string licensePlate)
         {
             var exists = this.carsRepository
-                .AllAsNoTracking()
+                .AllAsNoTrackingWithDeleted()
                 .Any(c => c.LicensePlate == licensePlate);
 
             if (exists)
@@ -236,6 +202,13 @@
                 .Where(c => c.Id == id)
                 .Select(c => c.LicensePlate)
                 .SingleOrDefault();
+        }
+
+        public Car GetById(string id)
+        {
+            return this.carsRepository
+                .AllAsNoTracking()
+                .FirstOrDefault(c => c.Id == id);
         }
     }
 }

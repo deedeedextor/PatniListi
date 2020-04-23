@@ -1,12 +1,15 @@
 ﻿namespace PatniListi.Web.Areas.Administration.Controllers
 {
+    using System;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using PatniListi.Common;
     using PatniListi.Data.Models;
+    using PatniListi.Data.Models.Enums;
     using PatniListi.Services.Data;
+    using PatniListi.Services.Mapping;
     using PatniListi.Web.Infrastructure;
     using PatniListi.Web.ViewModels.Administration.Cars;
 
@@ -15,12 +18,14 @@
         private readonly ICarsService carsService;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IUsersService usersService;
+        private readonly ICarUsersService carUsersService;
 
-        public CarsController(ICarsService carsService, UserManager<ApplicationUser> userManager, IUsersService usersService)
+        public CarsController(ICarsService carsService, UserManager<ApplicationUser> userManager, IUsersService usersService, ICarUsersService carUsersService)
         {
             this.carsService = carsService;
             this.userManager = userManager;
             this.usersService = usersService;
+            this.carUsersService = carUsersService;
         }
 
         public async Task<IActionResult> All(int? pageNumber)
@@ -80,7 +85,20 @@
                 return this.View(input);
             }
 
-            await this.carsService.CreateAsync(input);
+            var car = new Car
+            {
+                Model = input.Model,
+                LicensePlate = input.LicensePlate,
+                FuelType = (Fuel)Enum.Parse(typeof(Fuel), input.FuelType),
+                StartKilometers = input.StartKilometers,
+                AverageConsumption = input.AverageConsumption,
+                TankCapacity = input.TankCapacity,
+                InitialFuel = input.InitialFuel,
+                CompanyId = input.CompanyId,
+            };
+
+            await this.carsService.CreateAsync(car);
+            await this.carUsersService.UpdateAsync(car.Id, car.CompanyId, input.FullName);
 
             return this.RedirectToAction("All", "Cars");
         }
@@ -115,7 +133,19 @@
                 return this.View(carToEdit);
             }
 
-            await this.carsService.EditAsync(input, currentUserFullname);
+            var car = this.carsService.GetById(input.Id);
+            car.Model = input.Model;
+            car.LicensePlate = input.LicensePlate;
+            car.FuelType = (Fuel)Enum.Parse(typeof(Fuel), input.FuelType);
+            car.StartKilometers = input.StartKilometers;
+            car.AverageConsumption = input.AverageConsumption;
+            car.TankCapacity = input.TankCapacity;
+            car.InitialFuel = input.InitialFuel;
+            car.CompanyId = input.CompanyId;
+            car.CreatedOn = input.CreatedOn;
+
+            await this.carsService.EditAsync(car, currentUserFullname);
+            await this.carUsersService.UpdateAsync(input.Id, input.CompanyId, input.FullName);
 
             return this.RedirectToAction("All", "Cars");
         }
@@ -144,6 +174,7 @@
                 return this.NotFound();
             }
 
+            await this.carUsersService.SetIsDeletedAsync(id, currentUserFullname);
             return this.RedirectToAction("All", "Cars");
         }
     }

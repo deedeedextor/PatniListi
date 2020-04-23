@@ -29,7 +29,7 @@
         [Display(Name = "До дата")]
         [DataType(DataType.Date)]
         [Required(ErrorMessage = AttributesErrorMessages.RequiredErrorMessage)]
-        [Remote("ValidatePeriodBetweenDates", "Validation", "", AdditionalFields = "From", ErrorMessage = "Избраният период не може да бъде по-голям от месец.")]
+        [Remote("ValidatePeriodBetweenDates", "Validation", "", AdditionalFields = "From", ErrorMessage = "Избраният период не може да бъде повече от месец.")]
         public DateTime To { get; set; }
 
         public IEnumerable<TransportWorkTicketReportsViewModel> TransportWorkTickets { get; set; }

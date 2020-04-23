@@ -51,10 +51,35 @@
                             <input type="hidden" asp-for="CompanyId" readonly class="form-control" value="@Model.CompanyId" />
                         </div>
                         <div class="form-group">
-                            <input type="hidden" asp-for="CreatedOn" readonly class="form-control" />
+                            <input type="hidden" asp-for="CreatedOn" readonly class="form-control" value="@Model.CreatedOn" />
                         </div>
                         <div class="form-group">
-                            <input type="hidden" asp-for="ConcurrencyStamp" readonly class="form-control" />
+                            <input type="hidden" asp-for="ConcurrencyStamp" readonly class="form-control" value="@Model.ConcurrencyStamp" />
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <input type="hidden" asp-for="NormalizedUserName" readonly class="form-control" value="@Model.NormalizedUserName" />
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <input type="hidden" asp-for="NormalizedEmail" readonly class="form-control" value="@Model.NormalizedEmail" />
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <input type="hidden" asp-for="PasswordHash" readonly class="form-control" value="@Model.PasswordHash" />
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <input type="hidden" asp-for="LastLoggingDate" readonly class="form-control" value="@Model.LastLoggingDate" />
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <input type="hidden" asp-for="SecurityStamp" readonly class="form-control" value="@Model.SecurityStamp" />
                         </div>
                     </div>
                 </div>

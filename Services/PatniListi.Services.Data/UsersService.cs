@@ -1,76 +1,23 @@
 ﻿namespace PatniListi.Services.Data
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
-    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc.Rendering;
     using Microsoft.EntityFrameworkCore;
-    using Microsoft.Extensions.Logging;
     using PatniListi.Data.Common.Repositories;
     using PatniListi.Data.Models;
     using PatniListi.Services.Mapping;
-    using PatniListi.Web.ViewModels.Administration.Users;
 
     public class UsersService : IUsersService
     {
         private readonly IDeletableEntityRepository<ApplicationUser> usersRepository;
-        private readonly IDeletableEntityRepository<ApplicationRole> roleRepository;
-        private readonly UserManager<ApplicationUser> userManager;
-        private readonly ILogger<UserInputViewModel> logger;
-        private readonly RoleManager<ApplicationRole> roleManager;
 
         public UsersService(
-            IDeletableEntityRepository<ApplicationUser> usersRepository,
-            IDeletableEntityRepository<ApplicationRole> roleRepository,
-            UserManager<ApplicationUser> userManager,
-            ILogger<UserInputViewModel> logger,
-            RoleManager<ApplicationRole> roleManager)
+            IDeletableEntityRepository<ApplicationUser> usersRepository)
         {
             this.usersRepository = usersRepository;
-            this.roleRepository = roleRepository;
-            this.userManager = userManager;
-            this.logger = logger;
-            this.roleManager = roleManager;
-        }
-
-        public async Task AddRoleToUser(string userId, string roleName)
-        {
-            var user = await this.userManager.FindByIdAsync(userId);
-
-            if (user == null)
-            {
-                return;
-            }
-
-            var role = await this.roleManager.FindByNameAsync(roleName);
-
-            if (role == null)
-            {
-                return;
-            }
-
-            user.Roles.Add(new IdentityUserRole<string> { UserId = user.Id, RoleId = role.Id });
-            await this.roleRepository.SaveChangesAsync();
-        }
-
-        public async Task<bool> CreateAsync(string username, string email, string password, string confirmPassword, string fullName, string companyId)
-        {
-            var user = new ApplicationUser { UserName = username, Email = email, FullName = fullName, CompanyId = companyId };
-
-            var result = await this.userManager.CreateAsync(user, password);
-
-            if (result.Succeeded)
-            {
-                await this.AddRoleToUser(user.Id, "Driver");
-
-                this.logger.LogInformation("User created a new account with password.");
-                return true;
-            }
-
-            return false;
         }
 
         public async Task<bool> DeleteAsync(string id, string fullName)
@@ -89,23 +36,6 @@
             await this.usersRepository.SaveChangesAsync();
 
             return true;
-        }
-
-        public async Task EditAsync(string id, string username, string email, string fullName, string companyId, string companyName, DateTime createdOn, string concurrencyStamp)
-        {
-            var user = new ApplicationUser
-            {
-                Id = id,
-                UserName = username,
-                Email = email,
-                FullName = fullName,
-                CompanyId = companyId,
-                CreatedOn = createdOn,
-                ConcurrencyStamp = concurrencyStamp,
-            };
-
-            this.usersRepository.Update(user);
-            await this.usersRepository.SaveChangesAsync();
         }
 
         public IQueryable<T> GetAll<T>(string companyId)
@@ -172,7 +102,7 @@
         public async Task<T> GetDetailsAsync<T>(string userId)
         {
             var viewModel = await this.usersRepository
-                   .All()
+                   .AllAsNoTracking()
                    .Where(u => u.Id == userId)
                    .Include(u => u.Company)
                    .Include(u => u.CarUsers)
@@ -185,7 +115,7 @@
         public bool IsUsernameInUse(string username)
         {
             var exists = this.usersRepository
-                .AllAsNoTracking()
+                .AllAsNoTrackingWithDeleted()
                 .Any(u => u.UserName == username);
 
             if (exists)
@@ -199,7 +129,7 @@
         public bool IsEmailInUse(string email)
         {
             var exists = this.usersRepository
-                .AllAsNoTracking()
+                .AllAsNoTrackingWithDeleted()
                 .Any(u => u.Email == email);
 
             if (exists)

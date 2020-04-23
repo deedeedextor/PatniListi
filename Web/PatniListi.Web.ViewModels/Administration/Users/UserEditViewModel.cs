@@ -37,5 +37,15 @@
         public DateTime CreatedOn { get; set; }
 
         public string ConcurrencyStamp { get; set; }
+
+        public string NormalizedUserName { get; set; }
+
+        public string NormalizedEmail { get; set; }
+
+        public string PasswordHash { get; set; }
+
+        public DateTime LastLoggingDate { get; set; }
+
+        public string SecurityStamp { get; set; }
     }
 }

@@ -1,15 +1,18 @@
 ﻿namespace PatniListi.Services.Data
 {
-    using System;
     using System.Threading.Tasks;
+
+    using PatniListi.Data.Models;
 
     public interface ICompaniesService
     {
+        Company GetById(string id);
+
         Task<string> CreateAsync(string companyName);
 
         Task<string> GetByNameAsync(string companyName);
 
-        Task EditAsync(string id, string name, string bulstat, string vatNumber, string address, string phoneNumber, DateTime createdOn);
+        Task EditAsync(Company company);
 
         int GetUsersCount(string companyName);
 

@@ -88,11 +88,11 @@
                 {
                     if (this.companiesService.GetUsersCount(this.Input.CompanyName) == 1)
                     {
-                        await this.usersService.AddRoleToUser(user.Id, "Admin");
+                        await this.userManager.AddToRoleAsync(user, "Admin");
                     }
                     else
                     {
-                        await this.usersService.AddRoleToUser(user.Id, "Driver");
+                        await this.userManager.AddToRoleAsync(user, "Driver");
                     }
 
                     this.logger.LogInformation("User created a new account with password.");
@@ -137,7 +137,7 @@
             public string Username { get; set; }
 
             [Required(ErrorMessage = "Полето е задължително.")]
-            [EmailAddress]
+            [EmailAddress(ErrorMessage = "Невалиден имейл адрес.")]
             [Display(Name = "Имейл")]
             public string Email { get; set; }
 

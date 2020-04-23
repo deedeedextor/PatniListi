@@ -20,6 +20,9 @@
             <th>
 
             </th>
+            <th>
+
+            </th>
         </tr>
         @foreach (var route in Model.Routes)
         {
@@ -29,6 +32,15 @@
             </td>
             <td>
                 @route.Distance
+            </td>
+            <td>
+
+            </td> 
+            <td>
+
+            </td>
+            <td>
+
             </td>
         </tr>
         }
@@ -40,6 +52,15 @@
             <tr>
                 <td>Общо:</td>
                 <td id="totalDistance">@TotalDistance</td>
+                <td>
+
+                </td>
+                <td>
+
+                </td>
+                <td>
+
+                </td>
             </tr>
         </tfoot>
     </table>

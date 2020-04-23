@@ -16,8 +16,6 @@
 
         Task EditAsync(string id, string number, DateTime date, string location, double currentLiters, decimal price, double quantity, string driver, string carId, string carCompanyId, string createdBy, DateTime createdOn, string modifiedBy, string carFuelType, decimal totalPrice);
 
-        Task<bool> DeleteAsync(string id, string fullName);
-
         bool IsNumberExist(string number);
 
         string GetInvoiceNumberById(string id);

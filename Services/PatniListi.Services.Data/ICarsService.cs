@@ -5,10 +5,13 @@
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc.Rendering;
+    using PatniListi.Data.Models;
     using PatniListi.Web.ViewModels.Administration.Cars;
 
     public interface ICarsService
     {
+        Car GetById(string id);
+
         IEnumerable<SelectListItem> GetFuelType();
 
         IEnumerable<SelectListItem> GetAll(string companyId);
@@ -19,13 +22,13 @@
 
         IQueryable<T> GetCarsByUser<T>(string userId, string companyId);
 
-        Task CreateAsync(CarInputViewModel input);
+        Task CreateAsync(Car car);
 
         bool IsLicensePlateExist(string licensePlate);
 
         Task<T> GetDetailsAsync<T>(string id);
 
-        Task EditAsync(CarEditViewModel input, string fullName);
+        Task EditAsync(Car car, string fullName);
 
         Task<bool> DeleteAsync(string id, string fullName);
 
