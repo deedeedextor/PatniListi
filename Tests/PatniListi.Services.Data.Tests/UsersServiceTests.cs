@@ -81,7 +81,7 @@
             var usersService = new UsersService(repository);
 
             AutoMapperConfig.RegisterMappings(typeof(UserViewModel).Assembly);
-            var routes = usersService.GetAll<UserViewModel>("7480-9141-3274983");
+            var routes = usersService.GetAll<UserViewModel>("7480-9141-3274983").ToList();
 
             Assert.Equal(2, routes.Count());
         }
@@ -201,12 +201,16 @@
             var repository = new EfDeletableEntityRepository<ApplicationUser>(new ApplicationDbContext(options.Options));
 
             var userOne = new ApplicationUser { UserName = "mars13", Email = "mars@gmail.com", CompanyId = "7480-9141-3274983", FullName = "Емилия Петрова", LastLoggingDate = DateTime.UtcNow };
-            userOne.CarUsers.Add(new CarUser { UserId = userOne.Id, CarId = "123-123-123" });
-            userOne.CarUsers.Add(new CarUser { UserId = userOne.Id, CarId = "321-321-321" });
+            var carUserOne = new CarUser { UserId = userOne.Id, CarId = "123-123-123" };
+            userOne.CarUsers.Add(carUserOne);
+            var carUserTwo = new CarUser { UserId = userOne.Id, CarId = "321-321-321" };
+            userOne.CarUsers.Add(carUserTwo);
             var userTwo = new ApplicationUser { UserName = "rima32", Email = "petrov.12@gmail.com", CompanyId = "7480-9141-3274983", FullName = "Петър Петров", LastLoggingDate = DateTime.UtcNow };
-            userTwo.CarUsers.Add(new CarUser { UserId = userTwo.Id, CarId = "456-456-456" });
+            var carUserThree = new CarUser { UserId = userTwo.Id, CarId = "456-456-456" };
+            userOne.CarUsers.Add(carUserThree);
             var userThree = new ApplicationUser { UserName = "rima33", Email = "petrov.13@gmail.com", CompanyId = "7470-32141-3274983", FullName = "Петър Петров", LastLoggingDate = DateTime.UtcNow };
-            userThree.CarUsers.Add(new CarUser { UserId = userThree.Id, CarId = "123-123-123" });
+            var carUserFour = new CarUser { UserId = userThree.Id, CarId = "123-123-123" };
+            userThree.CarUsers.Add(carUserFour);
 
             await repository.AddAsync(userOne);
             await repository.AddAsync(userTwo);
@@ -221,6 +225,8 @@
             Assert.Equal(userOne.UserName, user.Username);
             Assert.Equal(userOne.Email, user.Email);
             Assert.Equal(userOne.FullName, user.FullName);
+            Assert.Equal(userOne.FullName, user.FullName);
+            Assert.Equal(userOne.CarUsers.Count(), user.AllCars.Count());
         }
 
         [Fact]

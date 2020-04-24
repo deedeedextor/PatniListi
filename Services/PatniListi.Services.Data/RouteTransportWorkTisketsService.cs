@@ -25,7 +25,7 @@
         {
             var routeTransportWorkTicketsFromDb = await this.GetAllAsync<RouteTransportViewModel>(transportWorkTicketId);
 
-            if (routeTransportWorkTicketsFromDb != null)
+            if (routeTransportWorkTicketsFromDb.Any())
             {
                 foreach (var rtr in routeTransportWorkTicketsFromDb)
                 {
@@ -47,7 +47,7 @@
         {
             var newRoutes = new List<RouteViewModel>();
 
-            if (collection.Count() > 0)
+            if (collection.Any())
             {
                 foreach (var routeId in collection)
                 {
@@ -57,7 +57,7 @@
 
                 var allRoutes = await this.GetAllAsync<RouteTransportViewModel>(transportWorkTicketId);
 
-                if (allRoutes.Count() > 0)
+                if (allRoutes.Any())
                 {
                     foreach (var rtr in allRoutes)
                     {

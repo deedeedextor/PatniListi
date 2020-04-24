@@ -47,7 +47,7 @@
         {
             var newDrivers = new List<UserViewModel>();
 
-            if (collection.Count() > 0)
+            if (collection.Any())
             {
                 foreach (var name in collection)
                 {
@@ -57,7 +57,7 @@
 
                 var carUsers = await this.GetAllAsync<UserCarViewModel>(carId);
 
-                if (carUsers.Count() > 0)
+                if (carUsers.Any())
                 {
                     foreach (var cu in carUsers)
                     {

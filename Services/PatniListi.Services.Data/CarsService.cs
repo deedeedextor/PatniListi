@@ -1,6 +1,5 @@
 ﻿namespace PatniListi.Services.Data
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
@@ -9,9 +8,7 @@
     using Microsoft.EntityFrameworkCore;
     using PatniListi.Data.Common.Repositories;
     using PatniListi.Data.Models;
-    using PatniListi.Data.Models.Enums;
     using PatniListi.Services.Mapping;
-    using PatniListi.Web.ViewModels.Administration.Cars;
 
     public class CarsService : ICarsService
     {
@@ -162,7 +159,7 @@
         public async Task<T> GetDetailsAsync<T>(string id)
         {
             var viewModel = await this.carsRepository
-                .All()
+                .AllAsNoTracking()
                 .Include(c => c.CarUsers)
                 .Where(c => c.Id == id)
                 .To<T>()

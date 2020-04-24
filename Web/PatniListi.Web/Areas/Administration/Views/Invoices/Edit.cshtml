@@ -54,7 +54,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label asp-for="CreatedBy"></label>
-                            <input asp-for="CreatedBy" readonly class="form-control text-white" value="@Model.CreatedBy" />
+                            <input asp-for="CreatedBy" readonly class="form-control text-white" value="@UserManager.GetUserAsync(this.User).Result?.FullName" />
                             <span asp-validation-for="CreatedBy" class="text-danger"></span>
                         </div>
                     </div>

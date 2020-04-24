@@ -120,7 +120,7 @@
 
             var companiesService = new CompaniesService(repository);
 
-            var companyFromDb = repository.AllAsNoTracking().Where(c => c.Name == "Тиесто Гранд").FirstOrDefault();
+            var companyFromDb = repository.AllAsNoTracking().FirstOrDefault(c => c.Name == "Тиесто Гранд");
 
             AutoMapperConfig.RegisterMappings(typeof(DetailsCompanyViewModel).Assembly);
             var company = await companiesService.GetDetailsAsync<DetailsCompanyViewModel>(companyFromDb.Id);

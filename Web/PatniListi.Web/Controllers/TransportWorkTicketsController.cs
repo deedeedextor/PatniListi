@@ -1,12 +1,12 @@
 ﻿namespace PatniListi.Web.Controllers
 {
-    using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using PatniListi.Common;
+    using PatniListi.Data.Models;
     using PatniListi.Services.Data;
     using PatniListi.Web.Infrastructure;
     using PatniListi.Web.ViewModels.Models.Cars;
@@ -20,13 +20,15 @@
         private readonly ICarsService carsService;
         private readonly IUsersService usersService;
         private readonly IRoutesService routesService;
+        private readonly IRouteTransportWorkTicketsService routeTransportWorkTicketsService;
 
-        public TransportWorkTicketsController(ITransportWorkTicketsService transportWorkTicketsService, ICarsService carsService, IUsersService usersService, IRoutesService routesService)
+        public TransportWorkTicketsController(ITransportWorkTicketsService transportWorkTicketsService, ICarsService carsService, IUsersService usersService, IRoutesService routesService, IRouteTransportWorkTicketsService routeTransportWorkTicketsService)
         {
             this.transportWorkTicketsService = transportWorkTicketsService;
             this.carsService = carsService;
             this.usersService = usersService;
             this.routesService = routesService;
+            this.routeTransportWorkTicketsService = routeTransportWorkTicketsService;
         }
 
         public async Task<IActionResult> All(string id, int? pageNumber)
@@ -84,7 +86,22 @@
                 return this.View(input);
             }
 
-            await this.transportWorkTicketsService.CreateAsync(input.Date, input.ApplicationUserFullName, input.CarId, input.CarCompanyId, input.CreatedBy, input.Route, input.StartKilometers, input.EndKilometers, input.FuelConsumption, input.Residue, input.FuelAvailability, input.TravelledDistance);
+            var transportWorkTicket = new TransportWorkTicket
+            {
+                Date = input.Date,
+                UserId = input.ApplicationUserFullName,
+                CarId = input.CarId,
+                CreatedBy = input.CreatedBy,
+                StartKilometers = input.StartKilometers,
+                EndKilometers = input.EndKilometers,
+                FuelConsumption = input.FuelConsumption,
+                Residue = input.Residue,
+                FuelAvailability = input.FuelAvailability,
+                TravelledDistance = input.TravelledDistance,
+            };
+
+            await this.transportWorkTicketsService.CreateAsync(transportWorkTicket);
+            await this.routeTransportWorkTicketsService.UpdateAsync(transportWorkTicket.Id, input.CarCompanyId, input.Route);
 
             return this.RedirectToAction("All", "TransportWorkTickets", new { id });
         }
@@ -136,7 +153,23 @@
                 return this.View(viewModel);
             }
 
-            await this.transportWorkTicketsService.EditAsync(input.Id, input.Date, input.ApplicationUserFullName, input.CarId, input.CarCompanyId, input.CreatedBy, input.CreatedOn, input.ModifiedBy, input.Route, input.StartKilometers, input.EndKilometers, input.FuelConsumption, input.Residue, input.FuelAvailability, input.TravelledDistance);
+            var transportWorkTicket = this.transportWorkTicketsService.GetById(input.Id);
+
+            transportWorkTicket.CreatedOn = input.CreatedOn;
+            transportWorkTicket.Date = input.Date;
+            transportWorkTicket.UserId = input.ApplicationUserFullName;
+            transportWorkTicket.CarId = input.CarId;
+            transportWorkTicket.CreatedBy = input.CreatedBy;
+            transportWorkTicket.ModifiedBy = input.ModifiedBy;
+            transportWorkTicket.StartKilometers = input.StartKilometers;
+            transportWorkTicket.EndKilometers = input.EndKilometers;
+            transportWorkTicket.FuelConsumption = input.FuelConsumption;
+            transportWorkTicket.FuelAvailability = input.FuelAvailability;
+            transportWorkTicket.Residue = input.Residue;
+            transportWorkTicket.TravelledDistance = input.TravelledDistance;
+
+            await this.transportWorkTicketsService.EditAsync(transportWorkTicket);
+            await this.routeTransportWorkTicketsService.UpdateAsync(transportWorkTicket.Id, input.CarCompanyId, input.Route);
 
             return this.RedirectToAction("All", "TransportWorkTickets", new { id = input.CarId });
         }
@@ -155,18 +188,6 @@
             }
 
             return this.PartialView("_RouteDetailsPartial", viewModel);
-        }
-
-        public IActionResult ValidatePeriodBetweenDates(DateTime from, DateTime to)
-        {
-            var daysBetween = (to - from).TotalDays;
-
-            if (daysBetween > 31)
-            {
-                return this.Json(data: "Избраният период не може да бъде по-голям от месец.");
-            }
-
-            return this.Json(data: true);
         }
     }
 }

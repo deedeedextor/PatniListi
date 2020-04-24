@@ -8,73 +8,24 @@
     using PatniListi.Data.Common.Repositories;
     using PatniListi.Data.Models;
     using PatniListi.Services.Mapping;
-    using PatniListi.Web.ViewModels.Administration.Users;
 
     public class InvoicesService : IInvoicesService
     {
         private readonly IDeletableEntityRepository<Invoice> invoicesRepository;
-        private readonly IUsersService usersService;
 
-        public InvoicesService(IDeletableEntityRepository<Invoice> invoicesRepository, IUsersService usersService)
+        public InvoicesService(IDeletableEntityRepository<Invoice> invoicesRepository)
         {
             this.invoicesRepository = invoicesRepository;
-            this.usersService = usersService;
         }
 
-        public async Task CreateAsync(string number, DateTime date, string location, double currentLiters, decimal price, double quantity, string driver, string carId, string carCompanyId, string createdBy, string fuelType, decimal totalPrice)
+        public async Task CreateAsync(Invoice invoice)
         {
-            var user = await this.usersService.GetByNameAsync<UserViewModel>(driver, carCompanyId);
-
-            if (user == null)
-            {
-                return;
-            }
-
-            var invoice = new Invoice
-            {
-                Number = number,
-                Date = date,
-                FuelType = fuelType,
-                Location = location,
-                CurrentLiters = currentLiters,
-                Price = price,
-                Quantity = quantity,
-                TotalPrice = totalPrice,
-                UserId = user.Id,
-                CarId = carId,
-                CreatedBy = createdBy,
-            };
-
             await this.invoicesRepository.AddAsync(invoice);
             await this.invoicesRepository.SaveChangesAsync();
         }
 
-        public async Task EditAsync(string id, string number, DateTime date, string location, double currentLiters, decimal price, double quantity, string driver, string carId, string carCompanyId, string createdBy, DateTime createdOn, string modifiedBy, string carFuelType, decimal totalPrice)
+        public async Task EditAsync(Invoice invoice)
         {
-            var user = await this.usersService.GetByNameAsync<UserViewModel>(driver, carCompanyId);
-
-            if (user == null)
-            {
-                return;
-            }
-
-            var invoice = new Invoice
-            {
-                Id = id,
-                Number = number,
-                Date = date,
-                FuelType = carFuelType,
-                Location = location,
-                CurrentLiters = currentLiters,
-                Price = price,
-                Quantity = quantity,
-                TotalPrice = totalPrice,
-                UserId = user.Id,
-                CarId = carId,
-                CreatedBy = createdBy,
-                CreatedOn = createdOn,
-                ModifiedBy = modifiedBy,
-            };
 
             this.invoicesRepository.Update(invoice);
             await this.invoicesRepository.SaveChangesAsync();
@@ -130,6 +81,13 @@
             }
 
             return false;
+        }
+
+        public Invoice GetById(string id)
+        {
+            return this.invoicesRepository
+                .AllAsNoTracking()
+                .FirstOrDefault(c => c.Id == id);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿namespace PatniListi.Web.ViewModels.Administration.Users
 {
+    using System;
     using System.ComponentModel.DataAnnotations;
 
     using Microsoft.AspNetCore.Mvc;
@@ -7,8 +8,6 @@
 
     public class UserInputViewModel
     {
-        public string Id { get; set; }
-
         [Required(ErrorMessage = AttributesErrorMessages.RequiredErrorMessage)]
         [StringLength(AttributesConstraints.UsernameMaxLength, ErrorMessage = AttributesErrorMessages.StringLengthErrorMessage, MinimumLength = AttributesConstraints.UsernameMinLength)]
         [Remote("ValidateUsername", "Validation", "", AdditionalFields ="Id", ErrorMessage = "Потребителското име е заето.")]
@@ -38,5 +37,7 @@
         public string FullName { get; set; }
 
         public string CompanyId { get; set; }
+
+        public DateTime LastLoggingDate { get; set; }
     }
 }

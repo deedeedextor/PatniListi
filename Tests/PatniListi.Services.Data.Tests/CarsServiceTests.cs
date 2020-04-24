@@ -126,7 +126,7 @@
             var carsService = new CarsService(repository);
 
             AutoMapperConfig.RegisterMappings(typeof(CarViewModel).Assembly);
-            var cars = carsService.GetAll<CarViewModel>(carThree.CompanyId);
+            var cars = carsService.GetAll<CarViewModel>(carThree.CompanyId).ToList();
 
             Assert.Equal(2, cars.Count());
         }
@@ -145,7 +145,8 @@
             carTwo.CarUsers.Add(new CarUser { CarId = carTwo.Id, UserId = "242hds-78dhgf-7823dsds" });
             carTwo.CarUsers.Add(new CarUser { CarId = carTwo.Id, UserId = "242tre-78dhgf-7823dsds" });
             var carThree = new Car { Model = "Форд Фиеста 8", LicensePlate = "CO9812KA", CompanyId = "72804eudajhkhfvs-dasfa", FuelType = PatniListi.Data.Models.Enums.Fuel.Дизел, TankCapacity = 55, AverageConsumption = 5, InitialFuel = 10, StartKilometers = 234957 };
-            carThree.CarUsers.Add(new CarUser { CarId = carThree.Id, UserId = "242tre-78dhgf-7823dsds" });
+            var carUser = new CarUser { CarId = carThree.Id, UserId = "242tre-78dhgf-7823dsds" };
+            carThree.CarUsers.Add(carUser);
 
             repository.AddAsync(carOne);
             repository.AddAsync(carTwo);
@@ -154,9 +155,9 @@
             var carsService = new CarsService(repository);
 
             AutoMapperConfig.RegisterMappings(typeof(CarViewModel).Assembly);
-            var cars = carsService.GetCarsByUser<Car>("242hds-78dhgf-7823dsds", carThree.CompanyId);
+            var cars = carsService.GetCarsByUser<CarViewModel>(carUser.UserId, carThree.CompanyId).ToList();
 
-            Assert.Equal(2, cars.Count());
+            Assert.Single(cars);
         }
 
         [Fact]
@@ -366,12 +367,16 @@
             var repository = new EfDeletableEntityRepository<Car>(new ApplicationDbContext(options.Options));
 
             var carOne = new Car { Model = "Форд Фиеста", LicensePlate = "CO1212KA", CompanyId = "72804eudajhkhfvs-dasfa", FuelType = PatniListi.Data.Models.Enums.Fuel.Дизел, TankCapacity = 55, AverageConsumption = 4, InitialFuel = 10, StartKilometers = 234987 };
-            carOne.CarUsers.Add(new CarUser { CarId = carOne.Id, UserId = "242hds-78dsd-7823dsds" });
+            var carUserOne = new CarUser { CarId = carOne.Id, UserId = "242hds-78dsd-7823dsds" };
+            carOne.CarUsers.Add(carUserOne);
             var carTwo = new Car { Model = "Форд Фиеста", LicensePlate = "CO4312KA", CompanyId = "72804eud-3464-hfvs-dasfa", FuelType = PatniListi.Data.Models.Enums.Fuel.Бензин, TankCapacity = 55, AverageConsumption = 6, InitialFuel = 10, StartKilometers = 230444 };
-            carTwo.CarUsers.Add(new CarUser { CarId = carTwo.Id, UserId = "242hds-78dhgf-7823dsds" });
-            carTwo.CarUsers.Add(new CarUser { CarId = carTwo.Id, UserId = "242tre-78dhgf-7823dsds" });
+            var carUserTwo = new CarUser { CarId = carTwo.Id, UserId = "242hds-78dhgf-7823dsds" };
+            carTwo.CarUsers.Add(carUserTwo);
+            var carUserTwoOne = new CarUser { CarId = carTwo.Id, UserId = "242tre-78dhgf-7823dsds" };
+            carTwo.CarUsers.Add(carUserTwoOne);
             var carThree = new Car { Model = "Форд Фиеста 8", LicensePlate = "CO9812KA", CompanyId = "72804eudajhkhfvs-dasfa", FuelType = PatniListi.Data.Models.Enums.Fuel.Дизел, TankCapacity = 55, AverageConsumption = 5, InitialFuel = 10, StartKilometers = 234957 };
-            carThree.CarUsers.Add(new CarUser { CarId = carThree.Id, UserId = "242tre-78dhgf-7823dsds" });
+            var carUserThree = new CarUser { CarId = carThree.Id, UserId = "242tre-78dhgf-7823dsds" };
+            carThree.CarUsers.Add(carUserThree);
 
             await repository.AddAsync(carOne);
             await repository.AddAsync(carTwo);
@@ -379,14 +384,14 @@
             await repository.SaveChangesAsync();
             var carsService = new CarsService(repository);
 
-            var carFromDb = repository.AllAsNoTracking().FirstOrDefault(c => c.Id == carThree.Id);
+            var carFromDb = repository.AllAsNoTracking().Include(c => c.CarUsers).FirstOrDefault(c => c.Id == carThree.Id);
 
             AutoMapperConfig.RegisterMappings(typeof(CarDetailsViewModel).Assembly);
-            var car = await carsService.GetDetailsAsync<CarDetailsViewModel>(carThree.Id);
+            var car = await carsService.GetDetailsAsync<CarDetailsViewModel>(carFromDb.Id);
 
-            Assert.Equal(carFromDb.Id, car.Id);
             Assert.Equal(carFromDb.Model, car.Model);
             Assert.Equal(carFromDb.LicensePlate, car.LicensePlate);
+            Assert.Equal(carFromDb.CarUsers.Count(), car.AllDrivers.Count());
         }
 
         [Fact]
@@ -453,11 +458,11 @@
             repository.SaveChangesAsync();
             var carsService = new CarsService(repository);
 
-            var licensePlateFromDb = repository.AllAsNoTracking().FirstOrDefault(c => c.LicensePlate == carOne.LicensePlate);
+            var licensePlateFromDb = repository.AllAsNoTracking().Where(c => c.LicensePlate == carOne.LicensePlate).Select(c => c.LicensePlate).FirstOrDefault();
 
-            var car = carsService.GetLicensePlateById(carOne.LicensePlate);
+            var licensePlate = carsService.GetLicensePlateById(carOne.Id);
 
-            Assert.Equal(licensePlateFromDb.LicensePlate, car);
+            Assert.Equal(licensePlateFromDb, licensePlate);
         }
 
         [Fact]
