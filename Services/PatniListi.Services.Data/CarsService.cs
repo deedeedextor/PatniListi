@@ -77,7 +77,7 @@
                    .Select(c => new SelectListItem
                    {
                        Value = c.Id,
-                       Text = c.Model,
+                       Text = $"{c.Model} - {c.LicensePlate}",
                    })
                    .ToList();
         }
