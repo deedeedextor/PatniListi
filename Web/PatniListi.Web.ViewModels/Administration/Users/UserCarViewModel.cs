@@ -1,5 +1,6 @@
 ﻿namespace PatniListi.Web.ViewModels.Administration.Users
 {
+
     using PatniListi.Data.Models;
     using PatniListi.Services.Mapping;
 

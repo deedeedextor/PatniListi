@@ -47,6 +47,7 @@ namespace PatniListi.Web.Controllers
                 return this.NotFound();
             }
 
+            viewModel.CreatedBy = this.userManager.GetUserAsync(this.User).Result?.FullName;
             return this.View(viewModel);
         }
 
@@ -119,6 +120,8 @@ namespace PatniListi.Web.Controllers
                 return this.NotFound();
             }
 
+            viewModel.CreatedBy = this.userManager.GetUserAsync(this.User).Result?.FullName;
+
             return this.View(viewModel);
         }
 
@@ -142,7 +145,7 @@ namespace PatniListi.Web.Controllers
             invoice.Price = input.Price;
             invoice.Quantity = input.Quantity;
             invoice.TotalPrice = input.TotalPrice;
-            invoice.UserId = input.Id;
+            invoice.UserId = input.UserId;
             invoice.CarId = input.CarId;
             invoice.CreatedBy = input.CreatedBy;
             invoice.CreatedOn = input.CreatedOn;

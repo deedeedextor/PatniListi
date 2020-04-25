@@ -1,4 +1,6 @@
-﻿namespace PatniListi.Web.Areas.Administration.Controllers
+﻿using Microsoft.AspNetCore.Identity;
+
+namespace PatniListi.Web.Areas.Administration.Controllers
 {
     using System.Threading.Tasks;
 
@@ -16,12 +18,14 @@
         private readonly IInvoicesService invoicesService;
         private readonly IUsersService usersService;
         private readonly ICarsService carsService;
+        private readonly UserManager<ApplicationUser> userManager;
 
-        public InvoicesController(IInvoicesService invoicesService, IUsersService usersService, ICarsService carsService)
+        public InvoicesController(IInvoicesService invoicesService, IUsersService usersService, ICarsService carsService, UserManager<ApplicationUser> userManager)
         {
             this.invoicesService = invoicesService;
             this.usersService = usersService;
             this.carsService = carsService;
+            this.userManager = userManager;
         }
 
         public async Task<IActionResult> All(string id, int? pageNumber)
@@ -49,6 +53,7 @@
                 return this.NotFound();
             }
 
+            viewModel.CreatedBy = this.userManager.GetUserAsync(this.User).Result?.FullName;
             return this.View(viewModel);
         }
 
@@ -121,6 +126,7 @@
             }
 
             viewModel.AllDrivers = this.usersService.GetAll(viewModel.CarCompanyId);
+            viewModel.CreatedBy = this.userManager.GetUserAsync(this.User).Result?.FullName;
 
             return this.View(viewModel);
         }
@@ -148,7 +154,7 @@
             invoice.Price = input.Price;
             invoice.Quantity = input.Quantity;
             invoice.TotalPrice = input.TotalPrice;
-            invoice.UserId = input.UserId;
+            invoice.UserId = user.Id;
             invoice.CarId = input.CarId;
             invoice.CreatedBy = input.CreatedBy;
             invoice.CreatedOn = input.CreatedOn;

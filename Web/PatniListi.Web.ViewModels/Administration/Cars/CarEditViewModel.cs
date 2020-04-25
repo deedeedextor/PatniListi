@@ -63,6 +63,8 @@
 
         public DateTime CreatedOn { get; set; }
 
+        public string ModifiedBy { get; set; }
+
         public ICollection<CarUserViewModel> Drivers { get; set; }
 
         public IEnumerable<SelectListItem> AllDrivers { get; set; }

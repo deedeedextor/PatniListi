@@ -45,8 +45,6 @@
 
         public double CarStartKilometers { get; set; }
 
-        public int CarTransportWorkTicketsCount { get; set; }
-
         public double AllLiters { get; set; }
 
         public double AllTravelledDistance { get; set; }

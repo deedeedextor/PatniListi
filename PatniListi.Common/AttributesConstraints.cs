@@ -29,7 +29,7 @@
         public const double InitialFuelMinRange = 0;
 
         // Company
-        public const int CompanyMaxLength = 20;
+        public const int CompanyMaxLength = 60;
         public const int CompanyMinLength = 2;
 
         public const int CompanyAddressMaxLength = 60;

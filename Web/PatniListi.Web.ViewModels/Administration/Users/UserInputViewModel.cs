@@ -5,8 +5,10 @@
 
     using Microsoft.AspNetCore.Mvc;
     using PatniListi.Common;
+    using PatniListi.Data.Models;
+    using PatniListi.Services.Mapping;
 
-    public class UserInputViewModel
+    public class UserInputViewModel : IMapTo<ApplicationUser>
     {
         [Required(ErrorMessage = AttributesErrorMessages.RequiredErrorMessage)]
         [StringLength(AttributesConstraints.UsernameMaxLength, ErrorMessage = AttributesErrorMessages.StringLengthErrorMessage, MinimumLength = AttributesConstraints.UsernameMinLength)]

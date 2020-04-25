@@ -143,6 +143,7 @@
             car.InitialFuel = input.InitialFuel;
             car.CompanyId = input.CompanyId;
             car.CreatedOn = input.CreatedOn;
+            car.ModifiedBy = input.ModifiedBy;
 
             await this.carsService.EditAsync(car, currentUserFullname);
             await this.carUsersService.UpdateAsync(input.Id, input.CompanyId, input.FullName);

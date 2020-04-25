@@ -1,4 +1,6 @@
-﻿namespace PatniListi.Web.Controllers
+﻿using Microsoft.AspNetCore.Identity;
+
+namespace PatniListi.Web.Controllers
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
@@ -21,14 +23,16 @@
         private readonly IUsersService usersService;
         private readonly IRoutesService routesService;
         private readonly IRouteTransportWorkTicketsService routeTransportWorkTicketsService;
+        private readonly UserManager<ApplicationUser> userManager;
 
-        public TransportWorkTicketsController(ITransportWorkTicketsService transportWorkTicketsService, ICarsService carsService, IUsersService usersService, IRoutesService routesService, IRouteTransportWorkTicketsService routeTransportWorkTicketsService)
+        public TransportWorkTicketsController(ITransportWorkTicketsService transportWorkTicketsService, ICarsService carsService, IUsersService usersService, IRoutesService routesService, IRouteTransportWorkTicketsService routeTransportWorkTicketsService, UserManager<ApplicationUser> userManager)
         {
             this.transportWorkTicketsService = transportWorkTicketsService;
             this.carsService = carsService;
             this.usersService = usersService;
             this.routesService = routesService;
             this.routeTransportWorkTicketsService = routeTransportWorkTicketsService;
+            this.userManager = userManager;
         }
 
         public async Task<IActionResult> All(string id, int? pageNumber)
@@ -86,10 +90,12 @@
                 return this.View(input);
             }
 
+            var user = await this.userManager.GetUserAsync(this.User);
+
             var transportWorkTicket = new TransportWorkTicket
             {
                 Date = input.Date,
-                UserId = input.ApplicationUserFullName,
+                UserId = user.Id,
                 CarId = input.CarId,
                 CreatedBy = input.CreatedBy,
                 StartKilometers = input.StartKilometers,

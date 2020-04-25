@@ -1,4 +1,7 @@
-﻿@model PatniListi.Web.ViewModels.Administration.Cars.CarEditViewModel
+﻿@using PatniListi.Data.Models
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<ApplicationUser> UserManager
+@model PatniListi.Web.ViewModels.Administration.Cars.CarEditViewModel
 
 @{
     ViewData["Title"] = $"Промени {Model.Model}";
@@ -9,7 +12,7 @@
         <h1 class="text-center">@ViewData["Title"]</h1>
         <div class="card-body">
             <form asp-area="Administration" asp-controller="Cars" asp-action="Edit" asp-route-id="@Model.Id" method="post">
-                <hr />
+                <br />
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
@@ -99,7 +102,10 @@
                             <input type="hidden" asp-for="CompanyId" readonly class="form-control" value="@Model.CompanyId" />
                         </div>
                         <div class="form-group">
-                            <input type="hidden" asp-for="CreatedOn" readonly class="form-control" />
+                            <input type="hidden" asp-for="CreatedOn" readonly class="form-control" value="@Model.CreatedOn" />
+                        </div>
+                        <div class="form-group">
+                            <input type="hidden" asp-for="ModifiedBy" readonly class="form-control" value="@UserManager.GetUserAsync(this.User).Result?.FullName" />
                         </div>
                     </div>
                 </div>
@@ -110,7 +116,7 @@
                         <input type="submit" value="Запази" class="btn btn-primary btn-block text-uppercase" />
                         <a asp-area="Administration" asp-controller="Cars" asp-action="All" class="text-uppercase">Автомобили</a>
                     </div>
-                </div>        
+                </div>
             </form>
         </div>
     </div>

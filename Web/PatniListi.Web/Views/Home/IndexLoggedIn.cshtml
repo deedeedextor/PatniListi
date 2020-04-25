@@ -19,7 +19,7 @@
                         </td>
                         <td align="right">
                             Последно влизане:
-                            <span class="text-white">@Model.LastLoggingDate</span>
+                            <time class="text-white" datetime="@Model.LastLoggingDate.ToString("O")"></time>
                         </td>
                     </tr>
                 </table>
@@ -58,4 +58,5 @@
         </tr>
     </table>
 </div>
+
 

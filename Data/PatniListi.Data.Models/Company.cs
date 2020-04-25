@@ -17,7 +17,7 @@
 
         [Display(Name = "Име на фирма")]
         [Required]
-        [StringLength(20)]
+        [StringLength(60)]
         public string Name { get; set; }
 
         [Display(Name = "Булстат")]

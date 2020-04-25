@@ -163,34 +163,34 @@
             blackKit.initSliders();
 
 
-        /* This is change event for your dropdownlist */
-        $('#allRoutes').change( function () {
+            /* This is change event for your dropdownlist */
+            $('#allRoutes').change( function () {
 
-            /* Get the selected value of dropdownlist */
-            var selectedIds = $(this).val();
+                /* Get the selected value of dropdownlist */
+                var selectedIds = $(this).val();
 
-            /* Request the partial view with .get request. */
-            $.get('/TransportWorkTickets/RouteDetailsPartial/' + selectedIds, function (data) {
+                /* Request the partial view with .get request. */
+                $.get('/TransportWorkTickets/RouteDetailsPartial/' + selectedIds, function (data) {
 
-                /* data is the pure html returned from action method, load it to your page */
-                $('#partialPlaceHolder').html(data);
-                /* little fade in effect */
-                $('#partialPlaceHolder').fadeIn('fast');
-            }).done(function () {
-                if ($('#totalDistance').length)
-                    $('#travelledDistance').val($('#totalDistance').html());
+                    /* data is the pure html returned from action method, load it to your page */
+                    $('#partialPlaceHolder').html(data);
+                    /* little fade in effect */
+                    $('#partialPlaceHolder').fadeIn('fast');
+                }).done(function () {
+                    if ($('#totalDistance').length)
+                        $('#travelledDistance').val($('#totalDistance').html());
 
-                $('#startKilometers').val(Number($('#carStartKilometers').val()) + Number($('#allTravelledDistance').val()));
+                    $('#startKilometers').val(Number($('#carStartKilometers').val()) + Number($('#allTravelledDistance').val()));
 
-                $('#fuelAvailability').val(((Number($('#carInitialFuel').val()) + Number($('#allLiters').val())) - Number($('#allFuelConsumption').val())).toFixed(2));
+                    $('#fuelAvailability').val(((Number($('#carInitialFuel').val()) + Number($('#allLiters').val())) - Number($('#allFuelConsumption').val())).toFixed(2));
 
-                $('#endKilometers').val((Number($('#startKilometers').val()) + Number($('#travelledDistance').val())).toFixed(2));
+                    $('#endKilometers').val((Number($('#startKilometers').val()) + Number($('#travelledDistance').val())).toFixed(2));
 
-                $('#fuelConsumption').val((Number($('#travelledDistance').val()) * (Number($('#carAverageConsumption').val()) / 100.00)).toFixed(2));
+                    $('#fuelConsumption').val((Number($('#travelledDistance').val()) * (Number($('#carAverageConsumption').val()) / 100.00)).toFixed(2));
 
-                $('#residue').val((Number($('#fuelAvailability').val()) - Number($('#fuelConsumption').val())).toFixed(2));
+                    $('#residue').val((Number($('#fuelAvailability').val()) - Number($('#fuelConsumption').val())).toFixed(2));
+                });
             });
-        });
 
             $('#carModel').change(function () {
 
@@ -235,22 +235,36 @@
     </script>
 
 
-    <script>
+<script>
 
-        function GetTotalPrice() {
-            var number1 = parseFloat(document.getElementById("Number1").value);
-            var number2 = parseFloat(document.getElementById("Number2").value);
-            var sum = number1 * number2;
-            document.getElementById("ResultNumber").value = roundToTwo(sum);
+    function GetTotalPrice() {
+        var number1 = parseFloat(document.getElementById("Number1").value);
+        var number2 = parseFloat(document.getElementById("Number2").value);
+        var sum = number1 * number2;
+        document.getElementById("ResultNumber").value = roundToTwo(sum);
 
-        }
+    }
 
-        function roundToTwo(num) {
-            return +(Math.round(num + "e+2") + "e-2");
-        }
-    </script>
+    function roundToTwo(num) {
+        return +(Math.round(num + "e+2") + "e-2");
+    }
 
-    @this.RenderSection("Scripts", required: false)
+    $(function () {
+        moment.locale("bg");
+        $("time").each(function (i, e) {
+            var dateTimeValue = $(e).attr("datetime");
+            if (!dateTimeValue) {
+                return;
+            }
+
+            var time = moment.utc(dateTimeValue).local();
+            $(e).html(time.format("llll"));
+            $(e).attr("title", $(e).attr("datetime"));
+        });
+    });
+</script>
+
+@this.RenderSection("Scripts", required: false)
 
 </body>
 </html>

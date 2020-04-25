@@ -63,6 +63,7 @@
         {
             return this.carsRepository
                    .AllAsNoTracking()
+                   .OrderBy(c => c.Model)
                    .Where(c => c.CompanyId == companyId && c.CarUsers.Any(cu => cu.UserId == userId))
                    .To<T>();
         }

@@ -12,7 +12,7 @@
         <h1 class="text-center">@ViewData["Title"]</h1>
         <div class="card-body">
             <form asp-area="Administration" asp-controller="Invoices" asp-action="Edit" asp-route-id="@Model.Id" method="post">
-                <hr />
+                <br />
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
@@ -54,7 +54,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label asp-for="CreatedBy"></label>
-                            <input asp-for="CreatedBy" readonly class="form-control text-white" value="@UserManager.GetUserAsync(this.User).Result?.FullName" />
+                            <input asp-for="CreatedBy" readonly class="form-control text-white" value="@Model.CreatedBy" />
                             <span asp-validation-for="CreatedBy" class="text-danger"></span>
                         </div>
                     </div>
