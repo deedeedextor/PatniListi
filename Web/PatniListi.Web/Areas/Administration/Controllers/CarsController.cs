@@ -1,15 +1,12 @@
 ﻿namespace PatniListi.Web.Areas.Administration.Controllers
 {
-    using System;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using PatniListi.Common;
     using PatniListi.Data.Models;
-    using PatniListi.Data.Models.Enums;
     using PatniListi.Services.Data;
-    using PatniListi.Services.Mapping;
     using PatniListi.Web.Infrastructure;
     using PatniListi.Web.ViewModels.Administration.Cars;
 

@@ -47,16 +47,7 @@
                 return this.View(input);
             }
 
-            var company = this.companiesService.GetById(input.Id);
-
-            company.Name = input.Name;
-            company.Bulstat = input.Bulstat;
-            company.VatNumber = input.VatNumber;
-            company.PhoneNumber = input.PhoneNumber;
-            company.Address = input.Address;
-            company.CreatedOn = input.CreatedOn;
-
-            await this.companiesService.EditAsync(company);
+            await this.companiesService.EditAsync(input.Id, input.Name, input.Bulstat, input.VatNumber, input.PhoneNumber, input.Address, input.CreatedOn);
             return this.RedirectToAction("Details", "Companies", new { input.Id });
         }
     }

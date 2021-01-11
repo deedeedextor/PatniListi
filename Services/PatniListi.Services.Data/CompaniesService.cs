@@ -1,5 +1,6 @@
 ﻿namespace PatniListi.Services.Data
 {
+    using System;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -41,8 +42,17 @@
             return company.Id;
         }
 
-        public async Task EditAsync(Company company)
+        public async Task EditAsync(string id, string name, string bulstat, string vatNumber, string phoneNumber, string address, DateTime createdOn)
         {
+            var company = this.GetById(id);
+
+            company.Name = name;
+            company.Bulstat = bulstat;
+            company.VatNumber = vatNumber;
+            company.PhoneNumber = phoneNumber;
+            company.Address = address;
+            company.CreatedOn = createdOn;
+
             this.companiesRepository.Update(company);
             await this.companiesRepository.SaveChangesAsync();
         }

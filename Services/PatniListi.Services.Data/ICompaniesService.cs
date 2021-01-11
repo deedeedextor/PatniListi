@@ -1,5 +1,6 @@
 ﻿namespace PatniListi.Services.Data
 {
+    using System;
     using System.Threading.Tasks;
 
     using PatniListi.Data.Models;
@@ -12,7 +13,7 @@
 
         Task<string> GetByNameAsync(string companyName);
 
-        Task EditAsync(Company company);
+        Task EditAsync(string id, string name, string bulstat, string vatNumber, string phoneNumber, string address, DateTime createdOn);
 
         int GetUsersCount(string companyName);
 
