@@ -18,14 +18,44 @@
             this.invoicesRepository = invoicesRepository;
         }
 
-        public async Task CreateAsync(Invoice invoice)
+        public async Task CreateAsync(string number, DateTime date, string carFuelType, string location, double currentLiters, decimal price, double quantity, decimal totalPrice, string userId, string carId, string createdBy)
         {
+            var invoice = new Invoice
+            {
+                Number = number,
+                Date = date,
+                FuelType = carFuelType,
+                Location = location,
+                CurrentLiters = currentLiters,
+                Price = price,
+                Quantity = quantity,
+                TotalPrice = totalPrice,
+                UserId = userId,
+                CarId = carId,
+                CreatedBy = createdBy,
+            };
+
             await this.invoicesRepository.AddAsync(invoice);
             await this.invoicesRepository.SaveChangesAsync();
         }
 
-        public async Task EditAsync(Invoice invoice)
+        public async Task EditAsync(string id, string number, DateTime date, string carFuelType, string location, double currentLiters, decimal price, double quantity, decimal totalPrice, string userId, string carId, string createdBy, DateTime createdOn, string modifiedBy)
         {
+            var invoice = this.GetById(id);
+
+            invoice.Number = number;
+            invoice.Date = date;
+            invoice.FuelType = carFuelType;
+            invoice.Location = location;
+            invoice.CurrentLiters = currentLiters;
+            invoice.Price = price;
+            invoice.Quantity = quantity;
+            invoice.TotalPrice = totalPrice;
+            invoice.UserId = userId;
+            invoice.CarId = carId;
+            invoice.CreatedBy = createdBy;
+            invoice.CreatedOn = createdOn;
+            invoice.ModifiedBy = modifiedBy;
 
             this.invoicesRepository.Update(invoice);
             await this.invoicesRepository.SaveChangesAsync();

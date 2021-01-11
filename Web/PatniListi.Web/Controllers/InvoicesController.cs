@@ -1,13 +1,12 @@
-﻿using Microsoft.AspNetCore.Identity;
-using PatniListi.Data.Models;
-
-namespace PatniListi.Web.Controllers
+﻿namespace PatniListi.Web.Controllers
 {
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using PatniListi.Common;
+    using PatniListi.Data.Models;
     using PatniListi.Services.Data;
     using PatniListi.Web.Infrastructure;
     using PatniListi.Web.ViewModels.Models.Cars;
@@ -91,22 +90,7 @@ namespace PatniListi.Web.Controllers
 
             var user = await this.userManager.GetUserAsync(this.User);
 
-            var invoice = new Invoice
-            {
-                Number = input.Number,
-                Date = input.Date,
-                FuelType = input.CarFuelType,
-                Location = input.Location,
-                CurrentLiters = input.CurrentLiters,
-                Price = input.Price,
-                Quantity = input.Quantity,
-                TotalPrice = input.TotalPrice,
-                UserId = user.Id,
-                CarId = input.CarId,
-                CreatedBy = input.CreatedBy,
-            };
-
-            await this.invoicesService.CreateAsync(invoice);
+            await this.invoicesService.CreateAsync(input.Number, input.Date, input.CarFuelType, input.Location, input.CurrentLiters, input.Price, input.Quantity, input.TotalPrice, user.Id, input.CreatedBy, input.CreatedBy);
 
             return this.RedirectToAction("All", "Invoices", new { id });
         }
@@ -135,23 +119,7 @@ namespace PatniListi.Web.Controllers
                 return this.View(viewModel);
             }
 
-            var invoice = this.invoicesService.GetById(input.Id);
-
-            invoice.Number = input.Number;
-            invoice.Date = input.Date;
-            invoice.FuelType = input.CarFuelType;
-            invoice.Location = input.Location;
-            invoice.CurrentLiters = input.CurrentLiters;
-            invoice.Price = input.Price;
-            invoice.Quantity = input.Quantity;
-            invoice.TotalPrice = input.TotalPrice;
-            invoice.UserId = input.UserId;
-            invoice.CarId = input.CarId;
-            invoice.CreatedBy = input.CreatedBy;
-            invoice.CreatedOn = input.CreatedOn;
-            invoice.ModifiedBy = input.ModifiedBy;
-
-            await this.invoicesService.EditAsync(invoice);
+            await this.invoicesService.EditAsync(input.Id, input.Number, input.Date, input.CarFuelType, input.Location, input.CurrentLiters, input.Price, input.Quantity, input.TotalPrice, input.UserId, input.CarId, input.CreatedBy, input.CreatedOn, input.ModifiedBy);
 
             return this.RedirectToAction("All", "Invoices", new { id = input.CarId });
         }

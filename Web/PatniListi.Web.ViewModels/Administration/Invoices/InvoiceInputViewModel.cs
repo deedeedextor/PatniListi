@@ -26,7 +26,7 @@
 
         public double AllFuelConsumption { get; set; }
 
-        public double Liters => this.CarInitialFuel + this.AllLitres - this.AllFuelConsumption;
+        public double Liters => this.CarInitialFuel + (this.AllLitres - this.AllFuelConsumption);
 
         [Display(Name = "Налично гориво")]
         public double CurrentLiters { get; set; }

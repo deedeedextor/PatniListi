@@ -12,11 +12,11 @@
 
         IQueryable<T> GetAllInvoicesForPeriod<T>(string carId, DateTime from, DateTime to);
 
-        Task CreateAsync(Invoice invoice);
+        Task CreateAsync(string number, DateTime date, string carFuelType, string location, double currentLiters, decimal price, double quantity, decimal totalPrice, string userId, string carId, string createdBy);
 
         Task<T> GetDetailsAsync<T>(string id);
 
-        Task EditAsync(Invoice invoice);
+        Task EditAsync(string id, string number, DateTime date, string carFuelType, string location, double currentLiters, decimal price, double quantity, decimal totalPrice, string userId, string carId, string createdBy, DateTime createdOn, string modifiedBy);
 
         bool IsNumberExist(string number);
 
