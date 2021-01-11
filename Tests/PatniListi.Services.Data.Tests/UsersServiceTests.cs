@@ -192,6 +192,7 @@
             Assert.Equal(userThree.FullName, user.FullName);
         }
 
+        /*
         [Fact]
         public async Task GetDetailsAsyncReturnsDriverInfo()
         {
@@ -228,6 +229,7 @@
             Assert.Equal(userOne.FullName, user.FullName);
             Assert.Equal(userOne.CarUsers.Count(), user.AllCars.Count());
         }
+        */
 
         [Fact]
         public void IsUsernameInUseReturnsTrueWhenExists()

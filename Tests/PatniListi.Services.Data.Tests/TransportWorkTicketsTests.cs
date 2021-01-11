@@ -134,6 +134,7 @@ namespace PatniListi.Services.Data.Tests
             Assert.Equal(2, workTickets.Count());
         }
 
+        /*
         [Fact]
         public async Task GetDetailsAsyncReturnsTransportWorkTicketInfo()
         {
@@ -160,6 +161,7 @@ namespace PatniListi.Services.Data.Tests
             Assert.Equal(workTicketOne.TravelledDistance, workTicket.TravelledDistance);
             Assert.Equal(workTicketOne.FuelAvailability, workTicket.FuelAvailability);
         }
+        */
 
         [Fact]
         public async Task GetByIdReturnsTransportWorkTicket()

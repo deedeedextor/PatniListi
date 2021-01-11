@@ -10,6 +10,7 @@
     using PatniListi.Data.Repositories;
     using PatniListi.Services.Mapping;
     using PatniListi.Web.ViewModels.Administration.Cars;
+    using PatniListi.Web.ViewModels.Administration.Users;
     using Xunit;
 
     public class CarsServiceTests
@@ -384,14 +385,12 @@
             await repository.SaveChangesAsync();
             var carsService = new CarsService(repository);
 
-            var carFromDb = repository.AllAsNoTracking().Include(c => c.CarUsers).FirstOrDefault(c => c.Id == carThree.Id);
-
             AutoMapperConfig.RegisterMappings(typeof(CarDetailsViewModel).Assembly);
-            var car = await carsService.GetDetailsAsync<CarDetailsViewModel>(carFromDb.Id);
+            var car = await carsService.GetDetailsAsync<CarDetailsViewModel>(carThree.Id);
 
-            Assert.Equal(carFromDb.Model, car.Model);
-            Assert.Equal(carFromDb.LicensePlate, car.LicensePlate);
-            Assert.Equal(carFromDb.CarUsers.Count(), car.AllDrivers.Count());
+            Assert.Equal(carThree.Model, car.Model);
+            Assert.Equal(carThree.LicensePlate, car.LicensePlate);
+            Assert.Equal(carThree.CarUsers.Count(), car.AllDrivers.Count());
         }
 
         [Fact]

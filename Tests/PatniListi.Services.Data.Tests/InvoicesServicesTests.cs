@@ -132,9 +132,9 @@
             var invoiceOne = new Invoice { Number = "43254325235", Date = DateTime.UtcNow, FuelType = "Бензин", CurrentLiters = 10, UserId = "341414153", CarId = "72804eudajhkhfvs-dasfa", Location = "София", Price = 2.09m, Quantity = 25.21, TotalPrice = 2.09m * 25.21m };
             var invoiceTwo = new Invoice { Number = "11254325235", Date = DateTime.UtcNow, FuelType = "Бензин", CurrentLiters = 25, UserId = "331414153", CarId = "72804eudajhkhfvs-dasfa", Location = "София", Price = 2.07m, Quantity = 45.21, TotalPrice = 2.09m * 25.21m };
 
-            repository.AddAsync(invoiceOne);
-            repository.AddAsync(invoiceTwo);
-            repository.SaveChangesAsync();
+            await repository.AddAsync(invoiceOne);
+            await repository.AddAsync(invoiceTwo);
+            await repository.SaveChangesAsync();
 
             var invoicesService = new InvoicesService(repository);
 

@@ -10,7 +10,9 @@
     using PatniListi.Data;
     using PatniListi.Data.Models;
     using PatniListi.Data.Repositories;
+    using PatniListi.Services.Mapping;
     using PatniListi.Web.ViewModels.Administration.Cars;
+    using PatniListi.Web.ViewModels.Administration.Users;
     using Xunit;
 
     public class CarUsersServiceTests
@@ -54,32 +56,31 @@
             var carsRepository = new EfDeletableEntityRepository<Car>(new ApplicationDbContext(options.Options));
 
             var carTwo = new Car { Model = "Форд Фиеста", LicensePlate = "CO4312KA", CompanyId = "72804eud-3464-hfvs-dasfa", FuelType = PatniListi.Data.Models.Enums.Fuel.Бензин, TankCapacity = 55, AverageConsumption = 6, InitialFuel = 10, StartKilometers = 230444 };
-            var carUserTwo = new CarUser { CarId = carTwo.Id, UserId = "242hds-78dhgf-7823dsds" };
+            var user = new ApplicationUser { UserName = "rima32", Email = "petrov.12@gmail.com", CompanyId = "7480-32141-3274983", FullName = "Петър Петров", LastLoggingDate = DateTime.UtcNow };
+            var userOne = new ApplicationUser { UserName = "rima11", Email = "p.12@gmail.com", CompanyId = "7sd0-32141-3274983", FullName = "Мая Маринова", LastLoggingDate = DateTime.UtcNow };
+            await usersRepository.AddAsync(user);
+            await usersRepository.AddAsync(userOne);
+            await usersRepository.SaveChangesAsync();
+
+            var carUserTwo = new CarUser { CarId = carTwo.Id, UserId = user.Id };
             carTwo.CarUsers.Add(carUserTwo);
-            var carUserTwoOne = new CarUser { CarId = carTwo.Id, UserId = "242tre-78dhgf-7823dsds" };
-            carTwo.CarUsers.Add(carUserTwoOne);
 
             await carsRepository.AddAsync(carTwo);
             await carsRepository.SaveChangesAsync();
 
-            var user = new ApplicationUser { UserName = "rima32", Email = "petrov.12@gmail.com", CompanyId = "7480-32141-3274983", FullName = "Петър Петров", LastLoggingDate = DateTime.UtcNow };
-
-            await usersRepository.AddAsync(user);
-            await usersRepository.SaveChangesAsync();
-
             IEnumerable<string> drivers = new List<string>()
             {
-                "Петър Петров"
+                "Мая Маринова",
+                "Петър Петров",
             };
-
-            var fullName = "Мая Маринова";
 
             var usersService = new Mock<IUsersService>();
             var carUsersService = new CarUsersService(repository, usersService.Object);
 
+            AutoMapperConfig.RegisterMappings(typeof(UserCarViewModel).Assembly);
             await carUsersService.UpdateAsync(carTwo.Id, carTwo.CompanyId, drivers);
 
-            Assert.Single(carTwo.CarUsers);
+            Assert.Equal(2, carTwo.CarUsers.Count);
         }
 
         [Fact]
@@ -100,9 +101,10 @@
             var usersService = new Mock<IUsersService>();
             var carUsersService = new CarUsersService(repository, usersService.Object);
 
+            AutoMapperConfig.RegisterMappings(typeof(CarUserViewModel).Assembly);
             var carUsers = await carUsersService.GetAllAsync<CarUserViewModel>(carUserOne.CarId);
 
-            Assert.Equal(2, carUsers.Count());
+            Assert.Single(carUsers);
         }
     }
 }
