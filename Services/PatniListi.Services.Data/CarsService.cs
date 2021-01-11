@@ -1,5 +1,6 @@
 ﻿namespace PatniListi.Services.Data
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
@@ -8,6 +9,7 @@
     using Microsoft.EntityFrameworkCore;
     using PatniListi.Data.Common.Repositories;
     using PatniListi.Data.Models;
+    using PatniListi.Data.Models.Enums;
     using PatniListi.Services.Mapping;
 
     public class CarsService : ICarsService
@@ -19,17 +21,31 @@
             this.carsRepository = carsRepository;
         }
 
-        public async Task CreateAsync(Car car)
+        public async Task<Car> CreateAsync(string model, string licensePlate, string fuelType, double startKilometers, int averageConsumption, int tankCapacity, double initialFuel, string companyId)
         {
+            var car = new Car
+            {
+                Model = model,
+                LicensePlate = licensePlate,
+                FuelType = (Fuel)Enum.Parse(typeof(Fuel), fuelType),
+                StartKilometers = startKilometers,
+                AverageConsumption = averageConsumption,
+                TankCapacity = tankCapacity,
+                InitialFuel = initialFuel,
+                CompanyId = companyId,
+            };
+
             await this.carsRepository.AddAsync(car);
             await this.carsRepository.SaveChangesAsync();
+
+            return car;
         }
 
-        public async Task<bool> DeleteAsync(string id, string fullName)
+        public async Task<bool> DeleteAsync(string id, string companyId)
         {
             var car = await this.carsRepository
                 .All()
-                .Where(c => c.Id == id)
+                .Where(c => c.Id == id && c.CompanyId == companyId)
                 .FirstOrDefaultAsync();
 
             if (car == null)
@@ -43,8 +59,21 @@
             return true;
         }
 
-        public async Task EditAsync(Car car, string fullName)
+        public async Task EditAsync(string id, string model, string licensePlate, string fuelType, double startKilometers, int averageConsumption, int tankCapacity, double initialFuel, string companyId, DateTime createdOn, string modifiedBy, string fullName)
         {
+            var car = this.GetById(id);
+
+            car.Model = model;
+            car.LicensePlate = licensePlate;
+            car.FuelType = (Fuel)Enum.Parse(typeof(Fuel), fuelType);
+            car.StartKilometers = startKilometers;
+            car.AverageConsumption = averageConsumption;
+            car.TankCapacity = tankCapacity;
+            car.InitialFuel = initialFuel;
+            car.CompanyId = companyId;
+            car.CreatedOn = createdOn;
+            car.ModifiedBy = modifiedBy;
+
             this.carsRepository.Update(car);
             await this.carsRepository.SaveChangesAsync();
         }

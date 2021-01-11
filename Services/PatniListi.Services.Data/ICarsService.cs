@@ -1,12 +1,12 @@
 ﻿namespace PatniListi.Services.Data
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc.Rendering;
     using PatniListi.Data.Models;
-    using PatniListi.Web.ViewModels.Administration.Cars;
 
     public interface ICarsService
     {
@@ -22,15 +22,15 @@
 
         IQueryable<T> GetCarsByUser<T>(string userId, string companyId);
 
-        Task CreateAsync(Car car);
+        Task<Car> CreateAsync(string model, string licensePlate, string fuelType, double startKilometers, int averageConsumption, int tankCapacity, double initialFuel, string companyId);
 
         bool IsLicensePlateExist(string licensePlate);
 
         Task<T> GetDetailsAsync<T>(string id);
 
-        Task EditAsync(Car car, string fullName);
+        Task EditAsync(string id, string model, string licensePlate, string fuelType, double startKilometers, int averageConsumption, int tankCapacity, double initialFuel, string companyId, DateTime createdOn, string modifiedBy, string fullName);
 
-        Task<bool> DeleteAsync(string id, string fullName);
+        Task<bool> DeleteAsync(string id, string companyId);
 
         double GetCurrentLitresByCarId(string id);
 

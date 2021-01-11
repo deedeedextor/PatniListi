@@ -85,19 +85,7 @@
                 return this.View(input);
             }
 
-            var car = new Car
-            {
-                Model = input.Model,
-                LicensePlate = input.LicensePlate,
-                FuelType = (Fuel)Enum.Parse(typeof(Fuel), input.FuelType),
-                StartKilometers = input.StartKilometers,
-                AverageConsumption = input.AverageConsumption,
-                TankCapacity = input.TankCapacity,
-                InitialFuel = input.InitialFuel,
-                CompanyId = input.CompanyId,
-            };
-
-            await this.carsService.CreateAsync(car);
+            var car = await this.carsService.CreateAsync(input.Model, input.LicensePlate, input.FuelType, input.StartKilometers, input.AverageConsumption, input.TankCapacity, input.InitialFuel, input.CompanyId);
             await this.carUsersService.UpdateAsync(car.Id, car.CompanyId, input.FullName);
 
             return this.RedirectToAction("All", "Cars");
@@ -133,19 +121,7 @@
                 return this.View(carToEdit);
             }
 
-            var car = this.carsService.GetById(input.Id);
-            car.Model = input.Model;
-            car.LicensePlate = input.LicensePlate;
-            car.FuelType = (Fuel)Enum.Parse(typeof(Fuel), input.FuelType);
-            car.StartKilometers = input.StartKilometers;
-            car.AverageConsumption = input.AverageConsumption;
-            car.TankCapacity = input.TankCapacity;
-            car.InitialFuel = input.InitialFuel;
-            car.CompanyId = input.CompanyId;
-            car.CreatedOn = input.CreatedOn;
-            car.ModifiedBy = input.ModifiedBy;
-
-            await this.carsService.EditAsync(car, currentUserFullname);
+            await this.carsService.EditAsync(input.Id, input.Model, input.LicensePlate, input.FuelType, input.StartKilometers, input.AverageConsumption, input.TankCapacity, input.InitialFuel, input.CompanyId, input.CreatedOn, input.ModifiedBy, currentUserFullname);
             await this.carUsersService.UpdateAsync(input.Id, input.CompanyId, input.FullName);
 
             return this.RedirectToAction("All", "Cars");
@@ -166,16 +142,16 @@
 
         public async Task<IActionResult> ConfirmDelete(string id)
         {
-            var currentUserFullname = this.userManager.GetUserAsync(this.User).Result?.FullName;
+            var user = this.userManager.GetUserAsync(this.User).Result;
 
-            var deleted = await this.carsService.DeleteAsync(id, currentUserFullname);
+            var deleted = await this.carsService.DeleteAsync(id, user.CompanyId);
 
             if (!deleted)
             {
                 return this.NotFound();
             }
 
-            await this.carUsersService.SetIsDeletedAsync(id, currentUserFullname);
+            await this.carUsersService.SetIsDeletedAsync(id, user.FullName);
             return this.RedirectToAction("All", "Cars");
         }
     }
