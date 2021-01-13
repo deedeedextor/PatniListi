@@ -87,7 +87,7 @@
             return this.Json(data: true);
         }
 
-        public IActionResult ValidateQuantity(double quantity, double currentLiters, int carTankCapacity)
+        public IActionResult ValidateFuelQuantity(double quantity, double currentLiters, int carTankCapacity)
         {
             if ((int)(currentLiters + quantity) > carTankCapacity)
             {
@@ -97,7 +97,7 @@
             return this.Json(data: true);
         }
 
-        public IActionResult ValidateNumber(string number, string id)
+        public IActionResult ValidateInvoiceNumber(string number, string id)
         {
             bool exists = this.invoicesService.IsNumberExist(number);
 
