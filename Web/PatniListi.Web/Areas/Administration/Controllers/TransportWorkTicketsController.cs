@@ -1,6 +1,4 @@
-﻿using PatniListi.Web.ViewModels.Administration.Users;
-
-namespace PatniListi.Web.Areas.Administration.Controllers
+﻿namespace PatniListi.Web.Areas.Administration.Controllers
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
@@ -13,6 +11,7 @@ namespace PatniListi.Web.Areas.Administration.Controllers
     using PatniListi.Web.Infrastructure;
     using PatniListi.Web.ViewModels.Administration.Cars;
     using PatniListi.Web.ViewModels.Administration.TransportWorkTickets;
+    using PatniListi.Web.ViewModels.Administration.Users;
     using PatniListi.Web.ViewModels.Models.Routes;
 
     public class TransportWorkTicketsController : AdministrationController
@@ -98,21 +97,7 @@ namespace PatniListi.Web.Areas.Administration.Controllers
 
             var user = await this.usersService.GetByNameAsync<UserViewModel>(input.ApplicationUserFullName, input.CarCompanyId);
 
-            var transportWorkTicket = new TransportWorkTicket
-            {
-                Date = input.Date,
-                UserId = user.Id,
-                CarId = input.CarId,
-                CreatedBy = input.CreatedBy,
-                StartKilometers = input.StartKilometers,
-                EndKilometers = input.EndKilometers,
-                FuelConsumption = input.FuelConsumption,
-                Residue = input.Residue,
-                FuelAvailability = input.FuelAvailability,
-                TravelledDistance = input.TravelledDistance,
-            };
-
-            await this.transportWorkTicketsService.CreateAsync(transportWorkTicket);
+            var transportWorkTicket = await this.transportWorkTicketsService.CreateAsync(input.Date, user.Id, input.CarId, input.CreatedBy, input.StartKilometers, input.EndKilometers, input.FuelConsumption, input.Residue, input.FuelAvailability, input.TravelledDistance);
             await this.routeTransportWorkTicketsService.UpdateAsync(transportWorkTicket.Id, input.CarCompanyId, input.Route);
 
             return this.RedirectToAction("All", "TransportWorkTickets", new { id });
@@ -167,23 +152,8 @@ namespace PatniListi.Web.Areas.Administration.Controllers
 
             var user = await this.usersService.GetByNameAsync<UserDetailsViewModel>(input.ApplicationUserFullName, input.CarCompanyId);
 
-            var transportWorkTicket = this.transportWorkTicketsService.GetById(input.Id);
-
-            transportWorkTicket.CreatedOn = input.CreatedOn;
-            transportWorkTicket.Date = input.Date;
-            transportWorkTicket.UserId = user.Id;
-            transportWorkTicket.CarId = input.CarId;
-            transportWorkTicket.CreatedBy = input.CreatedBy;
-            transportWorkTicket.ModifiedBy = input.ModifiedBy;
-            transportWorkTicket.StartKilometers = input.StartKilometers;
-            transportWorkTicket.EndKilometers = input.EndKilometers;
-            transportWorkTicket.FuelConsumption = input.FuelConsumption;
-            transportWorkTicket.FuelAvailability = input.FuelAvailability;
-            transportWorkTicket.Residue = input.Residue;
-            transportWorkTicket.TravelledDistance = input.TravelledDistance;
-
-            await this.transportWorkTicketsService.EditAsync(transportWorkTicket);
-            await this.routeTransportWorkTicketsService.UpdateAsync(transportWorkTicket.Id, input.CarCompanyId, input.Route);
+            await this.transportWorkTicketsService.EditAsync(input.Id, input.CreatedOn, input.Date, user.Id, input.CarId, input.CreatedBy, input.ModifiedBy, input.StartKilometers, input.EndKilometers, input.FuelConsumption, input.Residue, input.FuelAvailability, input.TravelledDistance);
+            await this.routeTransportWorkTicketsService.UpdateAsync(input.Id, input.CarCompanyId, input.Route);
 
             return this.RedirectToAction("All", "TransportWorkTickets", new { id = input.CarId });
         }

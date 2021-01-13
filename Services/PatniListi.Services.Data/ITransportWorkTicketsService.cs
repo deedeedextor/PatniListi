@@ -13,11 +13,11 @@
 
         IQueryable<T> GetAllTransportWorkTicketsForPeriod<T>(string carId, DateTime from, DateTime to);
 
-        Task CreateAsync(TransportWorkTicket transportWorkTicket);
+        Task<TransportWorkTicket> CreateAsync(DateTime date, string userId, string carId, string createdBy, double startKilometers, double endKilometers, double fuelConsumption, double residue, double fuelAvailability, double travelledDistance);
 
         Task<T> GetDetailsAsync<T>(string id);
 
-        Task EditAsync(TransportWorkTicket transportWorkTicket);
+        Task EditAsync(string id, DateTime createdOn, DateTime date, string userId, string carId, string createdBy, string modifiedBy, double startKilometers, double endKilometers, double fuelConsumption, double residue, double fuelAvailability, double travelledDistance);
 
         Task<bool> DeleteAsync(string id, string fullName);
 

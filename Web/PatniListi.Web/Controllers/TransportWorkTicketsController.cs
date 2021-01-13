@@ -1,11 +1,10 @@
-﻿using Microsoft.AspNetCore.Identity;
-
-namespace PatniListi.Web.Controllers
+﻿namespace PatniListi.Web.Controllers
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using PatniListi.Common;
     using PatniListi.Data.Models;
@@ -92,21 +91,7 @@ namespace PatniListi.Web.Controllers
 
             var user = await this.userManager.GetUserAsync(this.User);
 
-            var transportWorkTicket = new TransportWorkTicket
-            {
-                Date = input.Date,
-                UserId = user.Id,
-                CarId = input.CarId,
-                CreatedBy = input.CreatedBy,
-                StartKilometers = input.StartKilometers,
-                EndKilometers = input.EndKilometers,
-                FuelConsumption = input.FuelConsumption,
-                Residue = input.Residue,
-                FuelAvailability = input.FuelAvailability,
-                TravelledDistance = input.TravelledDistance,
-            };
-
-            await this.transportWorkTicketsService.CreateAsync(transportWorkTicket);
+            var transportWorkTicket = await this.transportWorkTicketsService.CreateAsync(input.Date, user.Id, input.CarId, input.CreatedBy, input.StartKilometers, input.EndKilometers, input.FuelConsumption, input.Residue, input.FuelAvailability, input.TravelledDistance);
             await this.routeTransportWorkTicketsService.UpdateAsync(transportWorkTicket.Id, input.CarCompanyId, input.Route);
 
             return this.RedirectToAction("All", "TransportWorkTickets", new { id });
@@ -159,23 +144,8 @@ namespace PatniListi.Web.Controllers
                 return this.View(viewModel);
             }
 
-            var transportWorkTicket = this.transportWorkTicketsService.GetById(input.Id);
-
-            transportWorkTicket.CreatedOn = input.CreatedOn;
-            transportWorkTicket.Date = input.Date;
-            transportWorkTicket.UserId = input.ApplicationUserFullName;
-            transportWorkTicket.CarId = input.CarId;
-            transportWorkTicket.CreatedBy = input.CreatedBy;
-            transportWorkTicket.ModifiedBy = input.ModifiedBy;
-            transportWorkTicket.StartKilometers = input.StartKilometers;
-            transportWorkTicket.EndKilometers = input.EndKilometers;
-            transportWorkTicket.FuelConsumption = input.FuelConsumption;
-            transportWorkTicket.FuelAvailability = input.FuelAvailability;
-            transportWorkTicket.Residue = input.Residue;
-            transportWorkTicket.TravelledDistance = input.TravelledDistance;
-
-            await this.transportWorkTicketsService.EditAsync(transportWorkTicket);
-            await this.routeTransportWorkTicketsService.UpdateAsync(transportWorkTicket.Id, input.CarCompanyId, input.Route);
+            await this.transportWorkTicketsService.EditAsync(input.Id, input.CreatedOn, input.Date, input.ApplicationUserFullName, input.CarId, input.CreatedBy, input.ModifiedBy, input.StartKilometers, input.EndKilometers, input.FuelConsumption, input.Residue, input.FuelAvailability, input.TravelledDistance);
+            await this.routeTransportWorkTicketsService.UpdateAsync(input.Id, input.CarCompanyId, input.Route);
 
             return this.RedirectToAction("All", "TransportWorkTickets", new { id = input.CarId });
         }

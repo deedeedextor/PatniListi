@@ -18,10 +18,26 @@
             this.transportWorkTicketsRepository = transportWorkTicketsRepository;
         }
 
-        public async Task CreateAsync(TransportWorkTicket transportWorkTicket)
+        public async Task<TransportWorkTicket> CreateAsync(DateTime date, string userId, string carId, string createdBy, double startKilometers, double endKilometers, double fuelConsumption, double residue, double fuelAvailability, double travelledDistance)
         {
+            var transportWorkTicket = new TransportWorkTicket
+            {
+                Date = date,
+                UserId = userId,
+                CarId = carId,
+                CreatedBy = createdBy,
+                StartKilometers = startKilometers,
+                EndKilometers = endKilometers,
+                FuelConsumption = fuelConsumption,
+                Residue = residue,
+                FuelAvailability = fuelAvailability,
+                TravelledDistance = travelledDistance,
+            };
+
             await this.transportWorkTicketsRepository.AddAsync(transportWorkTicket);
             await this.transportWorkTicketsRepository.SaveChangesAsync();
+
+            return transportWorkTicket;
         }
 
         public async Task<bool> DeleteAsync(string id, string fullName)
@@ -44,8 +60,23 @@
             return true;
         }
 
-        public async Task EditAsync(TransportWorkTicket transportWorkTicket)
+        public async Task EditAsync(string id, DateTime createdOn, DateTime date, string userId, string carId, string createdBy, string modifiedBy, double startKilometers, double endKilometers, double fuelConsumption, double residue, double fuelAvailability, double travelledDistance)
         {
+            var transportWorkTicket = this.GetById(id);
+
+            transportWorkTicket.CreatedOn = createdOn;
+            transportWorkTicket.Date = date;
+            transportWorkTicket.UserId = userId;
+            transportWorkTicket.CarId = carId;
+            transportWorkTicket.CreatedBy = createdBy;
+            transportWorkTicket.ModifiedBy = modifiedBy;
+            transportWorkTicket.StartKilometers = startKilometers;
+            transportWorkTicket.EndKilometers = endKilometers;
+            transportWorkTicket.FuelConsumption = fuelConsumption;
+            transportWorkTicket.FuelAvailability = fuelAvailability;
+            transportWorkTicket.Residue = residue;
+            transportWorkTicket.TravelledDistance = travelledDistance;
+
             this.transportWorkTicketsRepository.Update(transportWorkTicket);
             await this.transportWorkTicketsRepository.SaveChangesAsync();
         }
