@@ -1,5 +1,6 @@
 ﻿namespace PatniListi.Services.Data
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
@@ -38,8 +39,15 @@
             await this.routesRepository.SaveChangesAsync();
         }
 
-        public async Task EditAsync(Route route)
+        public async Task EditAsync(string id, string startPoint, string endPoint, double distance, DateTime createdOn)
         {
+            var route = this.GetById(id);
+
+            route.StartPoint = startPoint;
+            route.EndPoint = endPoint;
+            route.Distance = distance;
+            route.CreatedOn = createdOn;
+
             this.routesRepository.Update(route);
             await this.routesRepository.SaveChangesAsync();
         }

@@ -20,7 +20,7 @@
 
         Task<T> GetDetailsAsync<T>(string id);
 
-        Task EditAsync(Route route);
+        Task EditAsync(string id, string startPoint, string endPoint, double distance, DateTime createdOn);
 
         IEnumerable<SelectListItem> GetAll();
 

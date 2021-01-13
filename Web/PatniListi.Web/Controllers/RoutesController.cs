@@ -66,14 +66,7 @@
                 return this.View(input);
             }
 
-            var route = this.routesService.GetById(input.Id);
-
-            route.StartPoint = input.StartPoint;
-            route.EndPoint = input.EndPoint;
-            route.Distance = input.Distance;
-            route.CreatedOn = input.CreatedOn;
-
-            await this.routesService.EditAsync(route);
+            await this.routesService.EditAsync(input.Id, input.StartPoint, input.EndPoint, input.Distance, input.CreatedOn);
             return this.RedirectToAction("All", "Routes");
         }
     }
